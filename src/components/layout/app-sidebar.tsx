@@ -12,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { GraduationCap, LayoutDashboard, BookOpenText, HandCoins, Sparkles, HeartHandshake, LogOut } from 'lucide-react';
+import { GraduationCap, LayoutDashboard, BookOpenText, HandCoins, Sparkles, HeartHandshake, LogOut, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -21,6 +21,7 @@ const navItems = [
   { href: '/financial-aid', label: 'Financial Aid', icon: HandCoins },
   { href: '/recommendations', label: 'Personalized Recs', icon: Sparkles },
   { href: '/wellbeing', label: 'Wellbeing', icon: HeartHandshake },
+  { href: '/profile', label: 'My Profile', icon: User },
 ];
 
 export default function AppSidebar() {

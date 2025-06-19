@@ -1,3 +1,4 @@
+
 export interface Course {
   id: string;
   name: string;
@@ -52,4 +53,21 @@ export interface FinancialAidRecommendation {
   name: string;
   description: string;
   reasons: string;
+}
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  studentId: string;
+  email: string;
+  program: string;
+  yearOfStudy: number;
+  avatarUrl?: string;
+  avatarHint?: string;
+  contactNumber?: string;
+  emergencyContact?: {
+    name: string;
+    relationship: string;
+    phone: string;
+  };
 }
