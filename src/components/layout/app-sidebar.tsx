@@ -12,11 +12,12 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { GraduationCap, LayoutDashboard, LogOut } from 'lucide-react';
+import { Home, Settings, LogOut, AppWindow } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { href: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/', label: 'Dashboard', icon: Home },
+  { href: '/settings', label: 'Settings', icon: Settings },
 ];
 
 export default function AppSidebar() {
@@ -25,10 +26,10 @@ export default function AppSidebar() {
   return (
     <Sidebar side="left" variant="sidebar" collapsible="icon">
       <SidebarHeader className="p-4">
-        <Link href="/" className="flex items-center gap-2" aria-label="EduConnect Kenya Home">
-          <GraduationCap className="h-8 w-8 text-primary" />
+        <Link href="/" className="flex items-center gap-2" aria-label="WebApp Home">
+          <AppWindow className="h-8 w-8 text-primary" />
           <span className="font-headline text-xl font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-            EduConnect
+            WebApp
           </span>
         </Link>
       </SidebarHeader>
