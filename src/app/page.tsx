@@ -1,206 +1,111 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Trophy, Users, Lightbulb, GraduationCap, Banknote, HeartHandshake, Leaf, Milestone } from 'lucide-react';
+import { ArrowRight, Trophy, Users, Lightbulb, GraduationCap, Banknote, HeartHandshake, Leaf, Milestone, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const sponsors = [
-  { name: 'Safaricom', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=Safaricom' },
-  { name: 'Microsoft', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=Microsoft' },
-  { name: 'Google', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=Google' },
-  { name: 'Mastercard Foundation', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=Mastercard+Foundation' },
-  { name: 'iHub', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=iHub' },
-  { name: 'UNDP', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=UNDP' },
-];
 
-const tracks = [
-    {
-        icon: <GraduationCap size={28} className="text-primary" />,
-        title: 'EdTech',
-        description: 'Innovate to improve learning access and quality for all.',
-    },
-    {
-        icon: <Banknote size={28} className="text-primary" />,
-        title: 'FinTech for Students',
-        description: 'Create solutions for student funding, scholarships, and financial literacy.',
-    },
-    {
-        icon: <HeartHandshake size={28} className="text-primary" />,
-        title: 'HealthTech',
-        description: 'Develop technology for school health programs and student wellness.',
-    },
-    {
-        icon: <Leaf size={28} className="text-primary" />,
-        title: 'Climate & Sustainability',
-        description: 'Build solutions to address environmental challenges in Kenya.',
-    },
-    {
-        icon: <Milestone size={28} className="text-primary" />,
-        title: 'Community & Civic Tech',
-        description: 'Empower communities through technology-driven civic engagement.',
-    },
-]
-
-export default function LandingPage() {
+export default function KEFJourneyPage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
+      <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 border-b bg-background/80 backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+            <GraduationCap className="w-8 h-8 text-primary" />
+            <h1 className="text-xl font-bold font-headline">KEF Journey 98%</h1>
+        </div>
+        <Button asChild>
+            <Link href="#donate">Donate Now</Link>
+        </Button>
+      </header>
+
       <main className="flex-1">
-        <section className="relative py-20 md:py-32 lg:py-40 bg-background">
-          <div className="container mx-auto px-4 md:px-6 text-center">
-            <div className="relative z-10">
-              <h1 className="font-headline text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl lg:text-7xl">
-                KEF Hackathon 2024
+        <section className="relative text-center py-20 md:py-32 lg:py-40">
+          <div className="container z-10 px-4 mx-auto md:px-6">
+              <h1 className="text-4xl font-bold tracking-tight font-headline text-primary sm:text-5xl md:text-6xl lg:text-7xl">
+                From Village to University.
               </h1>
-              <p className="mt-6 text-lg max-w-3xl mx-auto text-foreground md:text-xl">
-                Empowering the next generation of innovators in Kenya to create impactful tech solutions for education, employment, and community growth.
+              <p className="max-w-3xl mx-auto mt-6 text-lg text-foreground md:text-xl">
+                KEF has a 98% success rate in transitioning students to university. This is their story. Discover the journeys of thousands of students whose lives were transformed by education.
               </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <div className="mt-10">
                 <Button asChild size="lg">
-                  <Link href="#">
-                    Register Now <ArrowRight className="ml-2" />
-                  </Link>
-                </Button>
-                <Button asChild size="lg" variant="secondary">
-                  <Link href="#">
-                    Learn More
+                  <Link href="#journey">
+                    Explore the Journey <ArrowRight className="ml-2" />
                   </Link>
                 </Button>
               </div>
-            </div>
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-card">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <section id="journey" className="py-16 md:py-24 bg-card">
+          <div className="container px-4 mx-auto md:px-6">
+            <div className="grid items-center gap-8 md:grid-cols-2 lg:gap-16">
               <div>
-                <h2 className="font-headline text-3xl font-bold text-primary">About the Hackathon</h2>
+                <h2 className="text-3xl font-bold font-headline text-primary">The KEF Journey</h2>
                 <p className="mt-4 text-muted-foreground">
-                  The KEF Hackathon is an annual event that brings together students, developers, designers, and entrepreneurs to solve real-world challenges. Our mission is to foster innovation and empower talent to build a brighter future for Kenya.
+                  Follow the path of a KEF scholar, from a hopeful applicant in a rural village to a university graduate ready to change the world. Our interactive map and timeline bring these transformative stories to life, showcasing the real impact of donor support.
                 </p>
                 <ul className="mt-6 space-y-4">
                   <li className="flex items-start">
                     <div className="flex-shrink-0">
-                      <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground">
-                        <Lightbulb size={20} />
-                      </div>
+                        <MapPin size={24} className="text-primary" />
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-semibold">Innovation</h3>
-                      <p className="text-muted-foreground">Tackling challenges in education, finance, health, and more.</p>
+                      <h3 className="text-lg font-semibold">Interactive Success Map</h3>
+                      <p className="text-muted-foreground">Visualize the nationwide reach of KEF and see where alumni are making an impact.</p>
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground">
-                        <Users size={20} />
-                      </div>
+                     <div className="flex-shrink-0">
+                        <Milestone size={24} className="text-primary" />
                     </div>
                     <div className="ml-4">
-                      <h3 className="text-lg font-semibold">Collaboration</h3>
-                      <p className="text-muted-foreground">Connect with mentors, industry leaders, and fellow innovators.</p>
-                    </div>
-                  </li>
-                   <li className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground">
-                        <Trophy size={20} />
-                      </div>
-                    </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-semibold">Impact</h3>
-                      <p className="text-muted-foreground">Create sustainable solutions that make a real-world difference.</p>
+                      <h3 className="text-lg font-semibold">Student Timelines</h3>
+                      <p className="text-muted-foreground">Discover individual stories of perseverance, growth, and success.</p>
                     </div>
                   </li>
                 </ul>
+                 <Button asChild className="mt-8" variant="secondary">
+                  <Link href="/map">
+                    Launch Interactive Map
+                  </Link>
+                </Button>
               </div>
               <div className="relative h-64 md:h-full min-h-[300px] rounded-lg overflow-hidden shadow-lg">
                  <Image
                     src="https://picsum.photos/600/400"
-                    alt="Students collaborating at a hackathon"
+                    alt="A hopeful student in Kenya"
                     width={600}
                     height={400}
-                    className="w-full h-full object-cover"
-                    data-ai-hint="hackathon collaboration"
+                    className="object-cover w-full h-full"
+                    data-ai-hint="kenyan student portrait"
                   />
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
-          <div className="container mx-auto px-4 md:px-6">
-            <h2 className="font-headline text-3xl font-bold text-primary text-center">What to Expect</h2>
-            <p className="mt-4 text-center text-muted-foreground max-w-2xl mx-auto">
-              Compete in exciting tracks, win amazing prizes, and get support to bring your ideas to life.
-            </p>
-            <div className="mt-12 grid md:grid-cols-2 gap-12">
-              <div>
-                <h3 className="font-headline text-2xl font-bold text-primary mb-6">Hackathon Tracks</h3>
-                <div className="space-y-6">
-                    {tracks.map((track) => (
-                        <div key={track.title} className="flex items-start gap-4">
-                            <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-card shadow-md">
-                                {track.icon}
-                            </div>
-                            <div>
-                                <h4 className="font-semibold text-lg">{track.title}</h4>
-                                <p className="text-muted-foreground">{track.description}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-              </div>
-              <div>
-                <h3 className="font-headline text-2xl font-bold text-primary mb-6">Prizes & Rewards</h3>
-                <div className="bg-card p-6 rounded-lg shadow-md space-y-4">
-                    <div className="flex items-center gap-4">
-                        <Trophy size={28} className="text-secondary" />
-                        <p className="font-semibold text-lg">Cash Awards, Laptops & Internships</p>
+        <section id="donate" className="py-16 md:py-24 bg-background">
+            <div className="container px-4 mx-auto md:px-6">
+                <div className="max-w-3xl mx-auto text-center">
+                    <h2 className="text-3xl font-bold font-headline text-primary">Your Impact, Visualized</h2>
+                    <p className="mt-4 text-muted-foreground">
+                        100% of your donation supports students directly. See how your contribution can change a life.
+                    </p>
+                    {/* Impact Calculator will go here */}
+                    <div className="p-8 mt-8 text-left bg-card rounded-lg shadow-lg">
+                        <h3 className="text-xl font-bold text-center">Impact Calculator</h3>
+                        <p className="mt-2 text-center text-muted-foreground">Coming soon! A tool to show exactly what your donation can provide, from school fees to university scholarships.</p>
                     </div>
-                    <div className="border-t border-border my-2"></div>
-                    <h4 className="font-semibold text-primary">Special Awards:</h4>
-                    <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                        <li>Best Social Impact Solution</li>
-                        <li>Best Student-led Team</li>
-                        <li>Best Women-led Team</li>
-                    </ul>
-                    <div className="border-t border-border my-2"></div>
-                    <h4 className="font-semibold text-primary">Post-Hackathon Support:</h4>
-                     <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                        <li>KEF Incubator Program (3-6 months)</li>
-                        <li>Free Co-working Space Access</li>
-                        <li>Cloud Credits from Google/AWS</li>
-                    </ul>
                 </div>
-              </div>
             </div>
-          </div>
         </section>
 
-
-        <section className="py-16 md:py-24 bg-card">
-          <div className="container mx-auto px-4 md:px-6">
-            <h2 className="font-headline text-3xl font-bold text-primary text-center">Our Partners & Sponsors</h2>
-            <p className="mt-4 text-center text-muted-foreground max-w-2xl mx-auto">
-              This event is made possible by the generous support of our partners and sponsors who are committed to fostering innovation in Kenya.
-            </p>
-            <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
-              {sponsors.map((sponsor) => (
-                <div key={sponsor.name} className="flex justify-center">
-                  <Image
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    width={150}
-                    height={60}
-                    className="object-contain"
-                    data-ai-hint="logo"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
+      <footer className="py-6 text-center border-t bg-card text-muted-foreground">
+        <div className="container px-4 mx-auto md:px-6">
+            <p>&copy; 2024 KEF Journey 98. A hackathon project.</p>
+        </div>
+      </footer>
     </div>
   );
 }
