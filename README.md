@@ -117,4 +117,4 @@ ________________________________________
 •	 Plan structure: tracks, mentors, judges, rewards.
 •	 Execute marketing campaign.
 •	 Document everything for PR.
-•	 Provide incubation support post-event.
+	•	Provide incubation support post-event.
