@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Banknote, MapPin, Milestone } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ArrowRight, Banknote, MapPin, Milestone, Quote } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -113,6 +115,81 @@ export default function KEFJourneyPage() {
             </div>
         </section>
 
+        <section id="alumni" className="py-16 md:py-24 bg-card">
+          <div className="container px-4 mx-auto md:px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl font-bold tracking-tight font-headline text-primary sm:text-4xl">Alumni Story Spotlight</h2>
+              <p className="max-w-2xl mx-auto mt-4 text-lg text-muted-foreground">
+                Our alumni are doctors, engineers, entrepreneurs, and leaders. They are the living proof of KEF's impact, giving back to their communities and inspiring the next generation.
+              </p>
+            </div>
+
+            <div className="grid gap-8 mt-12 md:grid-cols-2 lg:grid-cols-3">
+              <Card className="flex flex-col">
+                <CardHeader>
+                  <div className="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarImage src="https://picsum.photos/100/100" data-ai-hint="female portrait" />
+                      <AvatarFallback>SN</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <CardTitle className="text-xl">Sarah Nduta</CardTitle>
+                      <CardDescription>Software Engineer, Google</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <Quote className="w-6 h-6 mb-2 text-primary" />
+                  <p className="italic text-muted-foreground">
+                    "KEF didn't just give me an education; it gave me a future. Now, I'm mentoring young girls in my village to pursue careers in tech."
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="flex flex-col">
+                <CardHeader>
+                  <div className="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarImage src="https://picsum.photos/100/100" data-ai-hint="male portrait" />
+                      <AvatarFallback>JO</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <CardTitle className="text-xl">James Omondi</CardTitle>
+                      <CardDescription>Doctor, Aga Khan Hospital</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <Quote className="w-6 h-6 mb-2 text-primary" />
+                  <p className="italic text-muted-foreground">
+                    "Thanks to my KEF scholarship, I was able to attend medical school. Today, I run a mobile clinic that provides free healthcare in rural areas."
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="flex flex-col">
+                <CardHeader>
+                  <div className="flex items-center gap-4">
+                    <Avatar>
+                      <AvatarImage src="https://picsum.photos/100/100" data-ai-hint="female portrait smiling" />
+                      <AvatarFallback>MW</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <CardTitle className="text-xl">Mercy Wanjiru</CardTitle>
+                      <CardDescription>Founder, Eco-Briquettes Startup</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                   <Quote className="w-6 h-6 mb-2 text-primary" />
+                  <p className="italic text-muted-foreground">
+                    "The entrepreneurial skills I learned through KEF's workshops helped me launch my own sustainable energy company. We're creating jobs and protecting the environment."
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
       </main>
       <footer className="py-6 text-center border-t bg-card text-muted-foreground">
         <div className="container px-4 mx-auto md:px-6">
