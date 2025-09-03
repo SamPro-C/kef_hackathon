@@ -1,7 +1,16 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Trophy, Users, Lightbulb } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+const sponsors = [
+  { name: 'Safaricom', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=Safaricom' },
+  { name: 'Microsoft', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=Microsoft' },
+  { name: 'Google', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=Google' },
+  { name: 'Mastercard Foundation', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=Mastercard+Foundation' },
+  { name: 'iHub', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=iHub' },
+  { name: 'UNDP', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=UNDP' },
+];
 
 export default function LandingPage() {
   return (
@@ -44,7 +53,7 @@ export default function LandingPage() {
                   <li className="flex items-start">
                     <div className="flex-shrink-0">
                       <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground">
-                        <span>💡</span>
+                        <Lightbulb size={20} />
                       </div>
                     </div>
                     <div className="ml-4">
@@ -55,7 +64,7 @@ export default function LandingPage() {
                   <li className="flex items-start">
                     <div className="flex-shrink-0">
                       <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground">
-                        <span>🤝</span>
+                        <Users size={20} />
                       </div>
                     </div>
                     <div className="ml-4">
@@ -66,7 +75,7 @@ export default function LandingPage() {
                    <li className="flex items-start">
                     <div className="flex-shrink-0">
                       <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground">
-                        <span>🚀</span>
+                        <Trophy size={20} />
                       </div>
                     </div>
                     <div className="ml-4">
@@ -86,6 +95,29 @@ export default function LandingPage() {
                     data-ai-hint="hackathon collaboration"
                   />
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container mx-auto px-4 md:px-6">
+            <h2 className="font-headline text-3xl font-bold text-primary text-center">Our Partners & Sponsors</h2>
+            <p className="mt-4 text-center text-muted-foreground max-w-2xl mx-auto">
+              This event is made possible by the generous support of our partners and sponsors who are committed to fostering innovation in Kenya.
+            </p>
+            <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+              {sponsors.map((sponsor) => (
+                <div key={sponsor.name} className="flex justify-center">
+                  <Image
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    width={150}
+                    height={60}
+                    className="object-contain"
+                    data-ai-hint="logo"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </section>
