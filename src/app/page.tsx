@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Trophy, Users, Lightbulb, GraduationCap, Banknote, HeartHandshake, Leaf, Milestone, MapPin } from 'lucide-react';
+import { ArrowRight, Banknote, MapPin, Milestone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,8 +9,7 @@ export default function KEFJourneyPage() {
     <div className="flex flex-col min-h-screen bg-background">
       <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 border-b bg-background/80 backdrop-blur-sm">
         <div className="flex items-center gap-2">
-            <GraduationCap className="w-8 h-8 text-primary" />
-            <h1 className="text-xl font-bold font-headline">KEF Journey 98%</h1>
+            <h1 className="text-xl font-bold font-headline text-primary">KEF Journey 98%</h1>
         </div>
         <Button asChild>
             <Link href="#donate">Donate Now</Link>
@@ -87,14 +86,28 @@ export default function KEFJourneyPage() {
         <section id="donate" className="py-16 md:py-24 bg-background">
             <div className="container px-4 mx-auto md:px-6">
                 <div className="max-w-3xl mx-auto text-center">
-                    <h2 className="text-3xl font-bold font-headline text-primary">Your Impact, Visualized</h2>
+                    <Banknote className="w-16 h-16 mx-auto text-primary" />
+                    <h2 className="mt-4 text-3xl font-bold font-headline text-primary">Your Impact, Visualized</h2>
                     <p className="mt-4 text-muted-foreground">
                         100% of your donation supports students directly. See how your contribution can change a life.
                     </p>
-                    {/* Impact Calculator will go here */}
-                    <div className="p-8 mt-8 text-left bg-card rounded-lg shadow-lg">
-                        <h3 className="text-xl font-bold text-center">Impact Calculator</h3>
+                    <div className="p-8 mt-8 text-left border rounded-lg bg-card shadow-lg">
+                        <h3 className="text-xl font-bold text-center text-primary">Impact Calculator</h3>
                         <p className="mt-2 text-center text-muted-foreground">Coming soon! A tool to show exactly what your donation can provide, from school fees to university scholarships.</p>
+                        <div className="mt-6 space-y-4">
+                            <div className="flex items-center justify-between p-4 rounded-md bg-background">
+                                <span className="font-semibold">Donation Amount: $50</span>
+                                <span className="font-semibold text-primary">→ 1 Year of Textbooks</span>
+                            </div>
+                             <div className="flex items-center justify-between p-4 rounded-md bg-background">
+                                <span className="font-semibold">Donation Amount: $150</span>
+                                <span className="font-semibold text-primary">→ Full School Uniform</span>
+                            </div>
+                             <div className="flex items-center justify-between p-4 rounded-md bg-background">
+                                <span className="font-semibold">Donation Amount: $800</span>
+                                <span className="font-semibold text-primary">→ A Year of Tuition</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
