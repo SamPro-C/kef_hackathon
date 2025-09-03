@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Open Sans', 'sans-serif'],
-        headline: ['Montserrat', 'sans-serif'],
+        headline: ['Poppins', 'Montserrat', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
