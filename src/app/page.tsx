@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Trophy, Users, Lightbulb } from 'lucide-react';
+import { ArrowRight, Trophy, Users, Lightbulb, GraduationCap, Banknote, HeartHandshake, Leaf, Milestone } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -11,6 +11,34 @@ const sponsors = [
   { name: 'iHub', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=iHub' },
   { name: 'UNDP', logo: 'https://via.placeholder.com/150x60.png/000000/FFFFFF?text=UNDP' },
 ];
+
+const tracks = [
+    {
+        icon: <GraduationCap size={28} className="text-primary" />,
+        title: 'EdTech',
+        description: 'Innovate to improve learning access and quality for all.',
+    },
+    {
+        icon: <Banknote size={28} className="text-primary" />,
+        title: 'FinTech for Students',
+        description: 'Create solutions for student funding, scholarships, and financial literacy.',
+    },
+    {
+        icon: <HeartHandshake size={28} className="text-primary" />,
+        title: 'HealthTech',
+        description: 'Develop technology for school health programs and student wellness.',
+    },
+    {
+        icon: <Leaf size={28} className="text-primary" />,
+        title: 'Climate & Sustainability',
+        description: 'Build solutions to address environmental challenges in Kenya.',
+    },
+    {
+        icon: <Milestone size={28} className="text-primary" />,
+        title: 'Community & Civic Tech',
+        description: 'Empower communities through technology-driven civic engagement.',
+    },
+]
 
 export default function LandingPage() {
   return (
@@ -100,6 +128,57 @@ export default function LandingPage() {
         </section>
 
         <section className="py-16 md:py-24 bg-background">
+          <div className="container mx-auto px-4 md:px-6">
+            <h2 className="font-headline text-3xl font-bold text-primary text-center">What to Expect</h2>
+            <p className="mt-4 text-center text-muted-foreground max-w-2xl mx-auto">
+              Compete in exciting tracks, win amazing prizes, and get support to bring your ideas to life.
+            </p>
+            <div className="mt-12 grid md:grid-cols-2 gap-12">
+              <div>
+                <h3 className="font-headline text-2xl font-bold text-primary mb-6">Hackathon Tracks</h3>
+                <div className="space-y-6">
+                    {tracks.map((track) => (
+                        <div key={track.title} className="flex items-start gap-4">
+                            <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-card shadow-md">
+                                {track.icon}
+                            </div>
+                            <div>
+                                <h4 className="font-semibold text-lg">{track.title}</h4>
+                                <p className="text-muted-foreground">{track.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+              </div>
+              <div>
+                <h3 className="font-headline text-2xl font-bold text-primary mb-6">Prizes & Rewards</h3>
+                <div className="bg-card p-6 rounded-lg shadow-md space-y-4">
+                    <div className="flex items-center gap-4">
+                        <Trophy size={28} className="text-secondary" />
+                        <p className="font-semibold text-lg">Cash Awards, Laptops & Internships</p>
+                    </div>
+                    <div className="border-t border-border my-2"></div>
+                    <h4 className="font-semibold text-primary">Special Awards:</h4>
+                    <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                        <li>Best Social Impact Solution</li>
+                        <li>Best Student-led Team</li>
+                        <li>Best Women-led Team</li>
+                    </ul>
+                    <div className="border-t border-border my-2"></div>
+                    <h4 className="font-semibold text-primary">Post-Hackathon Support:</h4>
+                     <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                        <li>KEF Incubator Program (3-6 months)</li>
+                        <li>Free Co-working Space Access</li>
+                        <li>Cloud Credits from Google/AWS</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <section className="py-16 md:py-24 bg-card">
           <div className="container mx-auto px-4 md:px-6">
             <h2 className="font-headline text-3xl font-bold text-primary text-center">Our Partners & Sponsors</h2>
             <p className="mt-4 text-center text-muted-foreground max-w-2xl mx-auto">
