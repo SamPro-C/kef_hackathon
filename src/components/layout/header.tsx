@@ -30,7 +30,7 @@ export default function Header() {
         'transition-colors hover:text-primary font-medium',
         isMobile
           ? pathname === item.href ? 'text-foreground' : 'text-muted-foreground'
-          : pathname === item.href ? 'text-primary' : 'text-foreground/60'
+          : pathname === item.href ? 'text-primary' : 'text-foreground/80'
       ),
       onClick: () => isMobile && setIsOpen(false),
     };
