@@ -49,7 +49,7 @@ export default function Home() {
             </div>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="animate-pulse">
-                <Link href="/stories">Begin a Student’s Journey</Link>
+                <Link href="/journey">Begin a Student’s Journey</Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
                 <Link href="/impact">See the Impact</Link>
