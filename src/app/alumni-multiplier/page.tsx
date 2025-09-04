@@ -111,7 +111,7 @@ export default function AlumniMultiplierPage() {
                    <Select onValueChange={setCareerField} value={careerField}>
                     <SelectTrigger id="career">
                       <SelectValue placeholder="Select a career" />
-                    </SelectTrigger>
+                    </Trigger>
                     <SelectContent>
                       {careerFields.map((field) => (
                         <SelectItem key={field} value={field}>{field}</SelectItem>
