@@ -92,7 +92,7 @@ export default function AlumniMultiplierPage() {
               <CardDescription>See the potential you can unlock.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="county">County of Origin</Label>
                   <Select onValueChange={setCounty} value={county}>

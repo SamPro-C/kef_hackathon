@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, BookHeart } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -17,6 +18,7 @@ const navItems = [
 
 export default function Header() {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -45,7 +47,7 @@ export default function Header() {
             <Button asChild className="hidden sm:flex">
                 <Link href="#">Sponsor a Student</Link>
             </Button>
-            <Sheet>
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="md:hidden">
                     <Menu className="h-5 w-5" />
@@ -54,7 +56,7 @@ export default function Header() {
                 </SheetTrigger>
                 <SheetContent side="left">
                 <nav className="grid gap-6 text-lg font-medium mt-8">
-                    <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
+                    <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4" onClick={() => setIsOpen(false)}>
                         <BookHeart className="h-6 w-6 text-primary" />
                         <span>KEF Journey</span>
                     </Link>
@@ -62,6 +64,7 @@ export default function Header() {
                         <Link
                             key={item.href}
                             href={item.href}
+                            onClick={() => setIsOpen(false)}
                             className={cn(
                                 'hover:text-primary transition-colors',
                                 pathname === item.href ? 'text-foreground' : 'text-muted-foreground'
@@ -71,6 +74,9 @@ export default function Header() {
                         </Link>
                     ))}
                 </nav>
+                <Button asChild className="absolute bottom-8 left-6 right-6">
+                    <Link href="#" onClick={() => setIsOpen(false)}>Sponsor a Student</Link>
+                </Button>
                 </SheetContent>
             </Sheet>
         </div>

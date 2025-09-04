@@ -47,7 +47,7 @@ export default function StoriesPage() {
                   <Link href="#">Read James' Full Journey <ArrowRight className="ml-2" /></Link>
                 </Button>
               </CardContent>
-              <div className="relative min-h-[300px] md:min-h-[500px]">
+              <div className="relative min-h-[300px] md:min-h-[500px] w-full">
                 <Image
                   src="https://picsum.photos/600/800?random=4"
                   alt="James smiling in a computer lab"
@@ -64,7 +64,7 @@ export default function StoriesPage() {
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4 md:px-6">
             <Card className="grid md:grid-cols-2 overflow-hidden shadow-2xl">
-              <div className="relative min-h-[300px] md:min-h-[500px] order-last md:order-first">
+              <div className="relative min-h-[300px] md:min-h-[500px] w-full order-last md:order-first">
                 <Image
                   src="https://picsum.photos/600/800?random=5"
                   alt="Mary in a lab coat"
