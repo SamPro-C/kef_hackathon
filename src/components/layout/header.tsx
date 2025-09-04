@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -20,8 +21,8 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const renderLink = (item: (typeof navItems)[0], isMobile = false) => {
+    // Note: The 'key' prop is passed directly to the Link component and is not part of linkProps.
     const linkProps = {
-      key: item.href,
       href: item.href,
       className: cn(
         'transition-colors hover:text-primary font-medium',
@@ -31,7 +32,7 @@ export default function Header() {
       ),
       onClick: () => isMobile && setIsOpen(false),
     };
-    return <Link {...linkProps}>{item.label}</Link>;
+    return <Link key={item.href} {...linkProps}>{item.label}</Link>;
   };
 
   return (
@@ -47,7 +48,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-            <Button asChild className="hidden sm:flex">
+            <Button asChild>
                 <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank">Sponsor a Student</Link>
             </Button>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
