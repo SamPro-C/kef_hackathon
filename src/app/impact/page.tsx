@@ -10,38 +10,65 @@ import { GraduationCap, School, Users, HeartHandshake, TrendingUp, MapPin, Arrow
 import ImpactCalculator from '@/components/impact-calculator';
 import { cn } from '@/lib/utils';
 
-export default function ImpactPage() {
-  const [inView, setInView] = useState(false);
-  const metricsRef = useRef<HTMLDivElement>(null);
+const useAnimatedCounter = (target: number) => {
+    const [count, setCount] = useState(0);
+    const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    let start = 0;
+                    const end = target;
+                    if (start === end) return;
+
+                    const duration = 2000;
+                    const incrementTime = (duration / end);
+                    
+                    const timer = setInterval(() => {
+                        start += Math.ceil(end / (duration / 50));
+                        if (start >= end) {
+                            setCount(end);
+                            clearInterval(timer);
+                        } else {
+                            setCount(start);
+                        }
+                    }, 50);
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
         }
-      },
-      { threshold: 0.1 }
-    );
 
-    if (metricsRef.current) {
-      observer.observe(metricsRef.current);
-    }
+        return () => {
+            if (ref.current) {
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                observer.unobserve(ref.current);
+            }
+        };
+    }, [target]);
 
-    return () => {
-      if (metricsRef.current) {
-        // observer.unobserve(metricsRef.current);
-      }
-    };
-  }, []);
+    return [ref, count] as const;
+}
+
+
+export default function ImpactPage() {
+  
+  const [scholarshipsRef, scholarshipsCount] = useAnimatedCounter(4600);
+  const [alumniRef, alumniCount] = useAnimatedCounter(3172);
+  const [transitionRef, transitionCount] = useAnimatedCounter(99);
+
 
   return (
     <>
       {/* Hero Section */}
       <section className="py-24 md:py-32 flex items-center justify-center text-center bg-card">
         <div className="container mx-auto px-4 md:px-6">
-          <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-foreground">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-foreground">
             From One Scholarship to Thousands of Changed Lives.
           </h1>
           <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl text-muted-foreground">
@@ -53,30 +80,30 @@ export default function ImpactPage() {
       {/* Impact Metrics Section */}
       <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="font-headline text-3xl font-bold text-primary">Our Impact by the Numbers</h2>
-            <div ref={metricsRef} className="mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card className={cn("text-center transition-transform hover:scale-105", inView ? "animate-in" : "opacity-0")}>
+            <h2 className="text-3xl font-bold text-primary">Our Impact by the Numbers</h2>
+            <div className="mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Card ref={scholarshipsRef} className="text-center transition-transform hover:scale-105 animate-in">
                 <CardHeader>
                   <GraduationCap className="h-12 w-12 text-primary mx-auto" />
-                  <CardTitle className="font-headline text-4xl font-bold mt-4">4,600+</CardTitle>
+                  <CardTitle className="text-4xl font-bold mt-4">{scholarshipsCount.toLocaleString()}+</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">Scholarships Awarded Since 2006</p>
                 </CardContent>
               </Card>
-              <Card className={cn("text-center transition-transform hover:scale-105", inView ? "animate-in" : "opacity-0")} style={{ animationDelay: '0.2s' }}>
+              <Card ref={alumniRef} className="text-center transition-transform hover:scale-105 animate-in" style={{ animationDelay: '0.2s' }}>
                 <CardHeader>
                   <Users className="h-12 w-12 text-primary mx-auto" />
-                   <CardTitle className="font-headline text-4xl font-bold mt-4">3,172</CardTitle>
+                   <CardTitle className="text-4xl font-bold mt-4">{alumniCount.toLocaleString()}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">Alumni Graduated & Now Leaders</p>
                 </CardContent>
               </Card>
-              <Card className={cn("text-center transition-transform hover:scale-105", inView ? "animate-in" : "opacity-0")} style={{ animationDelay: '0.4s' }}>
+              <Card ref={transitionRef} className="text-center transition-transform hover:scale-105 animate-in" style={{ animationDelay: '0.4s' }}>
                 <CardHeader>
                   <TrendingUp className="h-12 w-12 text-primary mx-auto" />
-                  <CardTitle className="font-headline text-4xl font-bold mt-4">99%</CardTitle>
+                  <CardTitle className="text-4xl font-bold mt-4">{transitionCount}%</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">High School to University Transition Rate</p>
@@ -94,7 +121,7 @@ export default function ImpactPage() {
       {/* Impact Calculator Section */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
-           <h2 className="font-headline text-3xl font-bold text-primary text-center">Calculate Your Impact</h2>
+           <h2 className="text-3xl font-bold text-primary text-center">Calculate Your Impact</h2>
            <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground text-center">
             Your contribution, no matter the size, makes a tangible difference. See how your generosity can directly support a KEF scholar's journey.
            </p>
@@ -105,13 +132,13 @@ export default function ImpactPage() {
       {/* Donor Story Section */}
        <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="font-headline text-3xl font-bold text-primary">Why We Give</h2>
+          <h2 className="text-3xl font-bold text-primary">Why We Give</h2>
            <Card className="max-w-3xl mx-auto mt-8 bg-card text-foreground border-none transform transition-transform hover:scale-105">
               <CardContent className="p-8 text-center">
                 <p className="text-2xl font-semibold italic">
                   “We chose KEF because we see the direct impact. It’s not just about donating money; it’s about investing in a specific child’s future. We get to see the student we sponsor grow and succeed. That’s a connection you don’t get anywhere else.”
                 </p>
-                 <p className="text-lg opacity-90 mt-4 font-headline">– The Thompson Family, KEF Sponsors since 2018</p>
+                 <p className="text-lg opacity-90 mt-4">– The Thompson Family, KEF Sponsors since 2018</p>
               </CardContent>
             </Card>
         </div>
@@ -122,7 +149,7 @@ export default function ImpactPage() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
-              <h2 className="font-headline text-3xl font-bold text-primary">From Rural Villages to Global Stages</h2>
+              <h2 className="text-3xl font-bold text-primary">From Rural Villages to Global Stages</h2>
               <p className="mt-4 text-muted-foreground text-lg">
                 KEF’s impact spans all 47 counties in Kenya. Our interactive map shows a story of nationwide reach, connecting students from remote villages to top schools and, eventually, to to global opportunities.
               </p>
@@ -132,7 +159,7 @@ export default function ImpactPage() {
                 <li className="flex items-start gap-3"><GraduationCap className="h-6 w-6 text-primary mt-1 flex-shrink-0" /><span><span className="font-bold">Global Alumni:</span> Graduates at prestigious universities like Harvard, Amherst, and beyond.</span></li>
               </ul>
             </div>
-            <div className="relative h-96 w-full flex items-center justify-center p-4 rounded-xl shadow-neumorphic-outset">
+            <div className="relative h-96 w-full flex items-center justify-center p-4 rounded-xl shadow-lg bg-background">
                 {/* Kenya Map SVG */}
                 <svg
                     viewBox="0 0 770 793"
@@ -172,27 +199,27 @@ export default function ImpactPage() {
       {/* Ripple Effect Section */}
       <section className="py-16 md:py-24 bg-background text-center">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="font-headline text-3xl font-bold text-primary">The Ripple Effect: Beyond One Student</h2>
+          <h2 className="text-3xl font-bold text-primary">The Ripple Effect: Beyond One Student</h2>
           <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
             A single scholarship is just the start. It empowers a graduate to uplift their family, inspire their community, and often, fund new scholarships for others, creating a beautiful, self-sustaining cycle of change.
           </p>
           <div className="mt-12 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8">
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-card shadow-neumorphic-outset text-primary mb-3">
+                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-card shadow-lg text-primary mb-3">
                     <Users className="h-10 w-10" />
                 </div>
                 <p className="font-semibold text-lg">1. Educate a Student</p>
               </div>
               <ArrowRight className="h-10 w-10 text-primary hidden md:block" />
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-card shadow-neumorphic-outset text-primary mb-3">
+                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-card shadow-lg text-primary mb-3">
                     <GraduationCap className="h-10 w-10" />
                 </div>
                 <p className="font-semibold text-lg">2. Empower a Graduate</p>
               </div>
               <ArrowRight className="h-10 w-10 text-primary hidden md:block" />
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-card shadow-neumorphic-outset text-primary mb-3">
+                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-card shadow-lg text-primary mb-3">
                     <HeartHandshake className="h-10 w-10" />
                 </div>
                 <p className="font-semibold text-lg">3. Transform a Community</p>
@@ -204,7 +231,7 @@ export default function ImpactPage() {
       {/* Join the Community CTA */}
       <section className="py-20 bg-card">
         <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="font-headline text-4xl font-bold text-foreground">Join the KEF Community</h2>
+          <h2 className="text-4xl font-bold text-foreground">Join the KEF Community</h2>
           <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">You don't have to be a big donor to make a big difference.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg">

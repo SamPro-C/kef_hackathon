@@ -4,71 +4,54 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%; /* Lighter, softer gray */
-    --foreground: 220 10% 35%; /* Muted dark gray */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 25 95% 53%; /* Orange */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 38 92% 50%; /* Gold */
+    --secondary-foreground: 240 10% 3.9%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%; /* Red */
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.8rem;
 
-    --card: 220 20% 97%; /* Same as background */
-    --card-foreground: 220 10% 35%;
- 
-    --popover: 220 20% 97%; /* Same as background */
-    --popover-foreground: 220 10% 35%;
- 
-    --primary: 26 90% 58%; /* More vibrant, sunrise orange */
-    --primary-foreground: 220 20% 99%;
- 
-    --secondary: 45 95% 55%; /* Rich, golden yellow */
-    --secondary-foreground: 220 10% 20%;
- 
-    --muted: 220 20% 91%; /* Slightly darker gray for muted elements */
-    --muted-foreground: 220 10% 50%;
- 
-    --accent: 220 20% 91%; /* Same as muted */
-    --accent-foreground: 220 10% 20%;
- 
-    --destructive: 0 72% 51%; /* Softer red */
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 20% 88%;
-    --input: 220 20% 88%;
-    --ring: 26 90% 58%;
-    
-    --chart-1: 26 90% 58%;
-    --chart-2: 45 95% 55%;
-    --chart-3: 0 72% 51%;
+    --chart-1: hsl(var(--primary));
+    --chart-2: hsl(var(--secondary));
+    --chart-3: hsl(var(--destructive));
     --chart-4: 220 10% 40%;
     --chart-5: 220 20% 90%;
-
-    --radius: 0.8rem;
   }
  
   .dark {
-    --background: 220 10% 15%; /* Soft dark gray */
-    --foreground: 220 10% 75%;
-
-    --card: 220 10% 15%;
-    --card-foreground: 220 10% 75%;
- 
-    --popover: 220 10% 15%;
-    --popover-foreground: 220 10% 75%;
- 
-    --primary: 26 90% 58%;
-    --primary-foreground: 220 10% 10%;
- 
-    --secondary: 45 95% 55%;
-    --secondary-foreground: 220 10% 10%;
- 
-    --muted: 220 10% 20%;
-    --muted-foreground: 220 10% 60%;
- 
-    --accent: 220 10% 20%;
-    --accent-foreground: 220 10% 90%;
- 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
- 
-    --border: 220 10% 25%;
-    --input: 220 10% 25%;
-    --ring: 26 90% 58%;
+    --background: 240 10% 3.9%; /* Deep Blue/Black */
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 25 95% 53%; /* Orange */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 38 92% 50%; /* Gold */
+    --secondary-foreground: 240 10% 3.9%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 25 95% 53%;
   }
 }
 
@@ -80,23 +63,9 @@
     @apply bg-background text-foreground;
     font-family: var(--font-body);
   }
-}
-
-/* Custom scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary) / 0.5);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary) / 0.8);
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+  }
 }
 
 /* Animation Utilities */

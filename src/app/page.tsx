@@ -10,7 +10,7 @@ export default function Home() {
     <>
         {/* Hero Section */}
         <section className="relative h-[90vh] min-h-[700px] flex items-center justify-center text-center text-white">
-          <div className="absolute inset-0 bg-black/60 z-10"></div>
+          <div className="absolute inset-0 bg-black/70 z-10"></div>
           <video
             className="absolute inset-0 w-full h-full object-cover"
             autoPlay
@@ -24,7 +24,7 @@ export default function Home() {
           </video>
 
           <div className="relative z-20 container mx-auto px-4 md:px-6">
-            <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
               Breaking the cycle of poverty in Kenya through education.
             </h1>
             <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.7)' }}>
@@ -33,17 +33,17 @@ export default function Home() {
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="flex flex-col items-center">
                 <GraduationCap className="h-12 w-12 text-secondary" />
-                <p className="font-headline text-4xl font-bold mt-2">4,600+</p>
+                <p className="text-4xl font-bold mt-2">4,600+</p>
                 <p className="text-sm uppercase tracking-wider">Students Supported</p>
               </div>
               <div className="flex flex-col items-center">
                 <School className="h-12 w-12 text-secondary" />
-                <p className="font-headline text-4xl font-bold mt-2">153</p>
+                <p className="text-4xl font-bold mt-2">153</p>
                 <p className="text-sm uppercase tracking-wider">Partner Schools</p>
               </div>
               <div className="flex flex-col items-center">
                 <Users className="h-12 w-12 text-secondary" />
-                <p className="font-headline text-4xl font-bold mt-2">99%</p>
+                <p className="text-4xl font-bold mt-2">99%</p>
                 <p className="text-sm uppercase tracking-wider">Transition to University</p>
               </div>
             </div>
@@ -61,19 +61,19 @@ export default function Home() {
         {/* The Problem Section */}
         <section className="py-16 md:py-24 bg-card">
           <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="font-headline text-3xl font-bold text-destructive">
+            <h2 className="text-3xl font-bold text-destructive">
               Without Support, Dreams Fade Away.
             </h2>
             <div className="mt-8 grid md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
-              <div className="text-left p-6 rounded-lg bg-background shadow-neumorphic-inset">
-                <h3 className="font-headline text-2xl font-semibold text-foreground">Without KEF, a student's story often ends here...</h3>
+              <div className="text-left p-6 rounded-lg bg-background shadow-lg">
+                <h3 className="text-2xl font-semibold text-foreground">Without KEF, a student's story often ends here...</h3>
                 <p className="mt-4 text-muted-foreground">
                   For many of the 3.5 million children out of secondary school in Kenya, the path is full of obstacles. Girls are at high risk of early marriage, while boys face the harsh reality of child labor. Their potential is lost to a cycle of poverty.
                 </p>
                 <p className="mt-4 font-semibold text-destructive">Out of school. At risk. A dream forgotten.</p>
               </div>
-              <div className="text-left p-6 rounded-lg bg-primary text-primary-foreground shadow-neumorphic-outset-sm">
-                <h3 className="font-headline text-2xl font-semibold">With KEF, their story can have a new beginning.</h3>
+              <div className="text-left p-6 rounded-lg bg-primary text-primary-foreground shadow-lg">
+                <h3 className="text-2xl font-semibold">With KEF, their story can have a new beginning.</h3>
                 <p className="mt-4 opacity-90">
                   KEF provides scholarships, mentorship, and a safe place to learn. We step in to ensure that a lack of resources doesn't mean a lack of a future. Students are empowered to finish their education and rewrite their destinies.
                 </p>
@@ -89,7 +89,7 @@ export default function Home() {
         {/* The KEF Solution Section */}
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="font-headline text-3xl font-bold text-primary">
+            <h2 className="text-3xl font-bold text-primary">
               A Scholarship is More Than Just School Fees.
             </h2>
             <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
@@ -114,7 +114,7 @@ export default function Home() {
                 <p className="mt-2 font-semibold">University Transition</p>              </div>
             </div>
             <div className="mt-12">
-              <Card className="max-w-2xl mx-auto bg-card text-foreground border-none">
+              <Card className="max-w-2xl mx-auto bg-card text-foreground border-none shadow-lg">
                 <CardContent className="p-6 text-center">
                   <p className="text-lg font-semibold">
                     “While only 20% of students nationally reach university, 99% of KEF students make it.”
@@ -128,14 +128,14 @@ export default function Home() {
         {/* Real Stories Section */}
         <section className="py-16 md:py-24 bg-card">
           <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="font-headline text-3xl font-bold text-primary">Meet the Scholars Behind the Numbers</h2>
+            <h2 className="text-3xl font-bold text-primary">Meet the Scholars Behind the Numbers</h2>
             <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Card className="transform hover:-translate-y-2 transition-transform duration-300">
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=1" alt="James" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle className="font-headline">James</CardTitle>
+                  <CardTitle>James</CardTitle>
                   <p className="text-muted-foreground mt-2">“From herding goats in Turkana to studying Computer Science in the USA.”</p>
                 </CardContent>
               </Card>
@@ -144,7 +144,7 @@ export default function Home() {
                   <Image src="https://picsum.photos/400/300?random=2" alt="Mary" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student smiling" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle className="font-headline">Mary</CardTitle>
+                  <CardTitle>Mary</CardTitle>
                   <p className="text-muted-foreground mt-2">“Escaped early marriage, now a medical student and mentor to young girls.”</p>
                 </CardContent>
               </Card>
@@ -153,7 +153,7 @@ export default function Home() {
                   <Image src="https://picsum.photos/400/300?random=3" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="graduate portrait" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle className="font-headline">Peter</CardTitle>
+                  <CardTitle>Peter</CardTitle>
                   <p className="text-muted-foreground mt-2">“First in his family to graduate. Now an engineer building a new future.”</p>
                 </CardContent>
               </Card>
@@ -170,7 +170,7 @@ export default function Home() {
         <section className="py-16 md:py-24 bg-background text-center">
           <div className="container mx-auto px-4 md:px-6">
             <HeartHandshake className="h-16 w-16 text-primary mx-auto" />
-            <h2 className="font-headline text-3xl font-bold text-primary mt-4">One Scholarship. Endless Ripples.</h2>
+            <h2 className="text-3xl font-bold text-primary mt-4">One Scholarship. Endless Ripples.</h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
               A single scholarship does more than educate one student. It empowers a graduate to uplift their family, inspire their community, and often, fund new scholarships for others, creating a beautiful, self-sustaining cycle of change.
             </p>
@@ -183,7 +183,7 @@ export default function Home() {
         {/* Closing CTA */}
         <section className="py-20 bg-card">
           <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="font-headline text-4xl font-bold">You Can Be Part of This Story.</h2>
+            <h2 className="text-4xl font-bold">You Can Be Part of This Story.</h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button asChild size="lg">
                 <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank"><HeartHandshake />Sponsor a Student</Link>

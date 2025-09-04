@@ -4,17 +4,16 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-import { Poppins, Montserrat } from 'next/font/google';
+import { Inter, Montserrat } from 'next/font/google';
 
 // Font setup
-const poppins = Poppins({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '600'],
   variable: '--font-body',
 });
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['700'],
+  weight: ['700', '800'],
   variable: '--font-headline',
 });
 
@@ -29,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} ${montserrat.variable} antialiased`}>
+    <html lang="en" className="dark" style={{colorScheme: 'dark'}}>
+      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
         <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-1">

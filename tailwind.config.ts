@@ -1,13 +1,5 @@
 import type {Config} from 'tailwindcss';
 
-const neumorphicOutset = '5px 5px 10px #d0d5db, -5px -5px 10px #ffffff';
-const neumorphicOutsetSm = '3px 3px 6px #d0d5db, -3px -3px 6px #ffffff';
-const neumorphicInset = 'inset 5px 5px 10px #d0d5db, inset -5px -5px 10px #ffffff';
-const darkNeumorphicOutset = '5px 5px 10px #1f242a, -5px -5px 10px #353c44';
-const darkNeumorphicOutsetSm = '3px 3px 6px #1f242a, -3px -3px 6px #353c44';
-const darkNeumorphicInset = 'inset 5px 5px 10px #1f242a, inset -5px -5px 10px #353c44';
-
-
 export default {
   darkMode: ['class'],
   content: [
@@ -25,14 +17,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['var(--font-body)'],
-        headline: ['var(--font-headline)'],
+        body: ['var(--font-body)', 'sans-serif'],
+        headline: ['var(--font-headline)', 'sans-serif'],
       },
-       boxShadow: {
-        'neumorphic-outset': `var(--shadow-light) 5px 5px 10px, var(--shadow-dark) -5px -5px 10px`,
-        'neumorphic-outset-sm': `var(--shadow-light) 3px 3px 6px, var(--shadow-dark) -3px -3px 6px`,
-        'neumorphic-inset': `inset var(--shadow-light) 5px 5px 10px, inset var(--shadow-dark) -5px -5px 10px`,
-       },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -107,17 +94,5 @@ export default {
   },
   plugins: [
     require('tailwindcss-animate'),
-    function ({ addBase, theme }: any) {
-      addBase({
-        ':root': {
-          '--shadow-light': '#d0d5db',
-          '--shadow-dark': '#ffffff',
-        },
-        '.dark': {
-          '--shadow-light': '#1f242a',
-          '--shadow-dark': '#353c44',
-        }
-      })
-    }
   ],
 } satisfies Config;
