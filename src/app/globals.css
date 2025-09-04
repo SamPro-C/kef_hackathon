@@ -61,6 +61,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image: radial-gradient(circle at top, hsl(var(--background)), hsl(240, 10%, 2%));
     font-family: var(--font-body);
   }
   h1, h2, h3, h4, h5, h6 {
