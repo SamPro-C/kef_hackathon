@@ -80,9 +80,15 @@ export default function Footer() {
         </div>
       </div>
       <div className="bg-black/20">
-        <div className="container mx-auto px-4 md:px-6 py-4 text-center text-sm text-background/60">
-           <p>&copy; {new Date().getFullYear()} Kenya Education Fund. All rights reserved.</p>
-           <p className="text-xs mt-1">This website is a hackathon project entry and is not the official KEF website.</p>
+        <div className="container mx-auto px-4 md:px-6 py-4 flex flex-col md:flex-row justify-between items-center text-sm text-background/60">
+           <div className="text-center md:text-left">
+            <p>&copy; {new Date().getFullYear()} Kenya Education Fund. All rights reserved.</p>
+            <p className="text-xs mt-1">This website is a hackathon project entry and is not the official KEF website.</p>
+           </div>
+           <div className="flex gap-4 mt-4 md:mt-0">
+             <Link href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+             <Link href="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>
+           </div>
         </div>
       </div>
     </footer>
