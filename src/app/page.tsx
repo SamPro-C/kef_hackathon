@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { GraduationCap, School, Milestone, Users, HeartHandshake, BookOpen, Droplets } from 'lucide-react';
+import { GraduationCap, School, Milestone, Users, HeartHandshake, BookOpen, Droplets, Mail, Share2 } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -111,8 +111,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <GraduationCap className="h-10 w-10 text-primary" />
-                <p className="mt-2 font-semibold">University Transition</p>
-              </div>
+                <p className="mt-2 font-semibold">University Transition</p>              </div>
             </div>
             <div className="mt-12">
               <Card className="max-w-2xl mx-auto bg-secondary text-secondary-foreground border-secondary shadow-lg">
@@ -187,13 +186,13 @@ export default function Home() {
             <h2 className="font-headline text-4xl font-bold">You Can Be Part of This Story.</h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" variant="secondary">
-                <Link href="#">🙋 Sponsor a Student</Link>
+                <Link href="#"><HeartHandshake />Sponsor a Student</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <Link href="/stories">💌 Read a Letter of Hope</Link>
+                <Link href="/stories"><Mail />Read a Letter of Hope</Link>
               </Button>
                <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <Link href="#">📢 Share the KEF Story</Link>
+                <Link href="#"><Share2 />Share the KEF Story</Link>
               </Button>
             </div>
           </div>

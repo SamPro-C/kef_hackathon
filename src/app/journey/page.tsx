@@ -134,7 +134,7 @@ export default function JourneyPage() {
           <p className="mt-4 max-w-2xl mx-auto">One scholarship is all it takes to change a life like James's.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg" variant="secondary" className="animate-pulse">
-              <Link href="#">🙋 Sponsor a Student</Link>
+              <Link href="#"><HeartHandshake />Sponsor a Student</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
               <Link href="/stories">Explore More Stories <ArrowRight className="ml-2" /></Link>
