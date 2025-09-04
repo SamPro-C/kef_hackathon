@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GraduationCap, School, Users, HeartHandshake, TrendingUp, MapPin, ArrowRight } from 'lucide-react';
+import { GraduationCap, School, Users, HeartHandshake, TrendingUp, MapPin, ArrowRight, BookOpen, Shirt, ShoppingCart } from 'lucide-react';
+import ImpactCalculator from '@/components/impact-calculator';
 
 export default function ImpactPage() {
   return (
@@ -25,7 +26,7 @@ export default function ImpactPage() {
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-3xl font-bold text-primary">Our Impact by the Numbers</h2>
             <div className="mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card className="text-center">
+              <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl">
                 <CardHeader>
                   <GraduationCap className="h-12 w-12 text-primary mx-auto" />
                   <CardTitle className="text-4xl font-bold mt-4">4,600+</CardTitle>
@@ -34,7 +35,7 @@ export default function ImpactPage() {
                   <p className="text-muted-foreground">Scholarships Awarded Since 2006</p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+              <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl">
                 <CardHeader>
                   <Users className="h-12 w-12 text-primary mx-auto" />
                    <CardTitle className="text-4xl font-bold mt-4">3,172</CardTitle>
@@ -43,7 +44,7 @@ export default function ImpactPage() {
                   <p className="text-muted-foreground">Alumni Graduated & Now Leaders</p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+              <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl">
                 <CardHeader>
                   <TrendingUp className="h-12 w-12 text-primary mx-auto" />
                   <CardTitle className="text-4xl font-bold mt-4">99%</CardTitle>
@@ -54,15 +55,27 @@ export default function ImpactPage() {
               </Card>
             </div>
              <div className="mt-8">
-                <Button asChild size="lg" variant="link" className="text-primary">
+                <Button asChild size="lg" variant="link" className="text-primary text-lg">
                     <Link href="/stories">See the Faces Behind These Numbers →</Link>
                 </Button>
             </div>
           </div>
       </section>
 
-      {/* Geographic Reach Section */}
+      {/* Impact Calculator Section */}
       <section className="py-16 md:py-24 bg-card">
+        <div className="container mx-auto px-4 md:px-6">
+           <h2 className="font-headline text-3xl font-bold text-primary text-center">Calculate Your Impact</h2>
+           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground text-center">
+            Your contribution, no matter the size, makes a tangible difference. See how your generosity can directly support a KEF scholar's journey.
+           </p>
+           <ImpactCalculator />
+        </div>
+      </section>
+
+
+      {/* Geographic Reach Section */}
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div>
@@ -94,41 +107,41 @@ export default function ImpactPage() {
       </section>
       
       {/* Ripple Effect Section */}
-      <section className="py-16 md:py-24 bg-background text-center">
+      <section className="py-16 md:py-24 bg-card text-center">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="font-headline text-3xl font-bold text-primary">The Ripple Effect: Beyond One Student</h2>
           <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
             A single scholarship is just the start. It empowers a graduate to uplift their family, inspire their community, and often, fund new scholarships for others, creating a beautiful, self-sustaining cycle of change.
           </p>
-          <div className="mt-12 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4">
+          <div className="mt-12 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8">
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground mb-2">
-                    <Users className="h-8 w-8" />
+                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-primary text-primary-foreground mb-3 shadow-lg">
+                    <Users className="h-10 w-10" />
                 </div>
-                <p className="font-semibold">1. Educate a Student</p>
+                <p className="font-semibold text-lg">1. Educate a Student</p>
               </div>
-              <ArrowRight className="h-8 w-8 text-primary hidden md:block" />
+              <ArrowRight className="h-10 w-10 text-primary hidden md:block" />
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground mb-2">
-                    <GraduationCap className="h-8 w-8" />
+                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-primary text-primary-foreground mb-3 shadow-lg">
+                    <GraduationCap className="h-10 w-10" />
                 </div>
-                <p className="font-semibold">2. Empower a Graduate</p>
+                <p className="font-semibold text-lg">2. Empower a Graduate</p>
               </div>
-              <ArrowRight className="h-8 w-8 text-primary hidden md:block" />
+              <ArrowRight className="h-10 w-10 text-primary hidden md:block" />
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground mb-2">
-                    <HeartHandshake className="h-8 w-8" />
+                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-primary text-primary-foreground mb-3 shadow-lg">
+                    <HeartHandshake className="h-10 w-10" />
                 </div>
-                <p className="font-semibold">3. Transform a Community</p>
+                <p className="font-semibold text-lg">3. Transform a Community</p>
               </div>
           </div>
-           <div className="mt-12">
+           <div className="mt-16">
               <Card className="max-w-2xl mx-auto bg-secondary text-secondary-foreground border-secondary shadow-lg">
                 <CardContent className="p-6">
-                  <p className="text-lg font-semibold">
+                  <p className="text-xl font-semibold">
                     “When you educate one student, you transform an entire community.”
                   </p>
-                   <p className="text-sm opacity-80 mt-2">– KEF Alumni Leader</p>
+                   <p className="text-md opacity-80 mt-2">– KEF Alumni Leader</p>
                 </CardContent>
               </Card>
             </div>
