@@ -29,7 +29,7 @@ export default function StoriesPage() {
           </div>
         </section>
 
-        {/* Featured Story Section */}
+        {/* Featured Story Section - James */}
         <section className="py-16 md:py-24 bg-card">
           <div className="container mx-auto px-4 md:px-6">
             <Card className="grid md:grid-cols-2 overflow-hidden shadow-2xl">
@@ -61,20 +61,43 @@ export default function StoriesPage() {
           </div>
         </section>
 
-        {/* Swipeable Story Cards Section */}
+        {/* Featured Story Section - Mary */}
         <section className="py-16 md:py-24 bg-background">
+          <div className="container mx-auto px-4 md:px-6">
+            <Card className="grid md:grid-cols-2 overflow-hidden shadow-2xl">
+              <div className="relative min-h-[300px] md:min-h-[500px] order-last md:order-first">
+                <Image
+                  src="https://picsum.photos/600/800?random=5"
+                  alt="Mary in a lab coat"
+                  fill
+                  className="object-cover"
+                  data-ai-hint="female student medical"
+                />
+              </div>
+              <CardContent className="p-8 md:p-12 flex flex-col justify-center">
+                <h2 className="font-headline text-3xl font-bold text-primary">Mary: From Early Marriage Risk to Medical School</h2>
+                <p className="mt-4 text-muted-foreground text-lg">
+                 “At 15, my community wanted me to marry. KEF gave me another choice — the chance to stay in school. Now, I am training to be a doctor.” – Mary
+                </p>
+                <p className="mt-6 text-foreground">
+                  Mary grew up in Kajiado County, where many girls face the pressure of early marriage and FGM. Her parents loved her deeply but lacked the resources to pay school fees, and cultural traditions meant she was at risk of leaving school forever. Just before she dropped out, Mary’s life changed when she received a KEF scholarship.
+                </p>
+                 <p className="mt-4 text-foreground font-semibold">
+                  With KEF's support, Mary thrived. She became a top performer in her high school, and today is studying Medicine at the University of Nairobi, inspired to serve underserved communities.
+                </p>
+                <Button asChild size="lg" className="mt-8 w-fit">
+                  <Link href="#">Read Mary's Full Journey <ArrowRight className="ml-2" /></Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Swipeable Story Cards Section */}
+        <section className="py-16 md:py-24 bg-card">
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-3xl font-bold text-primary">More Journeys of Hope</h2>
             <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <Card className="text-left">
-                <CardHeader className="p-0">
-                  <Image src="https://picsum.photos/400/300?random=5" alt="Mary" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="female teacher classroom" />
-                </CardHeader>
-                <CardContent className="p-6">
-                  <CardTitle>Mary</CardTitle>
-                  <p className="text-muted-foreground mt-2">“Escaped child marriage. Now a teacher inspiring 200+ girls.”</p>
-                </CardContent>
-              </Card>
               <Card className="text-left">
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=6" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="male engineer outdoors" />
@@ -102,31 +125,40 @@ export default function StoriesPage() {
                   <p className="text-muted-foreground mt-2">“Almost dropped out. Today, a KEF mentor and leader.”</p>
                 </CardContent>
               </Card>
+               <Card className="text-left">
+                <CardHeader className="p-0">
+                  <Image src="https://picsum.photos/400/300?random=9" alt="Grace" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student writing" />
+                </CardHeader>
+                <CardContent className="p-6">
+                  <CardTitle>Grace</CardTitle>
+                  <p className="text-muted-foreground mt-2">“Now studying law to fight for the rights of girls in her village.”</p>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
 
         {/* Impact Stats Section */}
-        <section className="py-16 md:py-24 bg-card">
+        <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-3xl font-bold text-primary">Behind the Numbers are Real Lives Changed</h2>
             <div className="mt-12 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <GraduationCap className="h-12 w-12 text-primary" />
                 <p className="text-3xl md:text-4xl font-bold mt-2">4,600+</p>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground">Scholarships Awarded</p>
               </div>
-              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <School className="h-12 w-12 text-primary" />
                 <p className="text-3xl md:text-4xl font-bold mt-2">153</p>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground">Schools Reached</p>
               </div>
-              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <Users className="h-12 w-12 text-primary" />
                 <p className="text-3xl md:text-4xl font-bold mt-2">99%</p>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground">University Transition</p>
               </div>
-              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <HeartHandshake className="h-12 w-12 text-primary" />
                 <p className="text-3xl md:text-4xl font-bold mt-2">3,172</p>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground">Graduates</p>
