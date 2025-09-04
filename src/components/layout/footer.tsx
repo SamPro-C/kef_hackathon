@@ -25,7 +25,6 @@ export default function Footer() {
               <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
               <li><Link href="/stories" className="hover:text-primary transition-colors">Success Stories</Link></li>
               <li><Link href="/impact" className="hover:text-primary transition-colors">Our Impact</Link></li>
-              <li><Link href="/alumni-multiplier" className="hover:text-primary transition-colors">Alumni Multiplier</Link></li>
             </ul>
           </div>
 

@@ -13,7 +13,6 @@ const navItems = [
   { href: '/journey', label: 'The Journey' },
   { href: '/stories', label: 'Stories' },
   { href: '/impact', label: 'Impact' },
-  { href: '/alumni-multiplier', label: 'Alumni Multiplier' },
 ];
 
 export default function Header() {
