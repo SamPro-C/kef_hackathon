@@ -69,7 +69,7 @@ export default function LetterPage() {
           <Card className="max-w-2xl mx-auto shadow-neumorphic-outset">
             <CardHeader className="text-center">
               <CardTitle className="font-headline text-2xl">Generate a Student's Story</CardTitle>
-              <CardDescription>Select a county and a career to generate a unique story.</CardDescription>
+              <CardDescription>Select a county and career to hear from a student in their own words.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-6 mb-6">

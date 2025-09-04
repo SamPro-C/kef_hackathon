@@ -16,7 +16,7 @@ export type LetterRequest = z.infer<typeof LetterRequestSchema>;
 export const LetterResponseSchema = z.object({
     letter: z.string().describe("The generated letter from the student's perspective. It should be 3-4 paragraphs long, written in a hopeful and personal tone. It should mention the student's name, their background in the specified county, their dream of pursuing the specified career, and how a KEF scholarship is their only hope to achieve this dream."),
 });
-export type LetterResponse = z-infer<typeof LetterResponseSchema>;
+export type LetterResponse = z.infer<typeof LetterResponseSchema>;
 
 
 export async function generateLetter(input: LetterRequest): Promise<LetterResponse> {

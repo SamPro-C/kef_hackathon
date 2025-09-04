@@ -42,7 +42,7 @@ export default function StoriesPage() {
       <section className="relative py-32 md:py-48 flex items-center justify-center text-center">
         <div className="absolute inset-0 bg-black/50 z-10"></div>
         <Image
-          src="https://picsum.photos/1600/800?random=10"
+          src="https://picsum.photos/1600/800?random=20"
           alt="Collage of student faces"
           fill
           className="object-cover"
@@ -186,10 +186,10 @@ export default function StoriesPage() {
           <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">Your action today can write the next success story.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg">
-              <Link href="/letter"><HeartHandshake />Sponsor a Student</Link>
+              <Link href="/letter"><HeartHandshake className="mr-2" />Sponsor a Student</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="#"><Share2 />Share a Story</Link>
+              <Link href="#"><Share2 className="mr-2" />Share a Story</Link>
             </Button>
           </div>
         </div>
