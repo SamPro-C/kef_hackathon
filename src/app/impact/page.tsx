@@ -78,7 +78,7 @@ export default function ImpactPage() {
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="font-headline text-3xl font-bold text-primary">Why We Give</h2>
            <Card className="max-w-3xl mx-auto mt-8 bg-secondary text-secondary-foreground border-secondary shadow-xl transform transition-transform hover:scale-105">
-              <CardContent className="p-8">
+              <CardContent className="p-8 text-center">
                 <p className="text-2xl font-semibold italic">
                   “We chose KEF because we see the direct impact. It’s not just about donating money; it’s about investing in a specific child’s future. We get to see the student we sponsor grow and succeed. That’s a connection you don’t get anywhere else.”
                 </p>

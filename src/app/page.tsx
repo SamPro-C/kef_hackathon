@@ -116,7 +116,7 @@ export default function Home() {
             </div>
             <div className="mt-12">
               <Card className="max-w-2xl mx-auto bg-secondary text-secondary-foreground border-secondary shadow-lg">
-                <CardContent className="p-6">
+                <CardContent className="p-6 text-center">
                   <p className="text-lg font-semibold">
                     “While only 20% of students nationally reach university, 99% of KEF students make it.”
                   </p>

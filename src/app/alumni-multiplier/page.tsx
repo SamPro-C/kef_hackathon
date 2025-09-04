@@ -139,7 +139,7 @@ export default function AlumniMultiplierPage() {
             </CardContent>
             
             {story && !isLoading && (
-              <CardFooter className="flex flex-col gap-4 p-6 bg-primary/5 border-t">
+              <CardFooter className="flex flex-col gap-4 p-6 bg-muted border-t">
                   <div className="flex items-center gap-3 text-primary">
                     <Lightbulb className="h-8 w-8" />
                     <h3 className="font-headline text-2xl font-bold">A Glimpse into the Future...</h3>

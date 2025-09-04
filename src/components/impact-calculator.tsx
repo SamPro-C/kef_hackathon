@@ -53,7 +53,7 @@ export default function ImpactCalculator() {
   };
 
   return (
-    <Card className="max-w-3xl mx-auto mt-12 shadow-2xl border-2 border-primary/20 overflow-hidden">
+    <Card className="max-w-3xl mx-auto mt-12 shadow-2xl border-2 border-primary/20 overflow-hidden bg-card">
       <CardHeader className="text-center pt-8">
         <div className="text-6xl font-bold font-headline text-primary transition-all duration-300">
           ${displayedAmount}
@@ -88,7 +88,7 @@ export default function ImpactCalculator() {
                         )} />
                         <p className={cn(
                             "font-semibold transition-colors duration-300",
-                            isAchieved ? 'text-primary-foreground' : 'text-muted-foreground'
+                            isAchieved ? 'text-primary' : 'text-muted-foreground'
                         )}>${level.amount}</p>
                         <p className={cn(
                             "text-sm h-10 flex items-center transition-colors duration-300",
