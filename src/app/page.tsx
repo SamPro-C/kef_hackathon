@@ -10,27 +10,18 @@ import { GraduationCap, BookOpen, Users, ChevronDown, HeartHandshake } from 'luc
 import { cn } from '@/lib/utils';
 
 export default function Home() {
-  const [typedText, setTypedText] = useState('');
-  const fullText = "Education is the closest thing to magic.";
   const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
-    // Prevent hydration errors by running this effect only on the client
-    const typeTimer = setTimeout(() => {
-      if (typedText.length < fullText.length) {
-        setTypedText(fullText.slice(0, typedText.length + 1));
-      } else {
-        setTimeout(() => setShowScroll(true), 500);
-      }
-    }, 100);
-
-    return () => clearTimeout(typeTimer);
-  }, [typedText]);
+    // Show scroll indicator after a short delay
+    const timer = setTimeout(() => setShowScroll(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
       {/* Page 1: The Landing Hook */}
-      <section className="relative h-screen min-h-[700px] flex flex-col items-center justify-center text-center text-white">
+      <section className="relative h-screen min-h-[700px] flex flex-col items-center justify-center text-center text-white p-4">
         <Image
           src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
           alt="African students in a classroom"
@@ -39,12 +30,14 @@ export default function Home() {
           priority
           data-ai-hint="happy students classroom"
         />
-        <div className="absolute inset-0 bg-black/50 z-10"></div>
-        <div className="relative z-20 container mx-auto px-4 md:px-6">
+        <div className="absolute inset-0 bg-black/60 z-10"></div>
+        <div className="relative z-20 container mx-auto px-4 md:px-6 animate-in" style={{ animationDelay: '500ms' }}>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-headline" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
-            {typedText}
-            <span className="inline-block w-1 h-12 ml-2 bg-white animate-pulse" style={{ opacity: typedText.length === fullText.length ? 0 : 1 }}></span>
+            ✨ Every Child Deserves a Chance to Dream.
           </h1>
+          <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl text-white/90" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.7)' }}>
+            From remote villages to global universities, KEF scholarships turn stories of struggle into stories of hope.
+          </p>
         </div>
         <div className={cn(
             "absolute bottom-10 z-20 flex flex-col items-center gap-2 transition-opacity duration-1000",
