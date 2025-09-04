@@ -211,10 +211,10 @@ export default function ImpactPage() {
               <Link href="/sponsor"><HeartHandshake />Sponsor a Student</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="#"><UserPlus /> Become a Mentor</Link>
+              <Link href="https://www.kenyaeducationfund.org/get-involved" target="_blank"><UserPlus /> Become a Mentor</Link>
             </Button>
              <Button asChild size="lg" variant="outline">
-              <Link href="#"><Share2 /> Share the KEF Story</Link>
+              <Link href="https://www.kenyaeducationfund.org/get-involved" target="_blank"><Share2 /> Share the KEF Story</Link>
             </Button>
           </div>
         </div>

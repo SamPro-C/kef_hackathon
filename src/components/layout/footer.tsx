@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { BookHeart, Twitter, Linkedin, Facebook, Instagram, Youtube, HeartHandshake, UserPlus, Gift } from 'lucide-react';
 
@@ -40,7 +41,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors">
+                <Link href="https://www.kenyaeducationfund.org/get-involved" target="_blank" className="flex items-center gap-2 hover:text-primary transition-colors">
                   <UserPlus className="h-4 w-4" />
                   <span>Become a Mentor</span>
                 </Link>
@@ -58,19 +59,19 @@ export default function Footer() {
           <div>
             <h3 className="font-headline font-semibold text-foreground mb-4">Follow Our Journey</h3>
             <div className="flex gap-4">
-              <Link href="#" className="text-foreground/80 hover:text-primary transition-colors" aria-label="Twitter">
+              <Link href="https://twitter.com/KenyaEduFund" target="_blank" className="text-foreground/80 hover:text-primary transition-colors" aria-label="Twitter">
                 <Twitter className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-foreground/80 hover:text-primary transition-colors" aria-label="LinkedIn">
+              <Link href="https://www.linkedin.com/company/kenya-education-fund/" target="_blank" className="text-foreground/80 hover:text-primary transition-colors" aria-label="LinkedIn">
                 <Linkedin className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-foreground/80 hover:text-primary transition-colors" aria-label="Facebook">
+              <Link href="https://www.facebook.com/KenyaEducationFund" target="_blank" className="text-foreground/80 hover:text-primary transition-colors" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
               </Link>
-               <Link href="#" className="text-foreground/80 hover:text-primary transition-colors" aria-label="Instagram">
+               <Link href="https://www.instagram.com/kenyaeducationfund/" target="_blank" className="text-foreground/80 hover:text-primary transition-colors" aria-label="Instagram">
                 <Instagram className="h-5 w-5" />
               </Link>
-               <Link href="#" className="text-foreground/80 hover:text-primary transition-colors" aria-label="YouTube">
+               <Link href="https://www.youtube.com/user/KenyaEducationFund" target="_blank" className="text-foreground/80 hover:text-primary transition-colors" aria-label="YouTube">
                 <Youtube className="h-5 w-5" />
               </Link>
             </div>

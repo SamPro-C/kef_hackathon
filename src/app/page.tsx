@@ -192,7 +192,7 @@ export default function Home() {
                 <Link href="/sponsor"><Mail />Read a Letter of Hope</Link>
               </Button>
                <Button asChild size="lg" variant="outline">
-                <Link href="#"><Share2 />Share the KEF Story</Link>
+                <Link href="https://www.kenyaeducationfund.org/get-involved" target="_blank"><Share2 />Share the KEF Story</Link>
               </Button>
             </div>
           </div>

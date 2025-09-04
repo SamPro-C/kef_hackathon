@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo, useRef, useEffect } from 'react';
@@ -186,10 +187,10 @@ export default function StoriesPage() {
           <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">Your action today can write the next success story.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg">
-              <Link href="/letter"><HeartHandshake className="mr-2" />Sponsor a Student</Link>
+              <Link href="/sponsor"><HeartHandshake className="mr-2" />Sponsor a Student</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="#"><Share2 className="mr-2" />Share a Story</Link>
+              <Link href="https://www.kenyaeducationfund.org/get-involved" target="_blank"><Share2 className="mr-2" />Share a Story</Link>
             </Button>
           </div>
         </div>

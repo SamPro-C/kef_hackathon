@@ -1,6 +1,8 @@
+
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -108,7 +110,9 @@ export default function SponsorPage() {
                             <p className="text-muted-foreground">{tier.description}</p>
                         </CardContent>
                         <div className="p-6 pt-0">
-                            <Button size="lg" className="w-full">Donate ${tier.amount}</Button>
+                           <Button asChild size="lg" className="w-full">
+                                <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank">Donate ${tier.amount}</Link>
+                           </Button>
                         </div>
                     </Card>
                 ))}
