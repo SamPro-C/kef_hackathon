@@ -2,9 +2,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { GraduationCap, School, Milestone, Users, HeartHandshake, BookOpen, Droplets, ShieldCheck, ArrowRight, TrendingUp } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { GraduationCap, School, Milestone, Users, HeartHandshake, BookOpen, Droplets } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -12,7 +11,7 @@ export default function Home() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center text-center text-white">
-          <div className="absolute inset-0 bg-black/50 z-10"></div>
+          <div className="absolute inset-0 bg-black/60 z-10"></div>
           <video
             className="absolute inset-0 w-full h-full object-cover"
             autoPlay
@@ -20,7 +19,7 @@ export default function Home() {
             muted
             playsInline
           >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-students-in-a-classroom-watching-a-presentation-4351-large.mp4" type="video/mp4" />
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-a-girl-writing-in-a-notebook-in-a-classroom-4352-large.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
@@ -43,17 +42,17 @@ export default function Home() {
                 <p className="text-sm uppercase tracking-wider">Schools Reached</p>
               </div>
               <div className="flex flex-col items-center">
-                <TrendingUp className="h-12 w-12 text-secondary" />
+                <Users className="h-12 w-12 text-secondary" />
                 <p className="text-4xl font-bold mt-2">99%</p>
                 <p className="text-sm uppercase tracking-wider">Transition to University</p>
               </div>
             </div>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground animate-pulse">
-                <Link href="#">Begin a Student’s Journey</Link>
+                <Link href="/stories">Begin a Student’s Journey</Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="#">See the Impact</Link>
+                <Link href="/stories">See the Impact</Link>
               </Button>
             </div>
           </div>
@@ -133,32 +132,37 @@ export default function Home() {
             <h2 className="font-headline text-3xl font-bold text-primary">Meet the Scholars Behind the Numbers</h2>
             <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Card>
-                <CardHeader>
-                  <Image src="https://picsum.photos/400/300?random=1" alt="James" width={400} height={300} className="rounded-t-lg object-cover" data-ai-hint="student portrait" />
+                <CardHeader className="p-0">
+                  <Image src="https://picsum.photos/400/300?random=1" alt="James" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                   <CardTitle>James</CardTitle>
                   <p className="text-muted-foreground mt-2">“From herding goats in Turkana to studying Computer Science in the USA.”</p>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader>
-                  <Image src="https://picsum.photos/400/300?random=2" alt="Mary" width={400} height={300} className="rounded-t-lg object-cover" data-ai-hint="student smiling" />
+                <CardHeader className="p-0">
+                  <Image src="https://picsum.photos/400/300?random=2" alt="Mary" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student smiling" />
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                   <CardTitle>Mary</CardTitle>
                   <p className="text-muted-foreground mt-2">“Escaped child marriage, now mentors 50+ young girls.”</p>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader>
-                  <Image src="https://picsum.photos/400/300?random=3" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover" data-ai-hint="graduate portrait" />
+                <CardHeader className="p-0">
+                  <Image src="https://picsum.photos/400/300?random=3" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="graduate portrait" />
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                   <CardTitle>Peter</CardTitle>
                   <p className="text-muted-foreground mt-2">“First in his family to graduate. Now an engineer giving back.”</p>
                 </CardContent>
               </Card>
+            </div>
+             <div className="mt-8">
+                <Button asChild size="lg" variant="link" className="text-primary">
+                    <Link href="/stories">Read More Success Stories →</Link>
+                </Button>
             </div>
           </div>
         </section>
@@ -186,7 +190,7 @@ export default function Home() {
                 <Link href="#">🙋 Sponsor a Student</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <Link href="#">💌 Read a Letter of Hope</Link>
+                <Link href="/stories">💌 Read a Letter of Hope</Link>
               </Button>
                <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
                 <Link href="#">📢 Share the KEF Story</Link>
