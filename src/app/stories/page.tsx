@@ -104,7 +104,7 @@ export default function StoriesPage() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle>Peter</CardTitle>
-                  <p className="text-muted-foreground mt-2">“First graduate in his family. Now an engineer, funding new scholarships.”</p>
+                  <p className="text-muted-foreground mt-2">He was the first in his village to finish high school. Today, he’s an engineer building bridges and funding two new KEF scholarships himself.</p>
                 </CardContent>
               </Card>
               <Card className="text-left">
@@ -113,7 +113,7 @@ export default function StoriesPage() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle>Aisha</CardTitle>
-                  <p className="text-muted-foreground mt-2">“Lost both parents at 12. Today, she’s a doctor saving lives.”</p>
+                  <p className="text-muted-foreground mt-2">After losing her parents, she had to drop out. KEF brought her back. Today, she's a nurse saving lives in her local clinic.</p>
                 </CardContent>
               </Card>
               <Card className="text-left">
@@ -122,7 +122,7 @@ export default function StoriesPage() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle>Kevin</CardTitle>
-                  <p className="text-muted-foreground mt-2">“Almost dropped out. Today, a KEF mentor and leader.”</p>
+                  <p className="text-muted-foreground mt-2">He nearly gave up due to family hardship. Now, he’s a community leader and a KEF mentor for over 30 students.</p>
                 </CardContent>
               </Card>
                <Card className="text-left">
@@ -131,7 +131,7 @@ export default function StoriesPage() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle>Grace</CardTitle>
-                  <p className="text-muted-foreground mt-2">“Now studying law to fight for the rights of girls in her village.”</p>
+                  <p className="text-muted-foreground mt-2">She saw injustice in her village. Today, she's studying law to fight for the rights of girls who have no voice.</p>
                 </CardContent>
               </Card>
             </div>
