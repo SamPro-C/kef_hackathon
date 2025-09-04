@@ -12,6 +12,7 @@ const navItems = [
   { href: '/', label: 'Home' },
   { href: '/stories', label: 'Stories' },
   { href: '/impact', label: 'Impact' },
+  { href: '/alumni-multiplier', label: 'Alumni Multiplier' },
 ];
 
 export default function Header() {
