@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import { BookHeart, Twitter, Linkedin, Facebook, Instagram, Youtube } from 'lucide-react';
+import { BookHeart, Twitter, Linkedin, Facebook, Instagram, Youtube, HeartHandshake, UserPlus, Gift } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -33,10 +33,25 @@ export default function Footer() {
           {/* Column 3: Get Involved */}
           <div>
             <h3 className="font-headline font-semibold text-background mb-4">Get Involved</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="#" className="hover:text-primary transition-colors">Sponsor a Student</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Become a Mentor</Link></li>
-              <li><Link href="#" className="hover:text-primary transition-colors">Donate</Link></li>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors">
+                  <HeartHandshake className="h-4 w-4" />
+                  <span>Sponsor a Student</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors">
+                  <UserPlus className="h-4 w-4" />
+                  <span>Become a Mentor</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors">
+                   <Gift className="h-4 w-4" />
+                  <span>Donate</span>
+                </Link>
+              </li>
             </ul>
           </div>
 
