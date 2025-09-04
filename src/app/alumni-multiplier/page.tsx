@@ -150,7 +150,6 @@ export default function AlumniMultiplierPage() {
                   </Button>
               </CardFooter>
             )}
-
           </Card>
         </div>
       </section>
