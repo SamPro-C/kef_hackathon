@@ -31,7 +31,7 @@ export default function ImpactPage() {
 
     return () => {
       if (metricsRef.current) {
-        observer.unobserve(metricsRef.current);
+        // observer.unobserve(metricsRef.current);
       }
     };
   }, []);
@@ -208,7 +208,7 @@ export default function ImpactPage() {
           <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">You don't have to be a big donor to make a big difference.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg">
-              <Link href="#"><HeartHandshake />Sponsor a Student</Link>
+              <Link href="/letter"><HeartHandshake />Sponsor a Student</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link href="#"><UserPlus /> Become a Mentor</Link>

@@ -107,7 +107,7 @@ export default function JourneyPage() {
                <div className="hidden md:block w-1/2 pl-8 text-right">
                   <Image src="https://picsum.photos/600/400?random=19" alt="Professional at work" width={600} height={400} className="rounded-lg shadow-neumorphic-outset" data-ai-hint="professional software engineer" />
               </div>
-              <div className="absolute left-5 md:left-1/2 -translate-x-1/2 bg-background">
+              <div className="absolute left-5 md:left-1-2 -translate-x-1/2 bg-background">
                 <div className="z-10 flex items-center justify-center h-10 w-10 rounded-full bg-primary text-primary-foreground shadow-md">
                   <Briefcase className="h-5 w-5" />
                 </div>
@@ -134,7 +134,7 @@ export default function JourneyPage() {
           <p className="mt-4 max-w-2xl mx-auto">One scholarship is all it takes to change a life like James's.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg" className="animate-pulse">
-              <Link href="#"><HeartHandshake />Sponsor a Student</Link>
+              <Link href="/letter"><HeartHandshake />Sponsor a Student</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link href="/stories">Explore More Stories <ArrowRight className="ml-2" /></Link>

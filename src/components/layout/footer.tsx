@@ -25,6 +25,7 @@ export default function Footer() {
               <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
               <li><Link href="/stories" className="hover:text-primary transition-colors">Success Stories</Link></li>
               <li><Link href="/impact" className="hover:text-primary transition-colors">Our Impact</Link></li>
+              <li><Link href="/letter" className="hover:text-primary transition-colors">Letters of Hope</Link></li>
             </ul>
           </div>
 
@@ -33,7 +34,7 @@ export default function Footer() {
             <h3 className="font-headline font-semibold text-foreground mb-4">Get Involved</h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors">
+                <Link href="/letter" className="flex items-center gap-2 hover:text-primary transition-colors">
                   <HeartHandshake className="h-4 w-4" />
                   <span>Sponsor a Student</span>
                 </Link>
@@ -45,7 +46,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="flex items-center gap-2 hover:text-primary transition-colors">
+                <Link href="/letter" className="flex items-center gap-2 hover:text-primary transition-colors">
                    <Gift className="h-4 w-4" />
                   <span>Donate</span>
                 </Link>

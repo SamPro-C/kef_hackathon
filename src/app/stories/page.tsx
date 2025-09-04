@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo, useRef, useEffect } from 'react';
@@ -6,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { GraduationCap, School, Users, HeartHandshake, ArrowRight } from 'lucide-react';
+import { GraduationCap, School, Users, HeartHandshake, ArrowRight, UserPlus, Share2 } from 'lucide-react';
 import { alumniData, Alumni } from '@/lib/alumni-data';
 import { cn } from '@/lib/utils';
 
@@ -122,7 +121,7 @@ export default function StoriesPage() {
                     <p className="text-muted-foreground mt-2 text-sm flex-grow">{alumni.story}</p>
                     <div className="flex flex-wrap gap-2 mt-4">
                         <span className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-full">{alumni.region}</span>
-                        <span className="text-xs bg-primary/20 text-primary-foreground px-2 py-1 rounded-full">{alumni.careerField}</span>
+                        <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">{alumni.careerField}</span>
                     </div>
                   </CardContent>
                   <CardFooter>
@@ -187,10 +186,10 @@ export default function StoriesPage() {
           <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">Your action today can write the next success story.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg">
-              <Link href="#">🙋 Sponsor a Student</Link>
+              <Link href="/letter"><HeartHandshake />Sponsor a Student</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="#">📢 Share a Story</Link>
+              <Link href="#"><Share2 />Share a Story</Link>
             </Button>
           </div>
         </div>
