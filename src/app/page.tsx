@@ -6,61 +6,49 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { GraduationCap, School, Milestone, Users, HeartHandshake, BookOpen, Droplets, Mail, Share2 } from 'lucide-react';
+import { GraduationCap, School, Milestone, Users, HeartHandshake, BookOpen, Droplets, Mail, Share2, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
   const [typedText, setTypedText] = useState('');
   const fullText = "Education is the closest thing to magic.";
+  const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
-    if (typedText.length < fullText.length) {
-      setTimeout(() => {
+    const typeTimer = setTimeout(() => {
+      if (typedText.length < fullText.length) {
         setTypedText(fullText.slice(0, typedText.length + 1));
-      }, 80);
-    }
+      } else {
+        // When typing is done, wait a bit then show the scroll indicator
+        setTimeout(() => setShowScroll(true), 500);
+      }
+    }, 100); // Slower typing speed
+
+    return () => clearTimeout(typeTimer);
   }, [typedText]);
 
   return (
     <>
         {/* Hero Section */}
-        <section className="relative h-[90vh] min-h-[700px] flex items-center justify-center text-center text-white bg-black">
-           <div className="absolute inset-0 bg-black/70 z-10"></div>
-            <Image
-                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
-                alt="Hopeful students"
-                fill
-                className="object-cover opacity-20"
-                data-ai-hint="hopeful students background"
-            />
-          <div className="relative z-20 container mx-auto px-4 md:px-6 animate-in">
-             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-headline" style={{ textShadow: '2px 2px 12px rgba(255,255,255,0.2)' }}>
+        <section className="relative h-screen min-h-[700px] flex flex-col items-center justify-center text-center text-white bg-transparent">
+          <div className="relative z-20 container mx-auto px-4 md:px-6">
+             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-headline" style={{ textShadow: '2px 2px 12px rgba(0,0,0,0.3)' }}>
               {typedText}
-              <span className="inline-block w-1 h-12 ml-2 bg-primary animate-pulse"></span>
+              <span className="inline-block w-1 h-12 ml-2 bg-white animate-pulse" style={{ opacity: typedText.length === fullText.length ? 0 : 1 }}></span>
             </h1>
-            <p className={cn(
-              "mt-10 text-lg max-w-3xl mx-auto md:text-xl transition-opacity duration-1000 ease-in-out",
-              typedText.length === fullText.length ? "opacity-100" : "opacity-0"
+          </div>
+          <div className={cn(
+              "absolute bottom-10 z-20 flex flex-col items-center gap-2 transition-opacity duration-1000",
+              showScroll ? "opacity-100" : "opacity-0"
             )}>
-              From remote villages to global universities, KEF scholarships turn stories of struggle into stories of success.
-            </p>
-            <div className={cn(
-                "mt-12 flex flex-wrap justify-center gap-4 transition-opacity duration-1000 ease-in-out delay-500",
-                typedText.length === fullText.length ? "opacity-100" : "opacity-0"
-            )}>
-              <Button asChild size="lg" className="animate-pulse">
-                <Link href="/journey">Begin a Student’s Journey</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/impact">See the Impact</Link>
-              </Button>
-            </div>
+              <span className="text-sm font-medium">Scroll to Begin</span>
+              <ChevronDown className="h-8 w-8 animate-bounce-slow" />
           </div>
         </section>
 
         {/* The Problem Section */}
         <section className="py-16 md:py-24 bg-card">
-          <div className="container mx-auto px-4 md:px-6 text-center">
+          <div className="container mx-auto px-4 md:px-6 text-center animate-in">
             <h2 className="text-3xl font-bold text-destructive">
               Without Support, Dreams Fade Away.
             </h2>
@@ -88,7 +76,7 @@ export default function Home() {
 
         {/* The KEF Solution Section */}
         <section className="py-16 md:py-24 bg-background">
-          <div className="container mx-auto px-4 md:px-6 text-center">
+          <div className="container mx-auto px-4 md:px-6 text-center animate-in">
             <h2 className="text-3xl font-bold text-primary">
               A Scholarship is More Than Just School Fees.
             </h2>
@@ -127,7 +115,7 @@ export default function Home() {
 
         {/* Real Stories Section */}
         <section className="py-16 md:py-24 bg-card">
-          <div className="container mx-auto px-4 md:px-6 text-center">
+          <div className="container mx-auto px-4 md:px-6 text-center animate-in">
             <h2 className="text-3xl font-bold text-primary">Meet the Scholars Behind the Numbers</h2>
             <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Card>
@@ -167,7 +155,7 @@ export default function Home() {
         </section>
 
         {/* The Ripple Effect Section */}
-        <section className="py-16 md:py-24 bg-background text-center">
+        <section className="py-16 md:py-24 bg-background text-center animate-in">
           <div className="container mx-auto px-4 md:px-6">
             <HeartHandshake className="h-16 w-16 text-primary mx-auto" />
             <h2 className="text-3xl font-bold text-primary mt-4">One Scholarship. Endless Ripples.</h2>
@@ -182,10 +170,10 @@ export default function Home() {
         
         {/* Closing CTA */}
         <section className="py-20 bg-card">
-          <div className="container mx-auto px-4 md:px-6 text-center">
+          <div className="container mx-auto px-4 md:px-6 text-center animate-in">
             <h2 className="text-4xl font-bold">You Can Be Part of This Story.</h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="animate-pulse">
                 <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank">
                   <HeartHandshake />Sponsor a Student
                 </Link>
