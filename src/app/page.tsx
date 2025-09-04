@@ -64,23 +64,23 @@ export default function Home() {
               Without Support, Dreams Fade Away.
             </h2>
             <div className="mt-8 grid md:grid-cols-2 gap-8 items-center">
-              <div className="text-left p-6 rounded-lg bg-background">
-                <h3 className="font-headline text-2xl font-semibold text-foreground">Without KEF</h3>
+              <div className="text-left p-6 rounded-lg bg-background shadow-inner">
+                <h3 className="font-headline text-2xl font-semibold text-foreground">Without KEF, a student's story often ends here...</h3>
                 <p className="mt-4 text-muted-foreground">
-                  3.5M+ children in Kenya are out of school. Girls face child marriage and early pregnancy, while boys risk child labor and crime. Their potential is lost to a cycle of poverty.
+                  For many of the 3.5 million children out of school in Kenya, the path is full of obstacles. Girls are at risk of early marriage, while boys face the harsh reality of child labor. Their potential is lost to a cycle of poverty.
                 </p>
-                <p className="mt-4 font-semibold text-destructive">Out of school. At risk. Forgotten.</p>
+                <p className="mt-4 font-semibold text-destructive">Out of school. At risk. A dream forgotten.</p>
               </div>
-              <div className="text-left p-6 rounded-lg bg-primary text-primary-foreground">
-                <h3 className="font-headline text-2xl font-semibold">With KEF</h3>
+              <div className="text-left p-6 rounded-lg bg-primary text-primary-foreground shadow-lg">
+                <h3 className="font-headline text-2xl font-semibold">With KEF, their story can have a new beginning.</h3>
                 <p className="mt-4 opacity-90">
-                  KEF provides scholarships, mentorship, and resources, giving students a safe environment to learn and thrive. They are empowered to complete their education and build a future.
+                  KEF provides scholarships, mentorship, and a safe place to learn. We step in to ensure that a lack of resources doesn't mean a lack of a future. Students are empowered to finish their education and rewrite their destinies.
                 </p>
-                <p className="mt-4 font-semibold">Back in school. Safe. Thriving.</p>
+                <p className="mt-4 font-semibold">Back in school. Safe. A dream rediscovered.</p>
               </div>
             </div>
-            <p className="mt-8 text-xl font-semibold">
-              ✨ But one scholarship can change everything.
+            <p className="mt-8 text-xl font-semibold text-foreground">
+              One scholarship can change the entire story.
             </p>
           </div>
         </section>
@@ -92,23 +92,23 @@ export default function Home() {
               Education is Just the Beginning.
             </h2>
             <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
-              <div className="flex flex-col items-center p-4">
+              <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <BookOpen className="h-10 w-10 text-primary" />
                 <p className="mt-2 font-semibold">School Fees & Books</p>
               </div>
-              <div className="flex flex-col items-center p-4">
+              <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <Droplets className="h-10 w-10 text-primary" />
                 <p className="mt-2 font-semibold">Sanitary Pads</p>
               </div>
-              <div className="flex flex-col items-center p-4">
+              <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <Users className="h-10 w-10 text-primary" />
                 <p className="mt-2 font-semibold">Mentorship</p>
               </div>
-              <div className="flex flex-col items-center p-4">
+              <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <Milestone className="h-10 w-10 text-primary" />
                 <p className="mt-2 font-semibold">Bridge Program</p>
               </div>
-              <div className="flex flex-col items-center p-4">
+              <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <GraduationCap className="h-10 w-10 text-primary" />
                 <p className="mt-2 font-semibold">University Transition</p>
               </div>
@@ -130,7 +130,7 @@ export default function Home() {
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-3xl font-bold text-primary">Meet the Scholars Behind the Numbers</h2>
             <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card>
+              <Card className="transform hover:scale-105 transition-transform duration-300">
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=1" alt="James" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
                 </CardHeader>
@@ -139,7 +139,7 @@ export default function Home() {
                   <p className="text-muted-foreground mt-2">“From herding goats in Turkana to studying Computer Science in the USA.”</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="transform hover:scale-105 transition-transform duration-300">
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=2" alt="Mary" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student smiling" />
                 </CardHeader>
@@ -148,7 +148,7 @@ export default function Home() {
                   <p className="text-muted-foreground mt-2">“Escaped child marriage, now mentors 50+ young girls.”</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="transform hover:scale-105 transition-transform duration-300">
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=3" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="graduate portrait" />
                 </CardHeader>
@@ -159,7 +159,7 @@ export default function Home() {
               </Card>
             </div>
              <div className="mt-8">
-                <Button asChild size="lg" variant="link" className="text-primary">
+                <Button asChild size="lg" variant="link" className="text-primary text-lg">
                     <Link href="/stories">Read More Success Stories →</Link>
                 </Button>
             </div>
@@ -200,3 +200,5 @@ export default function Home() {
     </>
   );
 }
+
+    
