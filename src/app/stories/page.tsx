@@ -1,186 +1,191 @@
 
+'use client';
+
+import { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GraduationCap, School, Users, HeartHandshake, ArrowRight } from 'lucide-react';
+import { GraduationCap, School, Users, HeartHandshake, Filter } from 'lucide-react';
+import { alumniData, Alumni } from '@/lib/alumni-data';
+import { cn } from '@/lib/utils';
+
+const regions = ['All', 'Rift Valley', 'Nyanza', 'Coast', 'Western', 'Eastern', 'Central'];
+const careerFields = ['All', 'Technology', 'Healthcare', 'Engineering', 'Education', 'Business'];
+const STORIES_PER_PAGE = 8;
 
 export default function StoriesPage() {
+  const [filters, setFilters] = useState({ region: 'All', careerField: 'All' });
+  const [visibleCount, setVisibleCount] = useState(STORIES_PER_PAGE);
+
+  const filteredAlumni = useMemo(() => {
+    return alumniData.filter(alumni => {
+      const regionMatch = filters.region === 'All' || alumni.region === filters.region;
+      const careerMatch = filters.careerField === 'All' || alumni.careerField === filters.careerField;
+      return regionMatch && careerMatch;
+    });
+  }, [filters]);
+
+  const handleFilterChange = (type: 'region' | 'careerField', value: string) => {
+    setFilters(prev => ({ ...prev, [type]: value }));
+    setVisibleCount(STORIES_PER_PAGE); // Reset visible count on new filter
+  };
+
+  const loadMore = () => {
+    setVisibleCount(prev => prev + STORIES_PER_PAGE);
+  };
+  
+  const currentAlumni = filteredAlumni.slice(0, visibleCount);
+
   return (
     <>
-        {/* Hero Section */}
-        <section className="relative py-32 md:py-48 flex items-center justify-center text-center">
-          <div className="absolute inset-0 bg-black/50 z-10"></div>
-          <Image
-            src="https://picsum.photos/1600/800?random=10"
-            alt="Collage of student faces"
-            fill
-            className="object-cover"
-            data-ai-hint="diverse students smiling"
-          />
-          <div className="relative z-20 container mx-auto px-4 md:px-6 text-white">
-            <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
-              Behind Every Scholarship is a Story.
-            </h1>
-            <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.7)' }}>
-              From dusty roads in rural Kenya to world-class universities, KEF students carry stories of resilience, hope, and transformation.
+      {/* Hero Section */}
+      <section className="relative py-32 md:py-48 flex items-center justify-center text-center">
+        <div className="absolute inset-0 bg-black/50 z-10"></div>
+        <Image
+          src="https://picsum.photos/1600/800?random=10"
+          alt="Collage of student faces"
+          fill
+          className="object-cover"
+          data-ai-hint="diverse students smiling"
+        />
+        <div className="relative z-20 container mx-auto px-4 md:px-6 text-white">
+          <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
+            Behind Every Scholarship is a Story.
+          </h1>
+          <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.7)' }}>
+            From dusty roads in rural Kenya to world-class universities, KEF students carry stories of resilience, hope, and transformation.
+          </p>
+        </div>
+      </section>
+
+      {/* Alumni Stories Section */}
+      <section className="py-16 md:py-24 bg-background">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-3xl font-bold text-primary">Explore Our Alumni Journeys</h2>
+            <p className="mt-2 text-lg text-muted-foreground max-w-2xl mx-auto">
+              Filter by region or career to discover the diverse paths our scholars have taken. Each story is a testament to the power of your support.
             </p>
           </div>
-        </section>
 
-        {/* Featured Story Section - James */}
-        <section className="py-16 md:py-24 bg-card">
-          <div className="container mx-auto px-4 md:px-6">
-            <Card className="grid md:grid-cols-2 overflow-hidden shadow-2xl">
-              <CardContent className="p-8 md:p-12 flex flex-col justify-center">
-                <h2 className="font-headline text-3xl font-bold text-primary">James: From Herding Goats to Coding in the USA</h2>
-                <p className="mt-4 text-muted-foreground text-lg">
-                  “I used to walk miles to fetch water for my family, dreaming of a classroom I could never reach. Today, I write code in a university computer lab in the USA. This is what KEF made possible.” – James
-                </p>
-                <p className="mt-6 text-foreground">
-                  James grew up in Turkana, one of Kenya’s most arid regions. Most days, he walked miles to fetch water and helped herd goats, a common chore for children in his village. Education felt like a distant dream — his parents could not afford school fees, books, or even a uniform. At 14 years old, James was on the verge of dropping out completely. That’s when the Kenya Education Fund (KEF) stepped in.
-                </p>
-                 <p className="mt-4 text-foreground font-semibold">
-                   With KEF’s support, James not only excelled academically but also discovered a passion for technology. Today, he is studying Computer Science at a top university in the USA and giving back by mentoring other KEF students online.
-                </p>
-                <Button asChild size="lg" className="mt-8 w-fit">
-                  <Link href="#">Read James' Full Journey <ArrowRight className="ml-2" /></Link>
-                </Button>
-              </CardContent>
-              <div className="relative min-h-[300px] md:min-h-[500px] w-full">
-                <Image
-                  src="https://picsum.photos/600/800?random=4"
-                  alt="James smiling in a computer lab"
-                  fill
-                  className="object-cover"
-                  data-ai-hint="male student computer lab"
-                />
+          {/* Filtering UI */}
+          <Card className="p-6 mb-12 shadow-lg">
+            <div className="flex flex-col md:flex-row gap-8">
+              <div className="flex-1">
+                <h3 className="font-headline text-lg font-semibold mb-3 text-foreground">Filter by Region</h3>
+                <div className="flex flex-wrap gap-2">
+                  {regions.map(region => (
+                    <Button
+                      key={region}
+                      variant={filters.region === region ? 'default' : 'outline'}
+                      onClick={() => handleFilterChange('region', region)}
+                      className="transition-all"
+                    >
+                      {region}
+                    </Button>
+                  ))}
+                </div>
               </div>
-            </Card>
-          </div>
-        </section>
-
-        {/* Featured Story Section - Mary */}
-        <section className="py-16 md:py-24 bg-background">
-          <div className="container mx-auto px-4 md:px-6">
-            <Card className="grid md:grid-cols-2 overflow-hidden shadow-2xl">
-              <div className="relative min-h-[300px] md:min-h-[500px] w-full order-last md:order-first">
-                <Image
-                  src="https://picsum.photos/600/800?random=5"
-                  alt="Mary in a lab coat"
-                  fill
-                  className="object-cover"
-                  data-ai-hint="female student medical"
-                />
-              </div>
-              <CardContent className="p-8 md:p-12 flex flex-col justify-center">
-                <h2 className="font-headline text-3xl font-bold text-primary">Mary: From Early Marriage Risk to Medical School</h2>
-                <p className="mt-4 text-muted-foreground text-lg">
-                 “At 15, my community wanted me to marry. KEF gave me another choice — the chance to stay in school. Now, I am training to be a doctor.” – Mary
-                </p>
-                <p className="mt-6 text-foreground">
-                  Mary grew up in Kajiado County, where many girls face the pressure of early marriage and FGM. Her parents loved her deeply but lacked the resources to pay school fees, and cultural traditions meant she was at risk of leaving school forever. Just before she was forced to drop out, Mary’s life changed when she received a KEF scholarship.
-                </p>
-                 <p className="mt-4 text-foreground font-semibold">
-                  With KEF's support, Mary thrived. She became a top performer in her high school, and today is studying Medicine at the University of Nairobi, inspired to serve underserved communities.
-                </p>
-                <Button asChild size="lg" className="mt-8 w-fit">
-                  <Link href="#">Read Mary's Full Journey <ArrowRight className="ml-2" /></Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Swipeable Story Cards Section */}
-        <section className="py-16 md:py-24 bg-card">
-          <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="font-headline text-3xl font-bold text-primary">More Journeys of Hope</h2>
-            <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <Card className="text-left">
-                <CardHeader className="p-0">
-                  <Image src="https://picsum.photos/400/300?random=6" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="male engineer outdoors" />
-                </CardHeader>
-                <CardContent className="p-6">
-                  <CardTitle className="font-headline">Peter</CardTitle>
-                  <p className="text-muted-foreground mt-2">He was the first in his village to finish high school. Today, he’s an engineer building bridges and funding two new KEF scholarships himself.</p>
-                </CardContent>
-              </Card>
-              <Card className="text-left">
-                <CardHeader className="p-0">
-                  <Image src="https://picsum.photos/400/300?random=7" alt="Aisha" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="female doctor hospital" />
-                </CardHeader>
-                <CardContent className="p-6">
-                  <CardTitle className="font-headline">Aisha</CardTitle>
-                  <p className="text-muted-foreground mt-2">After losing her parents, she had to drop out. KEF brought her back. Today, she's a nurse saving lives in her local clinic.</p>
-                </CardContent>
-              </Card>
-              <Card className="text-left">
-                <CardHeader className="p-0">
-                  <Image src="https://picsum.photos/400/300?random=8" alt="Kevin" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="male leader speaking" />
-                </CardHeader>
-                <CardContent className="p-6">
-                  <CardTitle className="font-headline">Kevin</CardTitle>
-                  <p className="text-muted-foreground mt-2">He nearly gave up due to family hardship. Now, he’s a community leader and a KEF mentor for over 30 students.</p>
-                </CardContent>
-              </Card>
-               <Card className="text-left">
-                <CardHeader className="p-0">
-                  <Image src="https://picsum.photos/400/300?random=9" alt="Grace" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student writing" />
-                </CardHeader>
-                <CardContent className="p-6">
-                  <CardTitle className="font-headline">Grace</CardTitle>
-                  <p className="text-muted-foreground mt-2">She saw injustice in her village. Today, she's studying law to fight for the rights of girls who have no voice.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Impact Stats Section */}
-        <section className="py-16 md:py-24 bg-background">
-          <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="font-headline text-3xl font-bold text-primary">Behind the Numbers are Real Lives Changed</h2>
-            <div className="mt-12 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
-                <GraduationCap className="h-12 w-12 text-primary" />
-                <p className="font-headline text-3xl md:text-4xl font-bold mt-2">4,600+</p>
-                <p className="text-sm uppercase tracking-wider text-muted-foreground">Scholarships Awarded</p>
-              </div>
-              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
-                <School className="h-12 w-12 text-primary" />
-                <p className="font-headline text-3xl md:text-4xl font-bold mt-2">153</p>
-                <p className="text-sm uppercase tracking-wider text-muted-foreground">Partner Schools</p>
-              </div>
-              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
-                <Users className="h-12 w-12 text-primary" />
-                <p className="font-headline text-3xl md:text-4xl font-bold mt-2">99%</p>
-                <p className="text-sm uppercase tracking-wider text-muted-foreground">University Transition</p>
-              </div>
-              <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
-                <HeartHandshake className="h-12 w-12 text-primary" />
-                <p className="font-headline text-3xl md:text-4xl font-bold mt-2">3,172</p>
-                <p className="text-sm uppercase tracking-wider text-muted-foreground">Graduates</p>
+              <div className="flex-1">
+                <h3 className="font-headline text-lg font-semibold mb-3 text-foreground">Filter by Career Field</h3>
+                <div className="flex flex-wrap gap-2">
+                  {careerFields.map(field => (
+                    <Button
+                      key={field}
+                      variant={filters.careerField === field ? 'default' : 'outline'}
+                      onClick={() => handleFilterChange('careerField', field)}
+                      className="transition-all"
+                    >
+                      {field}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-        
-        {/* Closing CTA */}
-        <section className="py-20 bg-gradient-to-r from-primary to-secondary text-primary-foreground">
-          <div className="container mx-auto px-4 md:px-6 text-center">
-            <h2 className="font-headline text-4xl font-bold">These are not just their stories. They can be ours, too.</h2>
-            <p className="mt-4 max-w-2xl mx-auto">Your action today can write the next success story.</p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button asChild size="lg" variant="secondary">
-                <Link href="#">🙋 Sponsor a Student</Link>
-              </Button>
-               <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                <Link href="#">📢 Share a Story</Link>
+          </Card>
+          
+          {/* Stories Grid */}
+          {currentAlumni.length > 0 ? (
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {currentAlumni.map(alumni => (
+                <Card key={alumni.name} className="text-left transform hover:scale-105 transition-transform duration-300 flex flex-col">
+                  <CardHeader className="p-0">
+                    <Image src={alumni.image} alt={alumni.alt} width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
+                  </CardHeader>
+                  <CardContent className="p-6 flex flex-col flex-grow">
+                    <CardTitle className="font-headline">{alumni.name}</CardTitle>
+                    <p className="text-muted-foreground mt-2 text-sm flex-grow">{alumni.story}</p>
+                    <div className="flex flex-wrap gap-2 mt-4">
+                        <span className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-full">{alumni.region}</span>
+                        <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">{alumni.careerField}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">No stories match your current filters.</p>
+            </div>
+          )}
+
+
+          {/* Load More Button */}
+          {visibleCount < filteredAlumni.length && (
+            <div className="text-center mt-12">
+              <Button onClick={loadMore} size="lg">
+                Load More Stories
               </Button>
             </div>
+          )}
+        </div>
+      </section>
+
+      {/* Impact Stats Section */}
+      <section className="py-16 md:py-24 bg-card">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="font-headline text-3xl font-bold text-primary">Behind the Numbers are Real Lives Changed</h2>
+          <div className="mt-12 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+              <GraduationCap className="h-12 w-12 text-primary" />
+              <p className="font-headline text-3xl md:text-4xl font-bold mt-2">4,600+</p>
+              <p className="text-sm uppercase tracking-wider text-muted-foreground">Scholarships Awarded</p>
+            </div>
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+              <School className="h-12 w-12 text-primary" />
+              <p className="font-headline text-3xl md:text-4xl font-bold mt-2">153</p>
+              <p className="text-sm uppercase tracking-wider text-muted-foreground">Partner Schools</p>
+            </div>
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+              <Users className="h-12 w-12 text-primary" />
+              <p className="font-headline text-3xl md:text-4xl font-bold mt-2">99%</p>
+              <p className="text-sm uppercase tracking-wider text-muted-foreground">University Transition</p>
+            </div>
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+              <HeartHandshake className="h-12 w-12 text-primary" />
+              <p className="font-headline text-3xl md:text-4xl font-bold mt-2">3,172</p>
+              <p className="text-sm uppercase tracking-wider text-muted-foreground">Graduates</p>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <section className="py-20 bg-gradient-to-r from-primary to-secondary text-primary-foreground">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="font-headline text-4xl font-bold">These are not just their stories. They can be ours, too.</h2>
+          <p className="mt-4 max-w-2xl mx-auto">Your action today can write the next success story.</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <Button asChild size="lg" variant="secondary">
+              <Link href="#">🙋 Sponsor a Student</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Link href="#">📢 Share a Story</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
