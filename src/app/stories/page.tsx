@@ -167,7 +167,7 @@ export default function StoriesPage() {
         </section>
         
         {/* Closing CTA */}
-        <section className="py-20 bg-primary text-primary-foreground">
+        <section className="py-20 bg-gradient-to-r from-primary to-secondary text-primary-foreground">
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-4xl font-bold">These are not just their stories. They can be ours, too.</h2>
             <p className="mt-4 max-w-2xl mx-auto">Your action today can write the next success story.</p>

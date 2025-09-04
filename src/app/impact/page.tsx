@@ -10,7 +10,7 @@ export default function ImpactPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-24 md:py-32 flex items-center justify-center text-center bg-primary text-primary-foreground">
+      <section className="py-24 md:py-32 flex items-center justify-center text-center bg-gradient-to-r from-primary to-secondary text-primary-foreground">
         <div className="container mx-auto px-4 md:px-6">
           <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.3)' }}>
             From One Scholarship to Thousands of Changed Lives.
@@ -173,7 +173,7 @@ export default function ImpactPage() {
       </section>
 
       {/* Join the Community CTA */}
-      <section className="py-20 bg-primary text-primary-foreground">
+      <section className="py-20 bg-gradient-to-r from-primary to-secondary text-primary-foreground">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="font-headline text-4xl font-bold">Join the KEF Community</h2>
           <p className="mt-4 max-w-2xl mx-auto">You don't have to be a big donor to make a big difference.</p>

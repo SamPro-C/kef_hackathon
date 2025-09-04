@@ -182,7 +182,7 @@ export default function Home() {
         </section>
         
         {/* Closing CTA */}
-        <section className="py-20 bg-primary text-primary-foreground">
+        <section className="py-20 bg-gradient-to-r from-primary to-secondary text-primary-foreground">
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-4xl font-bold">You Can Be Part of This Story.</h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">

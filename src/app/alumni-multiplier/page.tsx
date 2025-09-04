@@ -73,7 +73,7 @@ export default function AlumniMultiplierPage() {
 
   return (
     <>
-      <section className="py-24 md:py-32 flex items-center justify-center text-center bg-primary text-primary-foreground">
+      <section className="py-24 md:py-32 flex items-center justify-center text-center bg-gradient-to-r from-primary to-secondary text-primary-foreground">
         <div className="container mx-auto px-4 md:px-6">
           <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.3)' }}>
             The KEF Alumni Multiplier
