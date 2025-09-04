@@ -115,7 +115,7 @@ export default function ImpactPage() {
                     
                     {/* Pulsing Dots */}
                     <circle cx="380" cy="400" r="5" fill="hsl(var(--primary))">
-                        <animate attributeName="r" from="5" to="15" dur="1.5s" begin="0s" repeatCount="indefinite"/>
+                        <animate attributeName="r" from="5" to="15" dur="1.s" begin="0s" repeatCount="indefinite"/>
                         <animate attributeName="opacity" from="1" to="0" dur="1.5s" begin="0s" repeatCount="indefinite"/>
                     </circle>
                      <circle cx="280" cy="200" r="5" fill="hsl(var(--primary))">
