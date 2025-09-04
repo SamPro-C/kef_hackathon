@@ -6,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2, Wand2, Heart, BookOpen, Shirt, ShoppingCart } from 'lucide-react';
-import { generateLetter, LetterRequest } from '@/ai/flows/generate-letter';
+import { generateLetter } from '@/ai/flows/generate-letter';
+import { LetterRequest } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 

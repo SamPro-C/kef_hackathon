@@ -4,19 +4,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
-
-export const LetterRequestSchema = z.object({
-  name: z.string().describe('The first name of the fictional student.'),
-  county: z.string().describe("The student's home county in Kenya."),
-  career: z.string().describe('The career the student aspires to.'),
-});
-export type LetterRequest = z.infer<typeof LetterRequestSchema>;
-
-export const LetterResponseSchema = z.object({
-    letter: z.string().describe("The generated letter from the student's perspective. It should be 3-4 paragraphs long, written in a hopeful and personal tone. It should mention the student's name, their background in the specified county, their dream of pursuing the specified career, and how a KEF scholarship is their only hope to achieve this dream."),
-});
-export type LetterResponse = z.infer<typeof LetterResponseSchema>;
+import { LetterRequest, LetterRequestSchema, LetterResponse, LetterResponseSchema } from '@/lib/types';
 
 
 export async function generateLetter(input: LetterRequest): Promise<LetterResponse> {
