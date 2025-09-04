@@ -13,12 +13,29 @@ const navItems = [
   { href: '/journey', label: 'The Journey' },
   { href: '/stories', label: 'Stories' },
   { href: '/impact', label: 'Impact' },
-  { href: '/sponsor', label: 'Sponsor' },
+  { href: 'https://www.kenyaeducationfund.org/sponsor-a-student', label: 'Sponsor', isExternal: true },
 ];
 
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  const renderLink = (item: (typeof navItems)[0], isMobile = false) => {
+    const linkProps = {
+      key: item.href,
+      href: item.href,
+      target: item.isExternal ? '_blank' : undefined,
+      rel: item.isExternal ? 'noopener noreferrer' : undefined,
+      className: cn(
+        'transition-colors hover:text-primary font-medium',
+        isMobile
+          ? pathname === item.href ? 'text-foreground' : 'text-muted-foreground'
+          : pathname === item.href ? 'text-primary' : 'text-foreground/60'
+      ),
+      onClick: () => isMobile && setIsOpen(false),
+    };
+    return <Link {...linkProps}>{item.label}</Link>;
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -29,23 +46,12 @@ export default function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'transition-colors hover:text-primary font-medium',
-                pathname === item.href ? 'text-primary' : 'text-foreground/60'
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => renderLink(item))}
         </nav>
 
         <div className="flex items-center gap-4">
             <Button asChild className="hidden sm:flex">
-                <Link href="/sponsor">Sponsor a Student</Link>
+                <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank">Sponsor a Student</Link>
             </Button>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
@@ -63,22 +69,10 @@ export default function Header() {
                           <BookHeart className="h-6 w-6 text-primary" />
                           <span>KEF Journey</span>
                       </Link>
-                      {navItems.map((item) => (
-                          <Link
-                              key={item.href}
-                              href={item.href}
-                              onClick={() => setIsOpen(false)}
-                              className={cn(
-                                  'hover:text-primary transition-colors',
-                                  pathname === item.href ? 'text-foreground' : 'text-muted-foreground'
-                              )}
-                          >
-                              {item.label}
-                          </Link>
-                      ))}
+                      {navItems.map((item) => renderLink(item, true))}
                   </nav>
                   <Button asChild className="absolute bottom-8 left-6 right-6">
-                      <Link href="/sponsor" onClick={() => setIsOpen(false)}>Sponsor a Student</Link>
+                      <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank" onClick={() => setIsOpen(false)}>Sponsor a Student</Link>
                   </Button>
                 </SheetContent>
             </Sheet>

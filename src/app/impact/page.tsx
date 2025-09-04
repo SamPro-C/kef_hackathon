@@ -208,7 +208,7 @@ export default function ImpactPage() {
           <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">You don't have to be a big donor to make a big difference.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg">
-              <Link href="/sponsor"><HeartHandshake />Sponsor a Student</Link>
+              <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank"><HeartHandshake />Sponsor a Student</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link href="https://www.kenyaeducationfund.org/get-involved" target="_blank"><UserPlus /> Become a Mentor</Link>

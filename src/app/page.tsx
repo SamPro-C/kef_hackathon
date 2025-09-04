@@ -186,10 +186,10 @@ export default function Home() {
             <h2 className="font-headline text-4xl font-bold">You Can Be Part of This Story.</h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button asChild size="lg">
-                <Link href="/sponsor"><HeartHandshake />Sponsor a Student</Link>
+                <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank"><HeartHandshake />Sponsor a Student</Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link href="/sponsor"><Mail />Read a Letter of Hope</Link>
+                <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank"><Mail />Read a Letter of Hope</Link>
               </Button>
                <Button asChild size="lg" variant="outline">
                 <Link href="https://www.kenyaeducationfund.org/get-involved" target="_blank"><Share2 />Share the KEF Story</Link>
