@@ -1,22 +1,13 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GraduationCap, BookOpen, Users, ChevronDown, HeartHandshake } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { GraduationCap, BookOpen, Users, HeartHandshake } from 'lucide-react';
 
 export default function Home() {
-  const [showScroll, setShowScroll] = useState(false);
-
-  useEffect(() => {
-    // Show scroll indicator after a short delay
-    const timer = setTimeout(() => setShowScroll(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <>
@@ -38,13 +29,6 @@ export default function Home() {
           <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl text-white/90" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.7)' }}>
             From remote villages to global universities, KEF scholarships turn stories of struggle into stories of hope.
           </p>
-        </div>
-        <div className={cn(
-            "absolute bottom-10 z-20 flex flex-col items-center gap-2 transition-opacity duration-1000",
-            showScroll ? "opacity-100" : "opacity-0"
-          )}>
-            <span className="text-sm font-medium">Scroll to Begin</span>
-            <ChevronDown className="h-8 w-8 animate-bounce-slow" />
         </div>
       </section>
 
