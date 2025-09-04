@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --background: 28 100% 97%; /* Light cream */
+    --foreground: 20 14% 4%;
+    --card: 30 86% 96%;
+    --card-foreground: 20 14% 4%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
     --primary: 25 95% 53%; /* Orange */
     --primary-foreground: 0 0% 100%;
     --secondary: 38 92% 50%; /* Gold */
     --secondary-foreground: 240 10% 3.9%;
-    --muted: 240 4.8% 95.9%;
+    --muted: 30 40% 94%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
+    --accent: 30 90% 90%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%; /* Red */
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
+    --border: 25 80% 85%;
+    --input: 25 80% 90%;
+    --ring: 25 95% 53%;
     --radius: 0.8rem;
 
     --chart-1: hsl(var(--primary));
@@ -61,7 +61,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image: radial-gradient(circle at top, hsl(var(--background)), hsl(240, 10%, 2%));
+    background-image: linear-gradient(to top, hsl(30, 86%, 96%), hsl(28, 100%, 97%));
     font-family: var(--font-body);
   }
   h1, h2, h3, h4, h5, h6 {

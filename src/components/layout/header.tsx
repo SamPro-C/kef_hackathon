@@ -13,7 +13,6 @@ const navItems = [
   { href: '/journey', label: 'The Journey' },
   { href: '/stories', label: 'Stories' },
   { href: '/impact', label: 'Impact' },
-  { href: 'https://www.kenyaeducationfund.org/sponsor-a-student', label: 'Sponsor', isExternal: true },
 ];
 
 export default function Header() {
@@ -24,12 +23,10 @@ export default function Header() {
     const linkProps = {
       key: item.href,
       href: item.href,
-      target: item.isExternal ? '_blank' : undefined,
-      rel: item.isExternal ? 'noopener noreferrer' : undefined,
       className: cn(
         'transition-colors hover:text-primary font-medium',
         isMobile
-          ? pathname === item.href ? 'text-foreground' : 'text-muted-foreground'
+          ? pathname === item.href ? 'text-primary' : 'text-muted-foreground'
           : pathname === item.href ? 'text-primary' : 'text-foreground/80'
       ),
       onClick: () => isMobile && setIsOpen(false),
