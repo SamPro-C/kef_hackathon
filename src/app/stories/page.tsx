@@ -70,7 +70,7 @@ export default function StoriesPage() {
           </div>
 
           {/* Filtering UI */}
-          <Card className="p-6 mb-12 shadow-lg">
+          <Card className="p-6 mb-12">
             <div className="flex flex-col md:flex-row gap-8">
               <div className="flex-1">
                 <h3 className="font-headline text-lg font-semibold mb-3 text-foreground">Filter by Region</h3>
@@ -111,7 +111,7 @@ export default function StoriesPage() {
               {currentAlumni.map((alumni, index) => (
                 <Card 
                   key={alumni.name} 
-                  className="text-left transform hover:scale-105 transition-transform duration-300 flex flex-col animate-card-in"
+                  className="text-left transform hover:-translate-y-2 transition-transform duration-300 flex flex-col animate-card-in"
                   style={{ animationDelay: `${(index % STORIES_PER_PAGE) * 100}ms`}}
                 >
                   <CardHeader className="p-0">
@@ -122,7 +122,7 @@ export default function StoriesPage() {
                     <p className="text-muted-foreground mt-2 text-sm flex-grow">{alumni.story}</p>
                     <div className="flex flex-wrap gap-2 mt-4">
                         <span className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-full">{alumni.region}</span>
-                        <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">{alumni.careerField}</span>
+                        <span className="text-xs bg-primary/20 text-primary-foreground px-2 py-1 rounded-full">{alumni.careerField}</span>
                     </div>
                   </CardContent>
                   <CardFooter>
@@ -156,22 +156,22 @@ export default function StoriesPage() {
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="font-headline text-3xl font-bold text-primary">Behind the Numbers are Real Lives Changed</h2>
           <div className="mt-12 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background/50 transition-colors cursor-pointer">
               <GraduationCap className="h-12 w-12 text-primary" />
               <p className="font-headline text-3xl md:text-4xl font-bold mt-2">4,600+</p>
               <p className="text-sm uppercase tracking-wider text-muted-foreground">Scholarships Awarded</p>
             </div>
-            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background/50 transition-colors cursor-pointer">
               <School className="h-12 w-12 text-primary" />
               <p className="font-headline text-3xl md:text-4xl font-bold mt-2">153</p>
               <p className="text-sm uppercase tracking-wider text-muted-foreground">Partner Schools</p>
             </div>
-            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background/50 transition-colors cursor-pointer">
               <Users className="h-12 w-12 text-primary" />
               <p className="font-headline text-3xl md:text-4xl font-bold mt-2">99%</p>
               <p className="text-sm uppercase tracking-wider text-muted-foreground">University Transition</p>
             </div>
-            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background transition-colors cursor-pointer">
+            <div className="flex flex-col items-center p-4 rounded-lg hover:bg-background/50 transition-colors cursor-pointer">
               <HeartHandshake className="h-12 w-12 text-primary" />
               <p className="font-headline text-3xl md:text-4xl font-bold mt-2">3,172</p>
               <p className="text-sm uppercase tracking-wider text-muted-foreground">Graduates</p>
@@ -181,15 +181,15 @@ export default function StoriesPage() {
       </section>
 
       {/* Closing CTA */}
-      <section className="py-20 bg-gradient-to-r from-primary to-secondary text-primary-foreground">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-6 text-center">
-          <h2 className="font-headline text-4xl font-bold">These are not just their stories. They can be ours, too.</h2>
-          <p className="mt-4 max-w-2xl mx-auto">Your action today can write the next success story.</p>
+          <h2 className="font-headline text-4xl font-bold text-foreground">These are not just their stories. They can be ours, too.</h2>
+          <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">Your action today can write the next success story.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" variant="secondary">
+            <Button asChild size="lg">
               <Link href="#">🙋 Sponsor a Student</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
+            <Button asChild size="lg" variant="outline">
               <Link href="#">📢 Share a Story</Link>
             </Button>
           </div>

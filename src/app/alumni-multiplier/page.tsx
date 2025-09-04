@@ -73,12 +73,12 @@ export default function AlumniMultiplierPage() {
 
   return (
     <>
-      <section className="py-24 md:py-32 flex items-center justify-center text-center bg-gradient-to-r from-primary to-secondary text-primary-foreground">
+      <section className="py-24 md:py-32 flex items-center justify-center text-center bg-card">
         <div className="container mx-auto px-4 md:px-6">
-          <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.3)' }}>
+          <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-foreground">
             The KEF Alumni Multiplier
           </h1>
-          <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl opacity-90">
+          <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl text-muted-foreground">
             Every scholarship creates a future. Select a county and a career, and watch our AI craft a story of a potential KEF scholar. This isn't just a story; it's a future you can help build.
           </p>
         </div>
@@ -86,7 +86,7 @@ export default function AlumniMultiplierPage() {
 
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
-          <Card className="max-w-2xl mx-auto shadow-2xl">
+          <Card className="max-w-2xl mx-auto">
             <CardHeader className="text-center">
               <CardTitle className="font-headline text-3xl text-primary">Generate a Future Success Story</CardTitle>
               <CardDescription>See the potential you can unlock.</CardDescription>
@@ -139,7 +139,7 @@ export default function AlumniMultiplierPage() {
             </CardContent>
             
             {story && !isLoading && (
-              <CardFooter className="flex flex-col gap-4 p-6 bg-muted border-t">
+              <CardFooter className="flex flex-col gap-4 p-6 bg-muted/50 border-t">
                   <div className="flex items-center gap-3 text-primary">
                     <Lightbulb className="h-8 w-8" />
                     <h3 className="font-headline text-2xl font-bold">A Glimpse into the Future...</h3>

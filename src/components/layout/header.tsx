@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -55,7 +54,7 @@ export default function Header() {
                     <span className="sr-only">Toggle navigation menu</span>
                 </Button>
                 </SheetTrigger>
-                <SheetContent side="left">
+                <SheetContent side="left" className="bg-background">
                   <SheetHeader>
                     <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                   </SheetHeader>

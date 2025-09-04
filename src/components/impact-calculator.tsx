@@ -53,7 +53,7 @@ export default function ImpactCalculator() {
   };
 
   return (
-    <Card className="max-w-3xl mx-auto mt-12 shadow-2xl border-2 border-primary/20 overflow-hidden bg-card">
+    <Card className="max-w-3xl mx-auto mt-12 overflow-hidden">
       <CardHeader className="text-center pt-8">
         <div className="text-6xl font-bold font-headline text-primary transition-all duration-300">
           ${displayedAmount}
@@ -75,10 +75,10 @@ export default function ImpactCalculator() {
                     <div 
                         key={level.label} 
                         className={cn(
-                            "flex flex-col items-center p-4 rounded-lg border-2 transition-all duration-300 transform",
+                            "flex flex-col items-center p-4 rounded-lg transition-all duration-300 transform",
                             isAchieved
-                                ? 'border-primary bg-primary/10 shadow-lg scale-105'
-                                : 'border-dashed border-muted'
+                                ? 'bg-card shadow-neumorphic-outset scale-105'
+                                : 'shadow-neumorphic-inset'
                         )}
                         style={{animation: isAchieved && achievedLevels.includes(level.amount) ? `pulse-once 0.5s ease-out` : 'none'}}
                     >
@@ -107,9 +107,9 @@ export default function ImpactCalculator() {
       </CardContent>
       <style jsx>{`
         @keyframes pulse-once {
-          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 111, 18, 0.4); }
-          50% { transform: scale(1.1); box-shadow: 0 0 10px 15px rgba(239, 111, 18, 0); }
-          100% { transform: scale(1.05); box-shadow: 0 0 0 0 rgba(239, 111, 18, 0); }
+          0% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1.05); }
         }
       `}</style>
     </Card>

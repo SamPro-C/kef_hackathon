@@ -51,7 +51,7 @@ export default function Home() {
               <Button asChild size="lg" className="animate-pulse">
                 <Link href="/journey">Begin a Student’s Journey</Link>
               </Button>
-              <Button asChild size="lg" variant="secondary">
+              <Button asChild size="lg" variant="outline">
                 <Link href="/impact">See the Impact</Link>
               </Button>
             </div>
@@ -65,14 +65,14 @@ export default function Home() {
               Without Support, Dreams Fade Away.
             </h2>
             <div className="mt-8 grid md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
-              <div className="text-left p-6 rounded-lg bg-background shadow-inner">
+              <div className="text-left p-6 rounded-lg bg-background shadow-neumorphic-inset">
                 <h3 className="font-headline text-2xl font-semibold text-foreground">Without KEF, a student's story often ends here...</h3>
                 <p className="mt-4 text-muted-foreground">
                   For many of the 3.5 million children out of secondary school in Kenya, the path is full of obstacles. Girls are at high risk of early marriage, while boys face the harsh reality of child labor. Their potential is lost to a cycle of poverty.
                 </p>
                 <p className="mt-4 font-semibold text-destructive">Out of school. At risk. A dream forgotten.</p>
               </div>
-              <div className="text-left p-6 rounded-lg bg-primary text-primary-foreground shadow-lg">
+              <div className="text-left p-6 rounded-lg bg-primary text-primary-foreground shadow-neumorphic-outset-sm">
                 <h3 className="font-headline text-2xl font-semibold">With KEF, their story can have a new beginning.</h3>
                 <p className="mt-4 opacity-90">
                   KEF provides scholarships, mentorship, and a safe place to learn. We step in to ensure that a lack of resources doesn't mean a lack of a future. Students are empowered to finish their education and rewrite their destinies.
@@ -114,7 +114,7 @@ export default function Home() {
                 <p className="mt-2 font-semibold">University Transition</p>              </div>
             </div>
             <div className="mt-12">
-              <Card className="max-w-2xl mx-auto bg-secondary text-secondary-foreground border-secondary shadow-lg">
+              <Card className="max-w-2xl mx-auto bg-card text-foreground border-none">
                 <CardContent className="p-6 text-center">
                   <p className="text-lg font-semibold">
                     “While only 20% of students nationally reach university, 99% of KEF students make it.”
@@ -130,7 +130,7 @@ export default function Home() {
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-3xl font-bold text-primary">Meet the Scholars Behind the Numbers</h2>
             <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card className="transform hover:scale-105 transition-transform duration-300">
+              <Card className="transform hover:-translate-y-2 transition-transform duration-300">
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=1" alt="James" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
                 </CardHeader>
@@ -139,7 +139,7 @@ export default function Home() {
                   <p className="text-muted-foreground mt-2">“From herding goats in Turkana to studying Computer Science in the USA.”</p>
                 </CardContent>
               </Card>
-              <Card className="transform hover:scale-105 transition-transform duration-300">
+              <Card className="transform hover:-translate-y-2 transition-transform duration-300">
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=2" alt="Mary" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student smiling" />
                 </CardHeader>
@@ -148,7 +148,7 @@ export default function Home() {
                   <p className="text-muted-foreground mt-2">“Escaped early marriage, now a medical student and mentor to young girls.”</p>
                 </CardContent>
               </Card>
-              <Card className="transform hover:scale-105 transition-transform duration-300">
+              <Card className="transform hover:-translate-y-2 transition-transform duration-300">
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=3" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="graduate portrait" />
                 </CardHeader>
@@ -181,17 +181,17 @@ export default function Home() {
         </section>
         
         {/* Closing CTA */}
-        <section className="py-20 bg-gradient-to-r from-primary to-secondary text-primary-foreground">
+        <section className="py-20 bg-card">
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-4xl font-bold">You Can Be Part of This Story.</h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button asChild size="lg" variant="secondary">
+              <Button asChild size="lg">
                 <Link href="#"><HeartHandshake />Sponsor a Student</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Button asChild size="lg" variant="outline">
                 <Link href="/stories"><Mail />Read a Letter of Hope</Link>
               </Button>
-               <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
+               <Button asChild size="lg" variant="outline">
                 <Link href="#"><Share2 />Share the KEF Story</Link>
               </Button>
             </div>

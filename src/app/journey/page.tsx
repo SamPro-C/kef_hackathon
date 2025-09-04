@@ -39,7 +39,7 @@ export default function JourneyPage() {
             {/* Stage 1: The Beginning */}
             <div className="relative flex items-center md:justify-start mb-16">
               <div className="hidden md:block w-1/2 pr-8">
-                <Image src="https://picsum.photos/600/400?random=16" alt="Turkana landscape" width={600} height={400} className="rounded-lg shadow-lg" data-ai-hint="kenyan village landscape" />
+                <Image src="https://picsum.photos/600/400?random=16" alt="Turkana landscape" width={600} height={400} className="rounded-lg shadow-neumorphic-outset" data-ai-hint="kenyan village landscape" />
               </div>
               <div className="absolute left-5 md:left-1/2 -translate-x-1/2 bg-background">
                 <div className="z-10 flex items-center justify-center h-10 w-10 rounded-full bg-primary text-primary-foreground shadow-md">
@@ -52,7 +52,7 @@ export default function JourneyPage() {
                   <CardTitle className="font-headline">A Dream in the Dust</CardTitle>
                 </CardHeader>
                 <CardContent>
-                   <Image src="https://picsum.photos/600/400?random=16" alt="Turkana landscape" width={600} height={400} className="rounded-lg shadow-lg md:hidden mb-4" data-ai-hint="kenyan village landscape" />
+                   <Image src="https://picsum.photos/600/400?random=16" alt="Turkana landscape" width={600} height={400} className="rounded-lg shadow-neumorphic-outset md:hidden mb-4" data-ai-hint="kenyan village landscape" />
                   <p className="text-muted-foreground">James grew up in Turkana County, a region facing harsh droughts. Brilliant and determined, he excelled in primary school. But with his family struggling to afford food, the dream of high school seemed impossible. He was on the verge of becoming another statistic.</p>
                 </CardContent>
               </Card>
@@ -61,7 +61,7 @@ export default function JourneyPage() {
             {/* Stage 2: KEF Intervention */}
             <div className="relative flex items-center md:justify-end mb-16">
                <div className="hidden md:block w-1/2 pl-8 text-right">
-                  <Image src="https://picsum.photos/600/400?random=17" alt="KEF Mentorship session" width={600} height={400} className="rounded-lg shadow-lg" data-ai-hint="mentor helping student" />
+                  <Image src="https://picsum.photos/600/400?random=17" alt="KEF Mentorship session" width={600} height={400} className="rounded-lg shadow-neumorphic-outset" data-ai-hint="mentor helping student" />
               </div>
               <div className="absolute left-5 md:left-1/2 -translate-x-1/2 bg-background">
                 <div className="z-10 flex items-center justify-center h-10 w-10 rounded-full bg-primary text-primary-foreground shadow-md">
@@ -74,7 +74,7 @@ export default function JourneyPage() {
                   <CardTitle className="font-headline">The KEF Scholarship</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Image src="https://picsum.photos/600/400?random=17" alt="KEF Mentorship session" width={600} height={400} className="rounded-lg shadow-lg md:hidden mb-4" data-ai-hint="mentor helping student" />
+                  <Image src="https://picsum.photos/600/400?random=17" alt="KEF Mentorship session" width={600} height={400} className="rounded-lg shadow-neumorphic-outset md:hidden mb-4" data-ai-hint="mentor helping student" />
                   <p className="text-muted-foreground">Just when he was about to give up, James was awarded a KEF scholarship. It was more than just school fees; it was a promise. With tuition, supplies, and mentorship workshops, KEF gave him the tools not just to attend school, but to thrive.</p>
                 </CardContent>
               </Card>
@@ -83,7 +83,7 @@ export default function JourneyPage() {
             {/* Stage 3: High School & University */}
             <div className="relative flex items-center md:justify-start mb-16">
                <div className="hidden md:block w-1/2 pr-8">
-                <Image src="https://picsum.photos/600/400?random=18" alt="Student graduating" width={600} height={400} className="rounded-lg shadow-lg" data-ai-hint="student graduation ceremony" />
+                <Image src="https://picsum.photos/600/400?random=18" alt="Student graduating" width={600} height={400} className="rounded-lg shadow-neumorphic-outset" data-ai-hint="student graduation ceremony" />
               </div>
               <div className="absolute left-5 md:left-1/2 -translate-x-1/2 bg-background">
                 <div className="z-10 flex items-center justify-center h-10 w-10 rounded-full bg-primary text-primary-foreground shadow-md">
@@ -96,7 +96,7 @@ export default function JourneyPage() {
                   <CardTitle className="font-headline">From Village School to Global Stage</CardTitle>
                 </CardHeader>
                 <CardContent>
-                   <Image src="https://picsum.photos/600/400?random=18" alt="Student graduating" width={600} height={400} className="rounded-lg shadow-lg md:hidden mb-4" data-ai-hint="student graduation ceremony" />
+                   <Image src="https://picsum.photos/600/400?random=18" alt="Student graduating" width={600} height={400} className="rounded-lg shadow-neumorphic-outset md:hidden mb-4" data-ai-hint="student graduation ceremony" />
                   <p className="text-muted-foreground">Freed from financial worry, James soared. He became a top student, leading his school's science club. With KEF's guidance, he not only excelled in his exams but also earned a scholarship to study Computer Science at a university in the United States.</p>
                 </CardContent>
               </Card>
@@ -105,7 +105,7 @@ export default function JourneyPage() {
              {/* Stage 4: Career & Giving Back */}
             <div className="relative flex items-center md:justify-end mb-16">
                <div className="hidden md:block w-1/2 pl-8 text-right">
-                  <Image src="https://picsum.photos/600/400?random=19" alt="Professional at work" width={600} height={400} className="rounded-lg shadow-lg" data-ai-hint="professional software engineer" />
+                  <Image src="https://picsum.photos/600/400?random=19" alt="Professional at work" width={600} height={400} className="rounded-lg shadow-neumorphic-outset" data-ai-hint="professional software engineer" />
               </div>
               <div className="absolute left-5 md:left-1/2 -translate-x-1/2 bg-background">
                 <div className="z-10 flex items-center justify-center h-10 w-10 rounded-full bg-primary text-primary-foreground shadow-md">
@@ -118,7 +118,7 @@ export default function JourneyPage() {
                   <CardTitle className="font-headline">Building a New Future</CardTitle>
                 </CardHeader>
                 <CardContent>
-                   <Image src="https://picsum.photos/600/400?random=19" alt="Professional at work" width={600} height={400} className="rounded-lg shadow-lg md:hidden mb-4" data-ai-hint="professional software engineer" />
+                   <Image src="https://picsum.photos/600/400?random=19" alt="Professional at work" width={600} height={400} className="rounded-lg shadow-neumorphic-outset md:hidden mb-4" data-ai-hint="professional software engineer" />
                   <p className="text-muted-foreground">Today, James is a software engineer. But he hasn't forgotten where he came from. He mentors other KEF students and has started a coding bootcamp in Turkana, using his skills to create opportunities for the next generation. His journey has come full circle.</p>
                 </CardContent>
               </Card>
@@ -128,15 +128,15 @@ export default function JourneyPage() {
         </div>
       </div>
        {/* Closing CTA */}
-      <section className="py-20 bg-gradient-to-r from-primary to-secondary text-primary-foreground">
+      <section className="py-20 bg-card">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h2 className="font-headline text-4xl font-bold">You can start another journey today.</h2>
           <p className="mt-4 max-w-2xl mx-auto">One scholarship is all it takes to change a life like James's.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" variant="secondary" className="animate-pulse">
+            <Button asChild size="lg" className="animate-pulse">
               <Link href="#"><HeartHandshake />Sponsor a Student</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
+            <Button asChild size="lg" variant="outline">
               <Link href="/stories">Explore More Stories <ArrowRight className="ml-2" /></Link>
             </Button>
           </div>
