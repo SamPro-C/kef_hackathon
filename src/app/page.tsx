@@ -1,53 +1,53 @@
 
+'use client';
+
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { GraduationCap, School, Milestone, Users, HeartHandshake, BookOpen, Droplets, Mail, Share2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
+  const [typedText, setTypedText] = useState('');
+  const fullText = "Education is the closest thing to magic.";
+
+  useEffect(() => {
+    if (typedText.length < fullText.length) {
+      setTimeout(() => {
+        setTypedText(fullText.slice(0, typedText.length + 1));
+      }, 80);
+    }
+  }, [typedText]);
+
   return (
     <>
         {/* Hero Section */}
-        <section className="relative h-[90vh] min-h-[700px] flex items-center justify-center text-center text-white">
-          <div className="absolute inset-0 bg-black/70 z-10"></div>
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop"
-          >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-group-of-students-in-class-listening-to-the-teacher-4537-large.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-
-          <div className="relative z-20 container mx-auto px-4 md:px-6">
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
-              Breaking the cycle of poverty in Kenya through education.
+        <section className="relative h-[90vh] min-h-[700px] flex items-center justify-center text-center text-white bg-black">
+           <div className="absolute inset-0 bg-black/70 z-10"></div>
+            <Image
+                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
+                alt="Hopeful students"
+                fill
+                className="object-cover opacity-20"
+                data-ai-hint="hopeful students background"
+            />
+          <div className="relative z-20 container mx-auto px-4 md:px-6 animate-in">
+             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-headline" style={{ textShadow: '2px 2px 12px rgba(255,255,255,0.2)' }}>
+              {typedText}
+              <span className="inline-block w-1 h-12 ml-2 bg-primary animate-pulse"></span>
             </h1>
-            <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.7)' }}>
-              From remote villages to global universities, KEF scholarships turn stories of struggle into stories of hope.
+            <p className={cn(
+              "mt-10 text-lg max-w-3xl mx-auto md:text-xl transition-opacity duration-1000 ease-in-out",
+              typedText.length === fullText.length ? "opacity-100" : "opacity-0"
+            )}>
+              From remote villages to global universities, KEF scholarships turn stories of struggle into stories of success.
             </p>
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="flex flex-col items-center">
-                <GraduationCap className="h-12 w-12 text-secondary" />
-                <p className="text-4xl font-bold mt-2">4,600+</p>
-                <p className="text-sm uppercase tracking-wider">Students Supported</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <School className="h-12 w-12 text-secondary" />
-                <p className="text-4xl font-bold mt-2">153</p>
-                <p className="text-sm uppercase tracking-wider">Partner Schools</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <Users className="h-12 w-12 text-secondary" />
-                <p className="text-4xl font-bold mt-2">99%</p>
-                <p className="text-sm uppercase tracking-wider">Transition to University</p>
-              </div>
-            </div>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <div className={cn(
+                "mt-12 flex flex-wrap justify-center gap-4 transition-opacity duration-1000 ease-in-out delay-500",
+                typedText.length === fullText.length ? "opacity-100" : "opacity-0"
+            )}>
               <Button asChild size="lg" className="animate-pulse">
                 <Link href="/journey">Begin a Student’s Journey</Link>
               </Button>
@@ -130,7 +130,7 @@ export default function Home() {
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="text-3xl font-bold text-primary">Meet the Scholars Behind the Numbers</h2>
             <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card className="transform hover:-translate-y-2 transition-transform duration-300">
+              <Card>
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=1" alt="James" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
                 </CardHeader>
@@ -139,7 +139,7 @@ export default function Home() {
                   <p className="text-muted-foreground mt-2">“From herding goats in Turkana to studying Computer Science in the USA.”</p>
                 </CardContent>
               </Card>
-              <Card className="transform hover:-translate-y-2 transition-transform duration-300">
+              <Card>
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=2" alt="Mary" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student smiling" />
                 </CardHeader>
@@ -148,7 +148,7 @@ export default function Home() {
                   <p className="text-muted-foreground mt-2">“Escaped early marriage, now a medical student and mentor to young girls.”</p>
                 </CardContent>
               </Card>
-              <Card className="transform hover:-translate-y-2 transition-transform duration-300">
+              <Card>
                 <CardHeader className="p-0">
                   <Image src="https://picsum.photos/400/300?random=3" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="graduate portrait" />
                 </CardHeader>
@@ -186,13 +186,14 @@ export default function Home() {
             <h2 className="text-4xl font-bold">You Can Be Part of This Story.</h2>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button asChild size="lg">
-                <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank"><HeartHandshake />Sponsor a Student</Link>
+                <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank">
+                  <HeartHandshake />Sponsor a Student
+                </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link href="https://www.kenyaeducationfund.org/sponsor-a-student" target="_blank"><Mail />Read a Letter of Hope</Link>
-              </Button>
-               <Button asChild size="lg" variant="outline">
-                <Link href="https://www.kenyaeducationfund.org/get-involved" target="_blank"><Share2 />Share the KEF Story</Link>
+                <Link href="https://www.kenyaeducationfund.org/get-involved" target="_blank">
+                  <Share2 />Share the KEF Story
+                </Link>
               </Button>
             </div>
           </div>
