@@ -30,11 +30,20 @@ export default function Home() {
   return (
     <>
       {/* Page 1: The Landing Hook */}
-      <section className="relative h-screen min-h-[700px] flex flex-col items-center justify-center text-center text-foreground bg-transparent">
+      <section className="relative h-screen min-h-[700px] flex flex-col items-center justify-center text-center text-white">
+        <Image
+          src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop"
+          alt="African students in a classroom"
+          fill
+          className="object-cover z-0"
+          priority
+          data-ai-hint="happy students classroom"
+        />
+        <div className="absolute inset-0 bg-black/50 z-10"></div>
         <div className="relative z-20 container mx-auto px-4 md:px-6">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-headline" style={{ textShadow: '2px 2px 12px rgba(0,0,0,0.1)' }}>
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-headline" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
             {typedText}
-            <span className="inline-block w-1 h-12 ml-2 bg-foreground animate-pulse" style={{ opacity: typedText.length === fullText.length ? 0 : 1 }}></span>
+            <span className="inline-block w-1 h-12 ml-2 bg-white animate-pulse" style={{ opacity: typedText.length === fullText.length ? 0 : 1 }}></span>
           </h1>
         </div>
         <div className={cn(

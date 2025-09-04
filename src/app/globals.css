@@ -61,7 +61,6 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-image: linear-gradient(to bottom, #ef6f12, #fbac2a, #fdd9a6);
     font-family: var(--font-body);
   }
   h1, h2, h3, h4, h5, h6 {
