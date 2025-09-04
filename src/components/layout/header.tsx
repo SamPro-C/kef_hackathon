@@ -13,7 +13,7 @@ const navItems = [
   { href: '/journey', label: 'The Journey' },
   { href: '/stories', label: 'Stories' },
   { href: '/impact', label: 'Impact' },
-  { href: '/letter', label: 'Letters' },
+  { href: '/sponsor', label: 'Sponsor' },
 ];
 
 export default function Header() {
@@ -45,7 +45,7 @@ export default function Header() {
 
         <div className="flex items-center gap-4">
             <Button asChild className="hidden sm:flex">
-                <Link href="/letter">Sponsor a Student</Link>
+                <Link href="/sponsor">Sponsor a Student</Link>
             </Button>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
@@ -78,7 +78,7 @@ export default function Header() {
                       ))}
                   </nav>
                   <Button asChild className="absolute bottom-8 left-6 right-6">
-                      <Link href="/letter" onClick={() => setIsOpen(false)}>Sponsor a Student</Link>
+                      <Link href="/sponsor" onClick={() => setIsOpen(false)}>Sponsor a Student</Link>
                   </Button>
                 </SheetContent>
             </Sheet>
