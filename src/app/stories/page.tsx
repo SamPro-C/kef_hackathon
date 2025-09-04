@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -108,8 +108,12 @@ export default function StoriesPage() {
           {/* Stories Grid */}
           {currentAlumni.length > 0 ? (
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {currentAlumni.map(alumni => (
-                <Card key={alumni.name} className="text-left transform hover:scale-105 transition-transform duration-300 flex flex-col">
+              {currentAlumni.map((alumni, index) => (
+                <Card 
+                  key={alumni.name} 
+                  className="text-left transform hover:scale-105 transition-transform duration-300 flex flex-col animate-card-in"
+                  style={{ animationDelay: `${(index % STORIES_PER_PAGE) * 100}ms`}}
+                >
                   <CardHeader className="p-0">
                     <Image src={alumni.image} alt={alumni.alt} width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
                   </CardHeader>

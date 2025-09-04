@@ -1,12 +1,41 @@
 
+'use client'
+
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GraduationCap, School, Users, HeartHandshake, TrendingUp, MapPin, ArrowRight, UserPlus, Share2 } from 'lucide-react';
 import ImpactCalculator from '@/components/impact-calculator';
+import { cn } from '@/lib/utils';
 
 export default function ImpactPage() {
+  const [inView, setInView] = useState(false);
+  const metricsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (metricsRef.current) {
+      observer.observe(metricsRef.current);
+    }
+
+    return () => {
+      if (metricsRef.current) {
+        observer.unobserve(metricsRef.current);
+      }
+    };
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
@@ -25,8 +54,8 @@ export default function ImpactPage() {
       <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-3xl font-bold text-primary">Our Impact by the Numbers</h2>
-            <div className="mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl">
+            <div ref={metricsRef} className="mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <Card className={cn("text-center transition-transform hover:scale-105 hover:shadow-xl", inView ? "animate-in" : "opacity-0")}>
                 <CardHeader>
                   <GraduationCap className="h-12 w-12 text-primary mx-auto" />
                   <CardTitle className="font-headline text-4xl font-bold mt-4">4,600+</CardTitle>
@@ -35,7 +64,7 @@ export default function ImpactPage() {
                   <p className="text-muted-foreground">Scholarships Awarded Since 2006</p>
                 </CardContent>
               </Card>
-              <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl">
+              <Card className={cn("text-center transition-transform hover:scale-105 hover:shadow-xl", inView ? "animate-in" : "opacity-0")} style={{ animationDelay: '0.2s' }}>
                 <CardHeader>
                   <Users className="h-12 w-12 text-primary mx-auto" />
                    <CardTitle className="font-headline text-4xl font-bold mt-4">3,172</CardTitle>
@@ -44,7 +73,7 @@ export default function ImpactPage() {
                   <p className="text-muted-foreground">Alumni Graduated & Now Leaders</p>
                 </CardContent>
               </Card>
-              <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl">
+              <Card className={cn("text-center transition-transform hover:scale-105 hover:shadow-xl", inView ? "animate-in" : "opacity-0")} style={{ animationDelay: '0.4s' }}>
                 <CardHeader>
                   <TrendingUp className="h-12 w-12 text-primary mx-auto" />
                   <CardTitle className="font-headline text-4xl font-bold mt-4">99%</CardTitle>
