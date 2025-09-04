@@ -25,7 +25,7 @@ export default function Home() {
 
           <div className="relative z-20 container mx-auto px-4 md:px-6">
             <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}>
-              Every Child Deserves a Chance to Dream.
+              Breaking the cycle of poverty in Kenya through education.
             </h1>
             <p className="mt-6 text-lg max-w-3xl mx-auto md:text-xl" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.7)' }}>
               From remote villages to global universities, KEF scholarships turn stories of struggle into stories of hope.
@@ -39,7 +39,7 @@ export default function Home() {
               <div className="flex flex-col items-center">
                 <School className="h-12 w-12 text-secondary" />
                 <p className="font-headline text-4xl font-bold mt-2">153</p>
-                <p className="text-sm uppercase tracking-wider">Schools Reached</p>
+                <p className="text-sm uppercase tracking-wider">Partner Schools</p>
               </div>
               <div className="flex flex-col items-center">
                 <Users className="h-12 w-12 text-secondary" />
@@ -68,7 +68,7 @@ export default function Home() {
               <div className="text-left p-6 rounded-lg bg-background shadow-inner">
                 <h3 className="font-headline text-2xl font-semibold text-foreground">Without KEF, a student's story often ends here...</h3>
                 <p className="mt-4 text-muted-foreground">
-                  For many of the 3.5 million children out of school in Kenya, the path is full of obstacles. Girls are at risk of early marriage, while boys face the harsh reality of child labor. Their potential is lost to a cycle of poverty.
+                  For many of the 3.5 million children out of secondary school in Kenya, the path is full of obstacles. Girls are at high risk of early marriage, while boys face the harsh reality of child labor. Their potential is lost to a cycle of poverty.
                 </p>
                 <p className="mt-4 font-semibold text-destructive">Out of school. At risk. A dream forgotten.</p>
               </div>
@@ -90,24 +90,24 @@ export default function Home() {
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4 md:px-6 text-center">
             <h2 className="font-headline text-3xl font-bold text-primary">
-              Education is Just the Beginning.
+              A Scholarship is More Than Just School Fees.
             </h2>
             <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
               <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <BookOpen className="h-10 w-10 text-primary" />
-                <p className="mt-2 font-semibold">School Fees & Books</p>
+                <p className="mt-2 font-semibold">Full Tuition Paid</p>
               </div>
               <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <Droplets className="h-10 w-10 text-primary" />
-                <p className="mt-2 font-semibold">Sanitary Pads</p>
+                <p className="mt-2 font-semibold">Sanitary Pads & Supplies</p>
               </div>
               <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <Users className="h-10 w-10 text-primary" />
-                <p className="mt-2 font-semibold">Mentorship</p>
+                <p className="mt-2 font-semibold">Mentorship Workshops</p>
               </div>
               <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <Milestone className="h-10 w-10 text-primary" />
-                <p className="mt-2 font-semibold">Bridge Program</p>
+                <p className="mt-2 font-semibold">Career Readiness</p>
               </div>
               <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <GraduationCap className="h-10 w-10 text-primary" />
@@ -146,7 +146,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle className="font-headline">Mary</CardTitle>
-                  <p className="text-muted-foreground mt-2">“Escaped child marriage, now mentors 50+ young girls.”</p>
+                  <p className="text-muted-foreground mt-2">“Escaped early marriage, now a medical student and mentor to young girls.”</p>
                 </CardContent>
               </Card>
               <Card className="transform hover:scale-105 transition-transform duration-300">
@@ -155,7 +155,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle className="font-headline">Peter</CardTitle>
-                  <p className="text-muted-foreground mt-2">“First in his family to graduate. Now an engineer giving back.”</p>
+                  <p className="text-muted-foreground mt-2">“First in his family to graduate. Now an engineer building a new future.”</p>
                 </CardContent>
               </Card>
             </div>
@@ -176,7 +176,7 @@ export default function Home() {
               A single scholarship does more than educate one student. It empowers a graduate to uplift their family, inspire their community, and often, fund new scholarships for others, creating a beautiful, self-sustaining cycle of change.
             </p>
             <p className="mt-6 text-2xl font-bold text-foreground">
-              3,172 KEF students have graduated, lifting thousands of families and building stronger communities.
+              Over 3,172 KEF students have graduated, lifting thousands of families and building stronger communities.
             </p>
           </div>
         </section>

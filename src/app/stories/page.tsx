@@ -35,10 +35,10 @@ export default function StoriesPage() {
               <CardContent className="p-8 md:p-12 flex flex-col justify-center">
                 <h2 className="font-headline text-3xl font-bold text-primary">James: From Herding Goats to Coding in the USA</h2>
                 <p className="mt-4 text-muted-foreground text-lg">
-                  “I used to herd goats under the scorching sun, dreaming of a classroom I could never reach. Today, I write code in a university computer lab in the USA. This is what KEF made possible.” – James
+                  “I used to walk miles to fetch water for my family, dreaming of a classroom I could never reach. Today, I write code in a university computer lab in the USA. This is what KEF made possible.” – James
                 </p>
                 <p className="mt-6 text-foreground">
-                  James grew up in Turkana, one of Kenya’s most arid regions. Most days, he walked miles to fetch water for his family and helped herd goats. Education felt like a distant dream — his parents could not afford school fees, books, or even a uniform. At 14 years old, James was on the verge of dropping out completely. That’s when the Kenya Education Fund (KEF) stepped in.
+                  James grew up in Turkana, one of Kenya’s most arid regions. Most days, he walked miles to fetch water and helped herd goats, a common chore for children in his village. Education felt like a distant dream — his parents could not afford school fees, books, or even a uniform. At 14 years old, James was on the verge of dropping out completely. That’s when the Kenya Education Fund (KEF) stepped in.
                 </p>
                  <p className="mt-4 text-foreground font-semibold">
                    With KEF’s support, James not only excelled academically but also discovered a passion for technology. Today, he is studying Computer Science at a top university in the USA and giving back by mentoring other KEF students online.
@@ -79,7 +79,7 @@ export default function StoriesPage() {
                  “At 15, my community wanted me to marry. KEF gave me another choice — the chance to stay in school. Now, I am training to be a doctor.” – Mary
                 </p>
                 <p className="mt-6 text-foreground">
-                  Mary grew up in Kajiado County, where many girls face the pressure of early marriage and FGM. Her parents loved her deeply but lacked the resources to pay school fees, and cultural traditions meant she was at risk of leaving school forever. Just before she dropped out, Mary’s life changed when she received a KEF scholarship.
+                  Mary grew up in Kajiado County, where many girls face the pressure of early marriage and FGM. Her parents loved her deeply but lacked the resources to pay school fees, and cultural traditions meant she was at risk of leaving school forever. Just before she was forced to drop out, Mary’s life changed when she received a KEF scholarship.
                 </p>
                  <p className="mt-4 text-foreground font-semibold">
                   With KEF's support, Mary thrived. She became a top performer in her high school, and today is studying Medicine at the University of Nairobi, inspired to serve underserved communities.
@@ -150,7 +150,7 @@ export default function StoriesPage() {
               <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <School className="h-12 w-12 text-primary" />
                 <p className="font-headline text-3xl md:text-4xl font-bold mt-2">153</p>
-                <p className="text-sm uppercase tracking-wider text-muted-foreground">Schools Reached</p>
+                <p className="text-sm uppercase tracking-wider text-muted-foreground">Partner Schools</p>
               </div>
               <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <Users className="h-12 w-12 text-primary" />
