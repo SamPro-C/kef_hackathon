@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { GraduationCap, BookOpen, Users, ChevronDown, HeartHandshake } from 'lucide-react';
@@ -86,7 +87,7 @@ export default function Home() {
             <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Card>
                 <CardHeader className="p-0">
-                  <img src="https://picsum.photos/400/300?random=1" alt="James" className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
+                  <Image src="https://picsum.photos/400/300?random=1" alt="James" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle>James</CardTitle>
@@ -95,7 +96,7 @@ export default function Home() {
               </Card>
               <Card>
                 <CardHeader className="p-0">
-                  <img src="https://picsum.photos/400/300?random=2" alt="Mary" className="rounded-t-lg object-cover w-full" data-ai-hint="student smiling" />
+                  <Image src="https://picsum.photos/400/300?random=2" alt="Mary" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student smiling" />
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle>Mary</CardTitle>
@@ -104,7 +105,7 @@ export default function Home() {
               </Card>
               <Card>
                 <CardHeader className="p-0">
-                  <img src="https://picsum.photos/400/300?random=3" alt="Peter" className="rounded-t-lg object-cover w-full" data-ai-hint="graduate portrait" />
+                  <Image src="https://picsum.photos/400/300?random=3" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="graduate portrait" />
                 </CardHeader>
                 <CardContent className="p-6">
                   <CardTitle>Peter</CardTitle>
