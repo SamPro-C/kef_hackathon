@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GraduationCap, School, Users, HeartHandshake, TrendingUp, MapPin, ArrowRight, BookOpen, Shirt, ShoppingCart } from 'lucide-react';
+import { GraduationCap, School, Users, HeartHandshake, TrendingUp, MapPin, ArrowRight, BookOpen, Shirt, ShoppingCart, Heart, UserPlus, Share2 } from 'lucide-react';
 import ImpactCalculator from '@/components/impact-calculator';
 
 export default function ImpactPage() {
@@ -72,10 +72,25 @@ export default function ImpactPage() {
            <ImpactCalculator />
         </div>
       </section>
+      
+      {/* Donor Story Section */}
+       <section className="py-16 md:py-24 bg-background">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="font-headline text-3xl font-bold text-primary">Why We Give</h2>
+           <Card className="max-w-3xl mx-auto mt-8 bg-secondary text-secondary-foreground border-secondary shadow-xl transform transition-transform hover:scale-105">
+              <CardContent className="p-8">
+                <p className="text-2xl font-semibold italic">
+                  “We chose KEF because we see the direct impact. It’s not just about donating money; it’s about investing in a specific child’s future. We get to see the student we sponsor grow and succeed. That’s a connection you don’t get anywhere else.”
+                </p>
+                 <p className="text-lg opacity-90 mt-4 font-headline">– The Thompson Family, KEF Sponsors since 2018</p>
+              </CardContent>
+            </Card>
+        </div>
+      </section>
 
 
       {/* Geographic Reach Section */}
-      <section className="py-16 md:py-24 bg-background">
+      <section className="py-16 md:py-24 bg-card">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div>
@@ -107,7 +122,7 @@ export default function ImpactPage() {
       </section>
       
       {/* Ripple Effect Section */}
-      <section className="py-16 md:py-24 bg-card text-center">
+      <section className="py-16 md:py-24 bg-background text-center">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="font-headline text-3xl font-bold text-primary">The Ripple Effect: Beyond One Student</h2>
           <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
@@ -135,16 +150,25 @@ export default function ImpactPage() {
                 <p className="font-semibold text-lg">3. Transform a Community</p>
               </div>
           </div>
-           <div className="mt-16">
-              <Card className="max-w-2xl mx-auto bg-secondary text-secondary-foreground border-secondary shadow-lg">
-                <CardContent className="p-6">
-                  <p className="text-xl font-semibold">
-                    “When you educate one student, you transform an entire community.”
-                  </p>
-                   <p className="text-md opacity-80 mt-2">– KEF Alumni Leader</p>
-                </CardContent>
-              </Card>
-            </div>
+        </div>
+      </section>
+
+      {/* Join the Community CTA */}
+      <section className="py-20 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="font-headline text-4xl font-bold">Join the KEF Community</h2>
+          <p className="mt-4 max-w-2xl mx-auto">You don't have to be a big donor to make a big difference.</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <Button asChild size="lg" variant="secondary">
+              <Link href="#">🙋 Sponsor a Student</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Link href="#"><UserPlus /> Become a Mentor</Link>
+            </Button>
+             <Button asChild size="lg" variant="outline" className="text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Link href="#"><Share2 /> Share the KEF Story</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
