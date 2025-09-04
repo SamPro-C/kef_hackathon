@@ -51,7 +51,7 @@ export default function Home() {
                 <Link href="/stories">Begin a Student’s Journey</Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="/stories">See the Impact</Link>
+                <Link href="/impact">See the Impact</Link>
               </Button>
             </div>
           </div>
