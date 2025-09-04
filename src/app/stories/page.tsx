@@ -1,12 +1,12 @@
 
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GraduationCap, School, Users, HeartHandshake, Filter } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { GraduationCap, School, Users, HeartHandshake, ArrowRight } from 'lucide-react';
 import { alumniData, Alumni } from '@/lib/alumni-data';
 import { cn } from '@/lib/utils';
 
@@ -121,6 +121,11 @@ export default function StoriesPage() {
                         <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">{alumni.careerField}</span>
                     </div>
                   </CardContent>
+                  <CardFooter>
+                    <Button asChild variant="link" className="px-0">
+                      <Link href="/journey">Read Full Story <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                    </Button>
+                  </CardFooter>
                 </Card>
               ))}
             </div>
