@@ -2,14 +2,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { GraduationCap, School, Milestone, Users, HeartHandshake, BookOpen, Droplets } from 'lucide-react';
 
 export default function Home() {
   return (
     <>
         {/* Hero Section */}
-        <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center text-center text-white">
+        <section className="relative h-[90vh] min-h-[700px] flex items-center justify-center text-center text-white">
           <div className="absolute inset-0 bg-black/60 z-10"></div>
           <video
             className="absolute inset-0 w-full h-full object-cover"
@@ -17,8 +17,9 @@ export default function Home() {
             loop
             muted
             playsInline
+            poster="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop"
           >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-a-girl-writing-in-a-notebook-in-a-classroom-4352-large.mp4" type="video/mp4" />
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-group-of-students-in-class-listening-to-the-teacher-4537-large.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 
@@ -32,22 +33,22 @@ export default function Home() {
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="flex flex-col items-center">
                 <GraduationCap className="h-12 w-12 text-secondary" />
-                <p className="text-4xl font-bold mt-2">4,600+</p>
+                <p className="font-headline text-4xl font-bold mt-2">4,600+</p>
                 <p className="text-sm uppercase tracking-wider">Students Supported</p>
               </div>
               <div className="flex flex-col items-center">
                 <School className="h-12 w-12 text-secondary" />
-                <p className="text-4xl font-bold mt-2">153</p>
+                <p className="font-headline text-4xl font-bold mt-2">153</p>
                 <p className="text-sm uppercase tracking-wider">Schools Reached</p>
               </div>
               <div className="flex flex-col items-center">
                 <Users className="h-12 w-12 text-secondary" />
-                <p className="text-4xl font-bold mt-2">99%</p>
+                <p className="font-headline text-4xl font-bold mt-2">99%</p>
                 <p className="text-sm uppercase tracking-wider">Transition to University</p>
               </div>
             </div>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground animate-pulse">
+              <Button asChild size="lg" className="animate-pulse">
                 <Link href="/stories">Begin a Student’s Journey</Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
@@ -63,7 +64,7 @@ export default function Home() {
             <h2 className="font-headline text-3xl font-bold text-destructive">
               Without Support, Dreams Fade Away.
             </h2>
-            <div className="mt-8 grid md:grid-cols-2 gap-8 items-center">
+            <div className="mt-8 grid md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
               <div className="text-left p-6 rounded-lg bg-background shadow-inner">
                 <h3 className="font-headline text-2xl font-semibold text-foreground">Without KEF, a student's story often ends here...</h3>
                 <p className="mt-4 text-muted-foreground">
@@ -91,7 +92,7 @@ export default function Home() {
             <h2 className="font-headline text-3xl font-bold text-primary">
               Education is Just the Beginning.
             </h2>
-            <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+            <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
               <div className="flex flex-col items-center p-4 rounded-lg transition-transform hover:scale-110">
                 <BookOpen className="h-10 w-10 text-primary" />
                 <p className="mt-2 font-semibold">School Fees & Books</p>
@@ -135,7 +136,7 @@ export default function Home() {
                   <Image src="https://picsum.photos/400/300?random=1" alt="James" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student portrait" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle>James</CardTitle>
+                  <CardTitle className="font-headline">James</CardTitle>
                   <p className="text-muted-foreground mt-2">“From herding goats in Turkana to studying Computer Science in the USA.”</p>
                 </CardContent>
               </Card>
@@ -144,7 +145,7 @@ export default function Home() {
                   <Image src="https://picsum.photos/400/300?random=2" alt="Mary" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student smiling" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle>Mary</CardTitle>
+                  <CardTitle className="font-headline">Mary</CardTitle>
                   <p className="text-muted-foreground mt-2">“Escaped child marriage, now mentors 50+ young girls.”</p>
                 </CardContent>
               </Card>
@@ -153,7 +154,7 @@ export default function Home() {
                   <Image src="https://picsum.photos/400/300?random=3" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="graduate portrait" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle>Peter</CardTitle>
+                  <CardTitle className="font-headline">Peter</CardTitle>
                   <p className="text-muted-foreground mt-2">“First in his family to graduate. Now an engineer giving back.”</p>
                 </CardContent>
               </Card>
@@ -200,5 +201,3 @@ export default function Home() {
     </>
   );
 }
-
-    

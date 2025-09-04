@@ -32,7 +32,7 @@ export default function Header() {
               key={item.href}
               href={item.href}
               className={cn(
-                'transition-colors hover:text-primary',
+                'transition-colors hover:text-primary font-medium',
                 pathname === item.href ? 'text-primary' : 'text-foreground/60'
               )}
             >
@@ -54,17 +54,17 @@ export default function Header() {
                 </SheetTrigger>
                 <SheetContent side="left">
                 <nav className="grid gap-6 text-lg font-medium mt-8">
-                    <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
+                    <Link href="/" className="flex items-center gap-2 text-lg font-semibold mb-4">
                         <BookHeart className="h-6 w-6 text-primary" />
-                        <span className="sr-only">KEF Journey</span>
+                        <span>KEF Journey</span>
                     </Link>
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
                             className={cn(
-                                'hover:text-primary',
-                                pathname === item.href ? 'text-primary' : 'text-muted-foreground'
+                                'hover:text-primary transition-colors',
+                                pathname === item.href ? 'text-foreground' : 'text-muted-foreground'
                             )}
                         >
                             {item.label}

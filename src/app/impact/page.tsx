@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { GraduationCap, School, Users, HeartHandshake, TrendingUp, MapPin, ArrowRight, BookOpen, Shirt, ShoppingCart, Heart, UserPlus, Share2 } from 'lucide-react';
+import { GraduationCap, School, Users, HeartHandshake, TrendingUp, MapPin, ArrowRight, UserPlus, Share2 } from 'lucide-react';
 import ImpactCalculator from '@/components/impact-calculator';
 
 export default function ImpactPage() {
@@ -29,7 +29,7 @@ export default function ImpactPage() {
               <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl">
                 <CardHeader>
                   <GraduationCap className="h-12 w-12 text-primary mx-auto" />
-                  <CardTitle className="text-4xl font-bold mt-4">4,600+</CardTitle>
+                  <CardTitle className="font-headline text-4xl font-bold mt-4">4,600+</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">Scholarships Awarded Since 2006</p>
@@ -38,7 +38,7 @@ export default function ImpactPage() {
               <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl">
                 <CardHeader>
                   <Users className="h-12 w-12 text-primary mx-auto" />
-                   <CardTitle className="text-4xl font-bold mt-4">3,172</CardTitle>
+                   <CardTitle className="font-headline text-4xl font-bold mt-4">3,172</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">Alumni Graduated & Now Leaders</p>
@@ -47,7 +47,7 @@ export default function ImpactPage() {
               <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl">
                 <CardHeader>
                   <TrendingUp className="h-12 w-12 text-primary mx-auto" />
-                  <CardTitle className="text-4xl font-bold mt-4">99%</CardTitle>
+                  <CardTitle className="font-headline text-4xl font-bold mt-4">99%</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">University Transition Rate</p>
@@ -87,7 +87,6 @@ export default function ImpactPage() {
             </Card>
         </div>
       </section>
-
 
       {/* Geographic Reach Section */}
       <section className="py-16 md:py-24 bg-card">
@@ -171,7 +170,6 @@ export default function ImpactPage() {
           </div>
         </div>
       </section>
-
     </>
   );
 }

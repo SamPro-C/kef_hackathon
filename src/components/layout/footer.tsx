@@ -12,8 +12,8 @@ export default function Footer() {
             <span className="font-headline font-bold text-lg">KEF Journey</span>
           </div>
           <div className="text-center md:text-left mb-4 md:mb-0">
-            <p>&copy; {new Date().getFullYear()} KEF Storytelling Project.</p>
-            <p className="text-sm text-muted-foreground">A hackathon entry for KEF.</p>
+            <p>&copy; {new Date().getFullYear()} KEF Journey 98%.</p>
+            <p className="text-sm text-background/70">A hackathon entry for KEF.</p>
           </div>
           <div className="flex gap-4">
             <Link href="#" className="text-background hover:text-primary transition-colors">

@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import { GraduationCap, School, Users, HeartHandshake, ArrowRight } from 'lucide-react';
 
 export default function StoriesPage() {
@@ -103,7 +102,7 @@ export default function StoriesPage() {
                   <Image src="https://picsum.photos/400/300?random=6" alt="Peter" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="male engineer outdoors" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle>Peter</CardTitle>
+                  <CardTitle className="font-headline">Peter</CardTitle>
                   <p className="text-muted-foreground mt-2">He was the first in his village to finish high school. Today, he’s an engineer building bridges and funding two new KEF scholarships himself.</p>
                 </CardContent>
               </Card>
@@ -112,7 +111,7 @@ export default function StoriesPage() {
                   <Image src="https://picsum.photos/400/300?random=7" alt="Aisha" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="female doctor hospital" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle>Aisha</CardTitle>
+                  <CardTitle className="font-headline">Aisha</CardTitle>
                   <p className="text-muted-foreground mt-2">After losing her parents, she had to drop out. KEF brought her back. Today, she's a nurse saving lives in her local clinic.</p>
                 </CardContent>
               </Card>
@@ -121,7 +120,7 @@ export default function StoriesPage() {
                   <Image src="https://picsum.photos/400/300?random=8" alt="Kevin" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="male leader speaking" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle>Kevin</CardTitle>
+                  <CardTitle className="font-headline">Kevin</CardTitle>
                   <p className="text-muted-foreground mt-2">He nearly gave up due to family hardship. Now, he’s a community leader and a KEF mentor for over 30 students.</p>
                 </CardContent>
               </Card>
@@ -130,7 +129,7 @@ export default function StoriesPage() {
                   <Image src="https://picsum.photos/400/300?random=9" alt="Grace" width={400} height={300} className="rounded-t-lg object-cover w-full" data-ai-hint="student writing" />
                 </CardHeader>
                 <CardContent className="p-6">
-                  <CardTitle>Grace</CardTitle>
+                  <CardTitle className="font-headline">Grace</CardTitle>
                   <p className="text-muted-foreground mt-2">She saw injustice in her village. Today, she's studying law to fight for the rights of girls who have no voice.</p>
                 </CardContent>
               </Card>
@@ -145,22 +144,22 @@ export default function StoriesPage() {
             <div className="mt-12 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <GraduationCap className="h-12 w-12 text-primary" />
-                <p className="text-3xl md:text-4xl font-bold mt-2">4,600+</p>
+                <p className="font-headline text-3xl md:text-4xl font-bold mt-2">4,600+</p>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground">Scholarships Awarded</p>
               </div>
               <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <School className="h-12 w-12 text-primary" />
-                <p className="text-3xl md:text-4xl font-bold mt-2">153</p>
+                <p className="font-headline text-3xl md:text-4xl font-bold mt-2">153</p>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground">Schools Reached</p>
               </div>
               <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <Users className="h-12 w-12 text-primary" />
-                <p className="text-3xl md:text-4xl font-bold mt-2">99%</p>
+                <p className="font-headline text-3xl md:text-4xl font-bold mt-2">99%</p>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground">University Transition</p>
               </div>
               <div className="flex flex-col items-center p-4 rounded-lg hover:bg-card transition-colors cursor-pointer">
                 <HeartHandshake className="h-12 w-12 text-primary" />
-                <p className="text-3xl md:text-4xl font-bold mt-2">3,172</p>
+                <p className="font-headline text-3xl md:text-4xl font-bold mt-2">3,172</p>
                 <p className="text-sm uppercase tracking-wider text-muted-foreground">Graduates</p>
               </div>
             </div>

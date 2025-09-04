@@ -2,97 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: var(--font-open-sans), sans-serif;
-}
-
 @layer base {
   :root {
-    --background: 38 95% 82%; /* #fdd9a6 - Warm cream */
-    --foreground: 30 50% 1%; /* #040201 - Black */
+    --background: 0 0% 98%; /* #fafafa - Off-white */
+    --foreground: 240 10% 3.9%; /* #09090b - Neutral black */
     
-    --card: 38 95% 82%; 
-    --card-foreground: 30 50% 1%;
+    --card: 0 0% 100%; 
+    --card-foreground: 240 10% 3.9%;
 
-    --popover: 38 95% 82%;
-    --popover-foreground: 30 50% 1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
 
-    --primary: 25 87% 50%; /* #ef6f12 - Bright orange */
+    --primary: 25 90% 55%; /* #f57c24 - Slightly desaturated, vibrant orange */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 39 96% 57%; /* #fbac2a - Golden yellow */
-    --secondary-foreground: 30 50% 1%;
+    --secondary: 38 92% 50%; /* #f7b024 - Golden yellow */
+    --secondary-foreground: 240 10% 3.9%;
 
-    --muted: 38 95% 77%;
-    --muted-foreground: 38 50% 30%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 240 3.8% 46.1%;
 
-    --accent: 39 96% 57%; /* #fbac2a - Golden yellow */
-    --accent-foreground: 30 50% 1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 240 5.9% 10%;
 
-    --destructive: 0 93% 47%; /* #e40a0b - Deep red */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%; /* #ef4444 - Standard red */
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 38 95% 72%;
-    --input: 38 95% 77%;
-    --ring: 25 87% 50%; /* #ef6f12 - Bright orange */
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 25 90% 55%;
     
-    --chart-1: 25 87% 50%;
-    --chart-2: 39 96% 57%;
-    --chart-3: 0 93% 47%;
-    --chart-4: 38 50% 30%;
-    --chart-5: 30 50% 1%;
+    --chart-1: 25 90% 55%;
+    --chart-2: 38 92% 50%;
+    --chart-3: 0 84.2% 60.2%;
+    --chart-4: 240 3.8% 46.1%;
+    --chart-5: 240 10% 3.9%;
     
     --radius: 0.5rem;
-
-    /* Sidebar specific theme adjustments */
-    --sidebar-background: 30 50% 1%; /* #040201 - Black */
-    --sidebar-foreground: 38 95% 82%; /* #fdd9a6 - Warm cream */
-    --sidebar-primary: 25 87% 50%; /* #ef6f12 - Bright orange */
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 25 50% 15%; /* Darker orange for hover */
-    --sidebar-accent-foreground: 38 95% 95%;
-    --sidebar-border: 25 30% 10%;
-    --sidebar-ring: 25 87% 50%;
   }
 
   .dark {
-    --background: 30 50% 5%; /* Very dark */
-    --foreground: 38 95% 82%; /* #fdd9a6 - Warm cream */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
     
-    --card: 30 50% 10%;
-    --card-foreground: 38 95% 82%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 30 50% 10%;
-    --popover-foreground: 38 95% 82%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 25 87% 50%; /* #ef6f12 - Bright orange */
-    --primary-foreground: 0 0% 100%;
+    --primary: 25 90% 55%;
+    --primary-foreground: 0 0% 9.1%;
 
-    --secondary: 39 96% 57%; /* #fbac2a - Golden yellow */
-    --secondary-foreground: 30 50% 1%;
+    --secondary: 38 92% 50%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 30 50% 15%;
-    --muted-foreground: 38 95% 70%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 0 0% 62.9%;
 
-    --accent: 39 96% 57%; /* #fbac2a - Golden yellow */
-    --accent-foreground: 30 50% 1%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 93% 47%; /* #e40a0b - Deep red */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 30 50% 15%;
-    --input: 30 50% 15%;
-    --ring: 25 87% 50%;
-    
-    /* Sidebar specific theme adjustments */
-    --sidebar-background: 30 50% 1%; /* #040201 - Black */
-    --sidebar-foreground: 38 95% 82%; /* #fdd9a6 - Warm cream */
-    --sidebar-primary: 25 87% 50%; /* #ef6f12 - Bright orange */
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 25 50% 15%; /* Darker orange for hover */
-    --sidebar-accent-foreground: 38 95% 95%;
-    --sidebar-border: 25 30% 10%;
-    --sidebar-ring: 25 87% 50%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 25 90% 55%;
   }
 }
 
@@ -102,6 +78,7 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body);
   }
 }
 
