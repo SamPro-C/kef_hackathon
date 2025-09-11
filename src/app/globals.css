@@ -78,3 +78,137 @@
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
+
+/* ------------------------
+   Sponsor a Dream Styles
+   ------------------------ */
+:root{
+  --orange:#ef6f12;
+  --gold:#fbac2a;
+  --cream:#fdd9a6;
+  --dark:#040201;
+  --muted:#f6f3ef;
+  --card-radius:16px;
+  --max-width:1100px;
+  --accent-glow: 0 6px 28px rgba(239,111,18,0.18);
+  --soft: 0 4px 18px rgba(0,0,0,0.08);
+  --mobile-break:720px;
+}
+
+#impact-page {
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:linear-gradient(180deg,var(--cream), #fff);
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.4;
+}
+
+#impact-page .container{max-width:var(--max-width);margin:0 auto;padding:24px}
+
+/* Header / Nav (simple) */
+#impact-page header{
+  display:flex;align-items:center;justify-content:space-between;padding:8px 0;
+}
+#impact-page .brand{display:flex;align-items:center;gap:12px}
+#impact-page .logo{
+  width:46px;height:46px;border-radius:8px;background:linear-gradient(135deg,var(--orange),var(--gold));
+  display:flex;align-items:center;justify-content:center;color:white;font-weight:700;box-shadow:var(--accent-glow);
+  font-family:Georgia, "Times New Roman", serif;
+}
+#impact-page .title{font-weight:700;font-size:18px}
+#impact-page .small{font-size:13px;color:#594b44}
+
+/* Section base */
+#impact-page section{padding:48px 0}
+#impact-page .hero{
+  display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;
+  padding:36px;background:linear-gradient(135deg,#fffaf0, #fff8f2);
+  border-radius:20px;box-shadow:var(--soft);
+}
+#impact-page .hero-left h1{font-size:34px;margin:0 0 12px}
+#impact-page .hero-left p{margin:0 0 18px;color:#5b4a3f}
+#impact-page .hero-cta{display:flex;gap:12px}
+#impact-page .btn{
+  background:var(--orange);color:#fff;padding:12px 18px;border-radius:12px;border:0;font-weight:600;
+  box-shadow:var(--accent-glow);cursor:pointer;
+}
+#impact-page .btn.secondary{background:transparent;border:2px solid rgba(0,0,0,0.06);color:var(--dark);box-shadow:none}
+
+/* Game area */
+#impact-page .game{
+  margin-top:18px;padding:18px;border-radius:16px;background:white;box-shadow:var(--soft);
+}
+#impact-page .budget-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+#impact-page .coins-pile{
+  display:flex;gap:10px;flex-wrap:wrap;padding:12px;background:linear-gradient(180deg,#fff,#fff8f0);
+  border-radius:12px;min-height:72px;align-items:center;justify-content:center;
+}
+#impact-page .coin{
+  width:48px;height:48px;background:linear-gradient(145deg,#ffd27a,#efb75d);
+  border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);cursor:grab; user-select:none;
+  touch-action:none;
+}
+#impact-page .coin:active{cursor:grabbing;transform:scale(.98)}
+#impact-page .buckets{
+  display:flex;gap:12px;align-items:stretch;flex:1;flex-wrap:wrap;
+}
+#impact-page .bucket{
+  flex:1;min-width:160px;background:linear-gradient(180deg,#fff,#fffcee);padding:14px;border-radius:12px;
+  text-align:center;box-shadow:var(--soft);position:relative;
+}
+#impact-page .bucket .icon{font-size:28px;display:block;margin-bottom:8px}
+#impact-page .bucket .count{font-weight:700;font-size:20px;margin-top:8px}
+#impact-page .progress-bar{
+  height:10px;background:#eee;border-radius:6px;margin-top:10px;overflow:hidden;
+}
+#impact-page .progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--gold));width:0%}
+#impact-page .smallmuted{font-size:13px;color:#816b60}
+
+/* students row */
+#impact-page .students{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;justify-content:center}
+#impact-page .student{
+  width:120px;background:linear-gradient(180deg,#fff,#fff8f7);padding:10px;border-radius:12px;text-align:center;box-shadow:var(--soft);
+  position:relative;
+}
+#impact-page .avatar{
+  width:68px;height:68px;border-radius:50%;background:linear-gradient(145deg,#ffd27a,#ffb86b);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-weight:700;
+  font-size:20px;color:var(--dark);
+}
+#impact-page .student .name{font-size:14px;font-weight:700}
+#impact-page .student .role{font-size:12px;color:#7a6457;margin-top:6px}
+#impact-page .student.faded{opacity:.35;filter:grayscale(.2)}
+#impact-page .student.success{box-shadow:0 10px 40px rgba(239,111,18,0.15);transform:translateY(-6px);transition:all .4s}
+#impact-page .speech{position:absolute;left:50%;transform:translateX(-50%);top:-36px;background:#fff;padding:6px 10px;border-radius:8px;border:1px solid #eee;box-shadow:var(--soft);display:none;font-size:13px}
+#impact-page .speech:after{content:"";position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);border-width:6px;border-style:solid;border-color:#fff transparent transparent transparent}
+
+/* ripple / careers */
+#impact-page .ripple-wrap{padding:26px;background:linear-gradient(180deg,#fffef7,#fffefb);border-radius:12px;box-shadow:var(--soft);margin-top:20px;text-align:center}
+#impact-page .ripple-canvas{height:220px;position:relative;overflow:hidden}
+#impact-page .ripple-circle{
+  position:absolute;border-radius:50%;background:rgba(251,172,42,0.09);transform:scale(0);
+  box-shadow:0 8px 40px rgba(251,172,42,0.08);
+}
+#impact-page .career-grid{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+#impact-page .career{padding:12px;border-radius:12px;background:#fff;border:1px solid #fff6ea;min-width:120px}
+
+/* CTA page */
+#impact-page .final{
+  padding:28px;text-align:center;border-radius:14px;background:linear-gradient(180deg,#fff8f2,#fff8f0);
+  margin-top:22px;box-shadow:var(--soft)
+}
+#impact-page .final h2{font-size:22px;margin:0 0 12px}
+#impact-page .cta-row{display:flex;gap:12px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+
+/* footer small */
+#impact-page footer{margin-top:32px;text-align:center;color:#6b5549;font-size:13px;padding:24px 0}
+
+/* responsive */
+@media (max-width:720px){
+  #impact-page .hero{grid-template-columns:1fr;gap:18px}
+  #impact-page .coin{width:44px;height:44px}
+  #impact-page .bucket{min-width:unset}
+  #impact-page .student{width:100px}
+  #impact-page .ripple-canvas{height:180px}
+}
