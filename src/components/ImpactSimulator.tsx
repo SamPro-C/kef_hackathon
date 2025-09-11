@@ -1,49 +1,69 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
-import { Home, School, GraduationCap, Briefcase } from 'lucide-react';
+import { Home, School, GraduationCap, Briefcase, BookOpen } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+gsap.registerPlugin(useGSAP);
 
 const impactLevels = [
-  { amount: 10, description: 'School supplies for a month' },
-  { amount: 25, description: 'A new school uniform and shoes' },
-  { amount: 50, description: 'Textbooks for a full year' },
-  { amount: 100, description: 'Contribution towards one term of school fees' },
-  {
-    amount: 250,
-    description: 'Full tuition for one term, including boarding',
-  },
-  {
-    amount: 750,
-    description: 'A full year scholarship for a day-scholar student',
-  },
-  {
-    amount: 1500,
-    description:
-      'A full year scholarship for a boarding school student, covering all costs',
-  },
+  { amount: 10, description: "You've provided essential school supplies for a month." },
+  { amount: 25, description: "You've given a student a new uniform and shoes, filling them with pride." },
+  { amount: 50, description: "You've provided a full set of textbooks, lighting up a student's path to knowledge." },
+  { amount: 100, description: "You've contributed to a term of school fees, keeping a student's dream alive." },
+  { amount: 250, description: "You've funded a full term, including safe boarding and meals." },
+  { amount: 750, description: "You've sponsored a full year scholarship for a day-scholar, removing all barriers." },
+  { amount: 1500, description: "You've become a full sponsor for a boarding student, ensuring their success for an entire year." },
 ];
 
 const studentJourney = [
-  { level: 0, icon: <Home className="w-8 h-8" />, label: 'At Home' },
-  { level: 25, icon: <School className="w-8 h-8" />, label: 'In School' },
-  {
-    level: 750,
-    icon: <GraduationCap className="w-8 h-8" />,
-    label: 'Graduated',
-  },
-  {
-    level: 1500,
-    icon: <Briefcase className="w-8 h-8" />,
-    label: 'Career Ready',
-  },
+  { level: 0, icon: <Home className="w-8 h-8" />, label: 'Awaiting Opportunity' },
+  { level: 25, icon: <School className="w-8 h-8" />, label: 'Enrolled in School' },
+  { level: 750, icon: <GraduationCap className="w-8 h-8" />, label: 'High School Graduate' },
+  { level: 1500, icon: <Briefcase className="w-8 h-8" />, label: 'Career Ready' },
 ];
 
 export default function ImpactSimulator() {
   const [amount, setAmount] = useState(50);
+  const container = useRef(null);
+  const progressRef = useRef(null);
+
+  useGSAP(
+    () => {
+      // Animate progress bar
+      gsap.to(progressRef.current, {
+        value: (amount / 1500) * 100,
+        duration: 0.5,
+        ease: 'power3.inOut',
+      });
+
+      // Animate journey icons
+      studentJourney.forEach((step, index) => {
+        const isActive = amount >= step.level;
+        gsap.to(`.journey-icon-${index}`, {
+          scale: isActive ? 1.1 : 1,
+          duration: 0.3,
+          ease: 'back.out(1.7)',
+        });
+        gsap.to(`.icon-bg-${index}`, {
+          backgroundColor: isActive ? 'hsl(var(--primary))' : 'hsl(var(--muted))',
+          color: isActive ? 'hsl(var(--primary-foreground))' : 'hsl(var(--muted-foreground))',
+          duration: 0.5,
+        });
+         gsap.to(`.icon-label-${index}`, {
+          color: isActive ? 'hsl(var(--primary))' : 'hsl(var(--muted-foreground))',
+          duration: 0.5,
+        });
+      });
+    },
+    { dependencies: [amount], scope: container }
+  );
 
   const handleSliderChange = (value: number[]) => {
     setAmount(value[0]);
@@ -58,16 +78,10 @@ export default function ImpactSimulator() {
     [...impactLevels]
       .reverse()
       .find((level) => amount >= level.amount)?.description ||
-    'Gets a student started on their journey.';
-
-  const progressPercentage = (amount / 1500) * 100;
-
-  const currentJourney = [...studentJourney]
-    .reverse()
-    .find((step) => amount >= step.level);
+    'Every dollar helps a student begin their journey.';
 
   return (
-    <Card className="border-border/30">
+    <Card className="border-border/30 overflow-hidden" ref={container}>
       <CardHeader>
         <CardTitle className="text-center font-space-grotesk">
           Your Support Transforms Futures
@@ -100,40 +114,38 @@ export default function ImpactSimulator() {
           </div>
         </div>
 
-        <div className="mt-12">
-          <h3 className="mb-6 text-lg font-semibold text-center font-space-grotesk">
+        <div className="mt-20 mb-10">
+          <h3 className="mb-12 text-lg font-semibold text-center font-space-grotesk">
             Student Journey Progress
           </h3>
           <div className="relative w-full">
-            <Progress value={progressPercentage} className="h-2" />
-            <div className="flex justify-between mt-2">
+            <Progress ref={progressRef} value={0} className="h-2" />
+            <div className="absolute top-0 flex justify-between w-full -translate-y-1/2">
               {studentJourney.map((step, index) => {
                 const stepPercentage = (step.level / 1500) * 100;
-                const isActive = amount >= step.level;
                 return (
                   <div
                     key={index}
                     className="flex flex-col items-center"
                     style={{
                       position: 'absolute',
-                      left: `calc(${stepPercentage}% - 16px)`,
+                      left: `${stepPercentage}%`,
                       transform: 'translateX(-50%)',
-                      top: '-2rem',
                     }}
                   >
                     <div
-                      className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-                        isActive
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted text-muted-foreground'
-                      }`}
+                      className={cn(
+                        'w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 journey-icon-icon',
+                         `icon-bg-${index}`
+                      )}
                     >
-                      {step.icon}
+                       <div className={`journey-icon-${index}`}>{step.icon}</div>
                     </div>
                     <span
-                      className={`mt-2 text-xs font-semibold ${
-                        isActive ? 'text-primary' : 'text-muted-foreground'
-                      }`}
+                      className={cn(
+                        'mt-3 text-xs text-center font-semibold w-24',
+                        `icon-label-${index}`
+                      )}
                     >
                       {step.label}
                     </span>
