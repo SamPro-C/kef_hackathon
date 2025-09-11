@@ -1,5 +1,5 @@
 import AlumniStoryCard from '@/components/AlumniStoryCard';
-import { placeholderImages } from '@/lib/placeholder-images';
+import placeholderImages from '@/lib/placeholder-images.json';
 
 export default function StoriesPage() {
   return (
