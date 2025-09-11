@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -33,9 +34,11 @@ export default function Home() {
             className="mt-12 animate-slow-fade-in"
             style={{ animationDelay: '1.2s' }}
           >
-            <Button size="lg" className="animate-glow">
-              See the Transformation
-              <ArrowRight className="w-5 h-5 ml-2" />
+            <Button size="lg" className="animate-glow" asChild>
+              <Link href="/stories">
+                See the Transformation
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
             </Button>
           </div>
         </div>
