@@ -6,7 +6,7 @@
   :root {
     --background: 28 100% 97%; /* Light cream - Fallback */
     --foreground: 20 14% 4%;
-    --card: 30 86% 96%;
+    --card: 0 0% 100%;
     --card-foreground: 20 14% 4%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
@@ -62,7 +62,6 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
-    background-image: linear-gradient(to bottom, hsl(var(--primary) / 0.1), hsl(var(--secondary) / 0.1), hsl(var(--background)));
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-headline);
@@ -79,6 +78,21 @@
     from {
       opacity: 0;
       transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
     }
     to {
       opacity: 1;
@@ -127,36 +141,6 @@
     }
     to {
       box-shadow: 0 0 20px 0px hsl(var(--primary)), 0 0 40px 5px hsl(var(--primary) / 0.5);
-    }
-  }
-
-  .animate-ripple {
-    animation: ripple 1.5s linear infinite;
-  }
-
-  @keyframes ripple {
-    0% {
-      transform: scale(1);
-      opacity: 0.7;
-    }
-    100% {
-      transform: scale(2.5);
-      opacity: 0;
-    }
-  }
-
-  .animate-coin-drop {
-    animation: coin-drop 0.5s ease-out forwards;
-  }
-
-  @keyframes coin-drop {
-    from {
-      transform: translateY(-100%) scale(1.2);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0) scale(1);
-      opacity: 1;
     }
   }
 }
