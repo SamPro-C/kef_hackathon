@@ -52,7 +52,8 @@
 }
 
 @keyframes glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 5px hsl(var(--accent)), 0 0 10px hsl(var(--accent));
   }
   50% {
@@ -62,4 +63,18 @@
 
 .animate-glow {
   animation: glow 2.5s infinite ease-in-out;
+}
+
+.schoolbag-container .schoolbag-question {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.schoolbag-container:hover .schoolbag-question {
+  opacity: 1;
+}
+
+.schoolbag-container:hover .schoolbag-icon {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
