@@ -1,31 +1,28 @@
 'use client';
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 const Hero = () => {
-  const [showBubble, setShowBubble] = useState(false);
-
-  const handleStudentClick = () => {
-    setShowBubble(true);
-    setTimeout(() => {
-      setShowBubble(false);
-    }, 2000);
-  };
 
   return (
-    <div className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-orange-50 to-yellow-50 text-center">
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-        {/* Animated Stars Background can be added here */}
-      </div>
+    <div className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden">
+        <Image
+          src="https://picsum.photos/seed/hero-bg/1800/1200"
+          alt="Students in a classroom looking hopeful"
+          fill
+          className="object-cover"
+          data-ai-hint="kenyan students classroom smiling"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/50 z-10" />
       
-      <div className="relative z-10 flex flex-col items-center px-4">
+      <div className="relative z-20 flex flex-col items-center px-4 text-white">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl md:text-6xl font-bold text-gray-800"
+          className="text-4xl md:text-6xl font-bold"
         >
           Sponsor a Dream. Change a Life.
         </motion.h1>
@@ -34,7 +31,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-4 max-w-2xl text-lg text-muted-foreground"
+          className="mt-4 max-w-2xl text-lg text-gray-200"
         >
           Education is the bridge to opportunity. Step into the shoes of a donor and see how your choices can unlock futures.
         </motion.p>
@@ -51,36 +48,6 @@ const Hero = () => {
             </button>
           </Link>
         </motion.div>
-
-        <div className="absolute bottom-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 50}}
-            animate={{ opacity: 1, y: 0}}
-            transition={{ duration: 1, delay: 1 }}
-            className="relative"
-            onClick={handleStudentClick}
-          >
-            <Image 
-              src="https://picsum.photos/seed/students/800/200"
-              alt="Illustration of students walking"
-              width={400}
-              height={100}
-              className="cursor-pointer"
-              data-ai-hint="students walking illustration"
-            />
-             {showBubble && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-lg shadow-md"
-              >
-                <p className="text-sm text-gray-700 whitespace-nowrap">Thank you!</p>
-                <div className="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white"></div>
-              </motion.div>
-            )}
-          </motion.div>
-        </div>
       </div>
     </div>
   );
