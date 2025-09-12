@@ -15,7 +15,7 @@ const Footer = () => {
               <span className="font-bold text-lg">Sponsor a Dream</span>
             </Link>
             <p className="text-muted-foreground text-sm">
-              Changing lives in Kenya through education, one student at a time.
+              Self-reliance for people in Kenya through education.
             </p>
           </div>
 
