@@ -66,7 +66,7 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
           <p>&copy; 2025 Kenya Education Fund. All rights reserved.</p>
-          <p className="mt-1">This is an interactive prototype developed for the KEF Alumni Hack-a-thon. not the official site.</p>
+          <p className="mt-1">This is an interactive prototype developed for the KEF Alumni Hack-a-thon. NOT THE KEF OFFICIAL SITE.</p>
         </div>
       </div>
     </footer>
