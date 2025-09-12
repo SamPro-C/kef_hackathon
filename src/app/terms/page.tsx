@@ -27,7 +27,7 @@ const TermsOfUsePage = () => {
           <p>The Service is provided to You "AS IS" and "AS AVAILABLE" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice.</p>
   
           <h2 className="text-2xl font-bold mt-8 mb-4">Contact Us</h2>
-          <p>If you have any questions about these Terms, you can understand that this is a non-functional prototype and these terms are for demonstration purposes only.</p>
+          <p>If you have any questions about this Terms of Use, you can contact the developer, Jacques Obed, at ohbeyd01@gmail.com. Please note that this is a non-functional prototype and this policy is for demonstration purposes only.</p>
         </div>
       </main>
     );
