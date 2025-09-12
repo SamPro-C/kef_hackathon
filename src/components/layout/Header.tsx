@@ -16,6 +16,13 @@ const Header = () => {
     };
   }, []);
 
+  const linkClasses = `transition-colors hover:text-primary ${isScrolled ? 'text-gray-600' : 'text-gray-800'}`;
+  const brandTextClasses = `font-bold text-lg transition-colors ${isScrolled ? 'text-gray-800' : 'text-gray-800'}`;
+
+  // On transparent background, links were hard to read. Defaulting to dark text.
+  const initialLinkClasses = `transition-colors hover:text-primary text-gray-800`;
+
+
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -28,16 +35,16 @@ const Header = () => {
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg shadow-md">
               KEF
             </div>
-            <span className={`font-bold text-lg transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>Sponsor a Dream</span>
+            <span className={brandTextClasses}>Sponsor a Dream</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
-            <Link href="/" className={`transition-colors hover:text-primary ${isScrolled ? 'text-gray-600' : 'text-white'}`}>
+            <Link href="/" className={isScrolled ? linkClasses : initialLinkClasses}>
               Home
             </Link>
-            <Link href="/stories" className={`transition-colors hover:text-primary ${isScrolled ? 'text-gray-600' : 'text-white'}`}>
+            <Link href="/stories" className={isScrolled ? linkClasses : initialLinkClasses}>
               KEF Stories
             </Link>
-            <Link href="/impact" className={`transition-colors hover:text-primary ${isScrolled ? 'text-gray-600' : 'text-white'}`}>
+            <Link href="/impact" className={isScrolled ? linkClasses : initialLinkClasses}>
               Impact
             </Link>
             <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="px-4 py-2 bg-accent text-white font-semibold rounded-md shadow-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
