@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)'],
-        mono: ['var(--font-space-grotesk)'],
+        heading: ['var(--font-space-grotesk)'],
       },
       colors: {
         border: "hsl(var(--border))",
