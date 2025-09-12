@@ -61,27 +61,6 @@ const impactStats = [
   },
 ];
 
-const graduates = [
-  {
-    name: 'Bridget Kendi',
-    degree: 'Bachelor of Education (Science)',
-    university: 'University of Nairobi',
-    image: 'https://picsum.photos/seed/grad1/200/200',
-  },
-  {
-    name: 'Judith Khasiala',
-    degree: 'Bachelor of education (arts)',
-    university: 'Kiriri women university of science and technology',
-    image: 'https://picsum.photos/seed/grad2/200/200',
-  },
-  {
-    name: 'Raymond Jack',
-    degree: 'Bsc. Actuarial science',
-    university: 'University of Nairobi',
-    image: 'https://picsum.photos/seed/grad3/200/200',
-  },
-];
-
 const alumniStories = [
     {
         title: "From Worry to Wonder: Jeff’s Journey",
