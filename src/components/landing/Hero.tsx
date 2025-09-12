@@ -16,7 +16,7 @@ const Hero = () => {
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-orange-50 to-yellow-50 text-center">
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/5 via-background to-accent/5">
         {/* Animated Stars Background can be added here */}
       </div>
       
@@ -34,7 +34,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-4 max-w-2xl text-lg text-gray-600"
+          className="mt-4 max-w-2xl text-lg text-muted-foreground"
         >
           Education is the bridge to opportunity. Step into the shoes of a donor and see how your choices can unlock futures.
         </motion.p>
@@ -46,7 +46,7 @@ const Hero = () => {
           className="mt-8"
         >
           <Link href="/game" passHref>
-            <button className="px-8 py-4 bg-primary text-white font-bold rounded-full shadow-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105">
+            <button className="btn px-8 py-4 text-lg">
                🎮 Play the Game
             </button>
           </Link>

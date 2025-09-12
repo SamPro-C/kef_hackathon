@@ -35,10 +35,10 @@ const impactStats = [
 
 export default function ImpactPage() {
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold">Our Impact, By the Numbers</h1>
-        <p className="text-center text-lg mt-4 text-gray-600 max-w-3xl mx-auto">
+        <h1 className="text-5xl font-bold">Our Impact, By the Numbers</h1>
+        <p className="text-center text-lg mt-4 text-muted-foreground max-w-3xl mx-auto">
           Every number tells a story of a life changed. Our holistic approach
           doesn't just open doors to classrooms—it builds futures.
         </p>
@@ -46,23 +46,23 @@ export default function ImpactPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
         {impactStats.map((stat) => (
-          <Card key={stat.label} className="flex flex-col">
+          <Card key={stat.label} className="flex flex-col hover:border-primary transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
                 {stat.label}
               </CardTitle>
               {stat.icon}
             </CardHeader>
             <CardContent className="flex-grow">
-              <div className="text-4xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground mt-2">
+              <div className="text-5xl font-bold">{stat.value}</div>
+              <p className="text-sm text-muted-foreground mt-2">
                 {stat.description}
               </p>
             </CardContent>
           </Card>
         ))}
       </div>
-       <div className="text-center mt-12">
+       <div className="text-center mt-16">
           <p className="text-lg text-gray-700">
             These numbers are a testament to the generosity of our donors and the resilience of our students.
           </p>

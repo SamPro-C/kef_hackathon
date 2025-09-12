@@ -16,17 +16,15 @@ const Header = () => {
     };
   }, []);
 
-  const linkClasses = `transition-colors hover:text-primary ${isScrolled ? 'text-gray-600' : 'text-gray-800'}`;
-  const brandTextClasses = `font-bold text-lg transition-colors ${isScrolled ? 'text-gray-800' : 'text-gray-800'}`;
-
-  // On transparent background, links were hard to read. Defaulting to dark text.
-  const initialLinkClasses = `transition-colors hover:text-primary text-gray-800`;
+  const linkClasses = `transition-colors hover:text-primary`;
+  const brandTextClasses = `font-bold text-lg transition-colors`;
+  const initialLinkClasses = `transition-colors hover:text-primary`;
 
 
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+        isScrolled ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -37,17 +35,17 @@ const Header = () => {
             </div>
             <span className={brandTextClasses}>Sponsor a Dream</span>
           </Link>
-          <nav className="hidden md:flex items-center gap-6">
-            <Link href="/" className={isScrolled ? linkClasses : initialLinkClasses}>
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+            <Link href="/" className={linkClasses}>
               Home
             </Link>
-            <Link href="/stories" className={isScrolled ? linkClasses : initialLinkClasses}>
+            <Link href="/stories" className={linkClasses}>
               KEF Stories
             </Link>
-            <Link href="/impact" className={isScrolled ? linkClasses : initialLinkClasses}>
+            <Link href="/impact" className={linkClasses}>
               Impact
             </Link>
-            <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="px-4 py-2 bg-accent text-white font-semibold rounded-md shadow-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
+            <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="px-4 py-2 bg-accent text-accent-foreground font-semibold rounded-md shadow-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
               Donate
             </Link>
           </nav>

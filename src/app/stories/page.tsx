@@ -71,10 +71,10 @@ export default function StoriesPage() {
 
   return (
     <>
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold">Real Lives, Real Impact</h1>
-          <p className="text-center text-lg mt-4 text-gray-600 max-w-3xl mx-auto">
+          <h1 className="text-5xl font-bold">Real Lives, Real Impact</h1>
+          <p className="text-center text-lg mt-4 text-muted-foreground max-w-3xl mx-auto">
             Every scholarship is a story of resilience, hope, and opportunity. These are the voices of KEF scholars and alumni.
           </p>
         </div>
@@ -84,7 +84,7 @@ export default function StoriesPage() {
             <Card
               key={story.id}
               onClick={() => setSelectedStory(story)}
-              className="cursor-pointer hover:shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out group"
+              className="cursor-pointer hover:shadow-2xl hover:border-primary/80 hover:scale-[1.02] transition-all duration-300 ease-in-out group"
             >
               <CardHeader className="p-0">
                 <Image
@@ -101,10 +101,10 @@ export default function StoriesPage() {
                 <p className="text-lg text-primary mt-2 font-semibold">
                   &ldquo;{story.quote}&rdquo;
                 </p>
-                <p className="text-gray-600 mt-4">{story.summary}</p>
+                <p className="text-muted-foreground mt-4">{story.summary}</p>
               </CardContent>
               <CardFooter>
-                 <p className="text-sm font-bold text-gray-500 group-hover:text-primary transition-colors">Read full story &rarr;</p>
+                 <p className="text-sm font-bold text-muted-foreground group-hover:text-primary transition-colors">Read full story &rarr;</p>
               </CardFooter>
             </Card>
           ))}

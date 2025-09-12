@@ -43,6 +43,7 @@ export default function GamePage() {
     const gameSection = document.getElementById('gameSection');
     const rippleCanvas = document.getElementById('rippleCanvas');
     const careerGrid = document.getElementById('careerGrid');
+    const rippleSuccessCount = document.getElementById('rippleSuccessCount');
 
     /* ---------- Init UI ---------- */
     function init() {
@@ -277,6 +278,10 @@ export default function GamePage() {
       renderStudents();
 
       const successes = state.students.filter((s) => s.funded).length;
+      if (rippleSuccessCount) {
+        rippleSuccessCount.textContent = successes;
+      }
+      
 
       if (rippleSection) {
         rippleSection.style.display = 'block';
@@ -350,7 +355,9 @@ export default function GamePage() {
       {/* Game Section */}
       <section id="gameSection" className="mt-20">
       <div className="game">
-        <h3 style={{ margin: '0 0 12px' }}>Sponsor a Dream — Interactive Simulator</h3>
+        <h3 className='text-3xl font-bold text-center mb-2'>Sponsor a Dream — Interactive Simulator</h3>
+        <p className="text-muted-foreground text-center mb-8">See how your choices can change a student’s future.</p>
+        
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
           <div style={{ minWidth: '220px' }}>
             <div style={{ fontSize: '13px', color: '#6e5a4e', marginBottom: '6px' }}>Your Budget</div>
@@ -415,9 +422,9 @@ export default function GamePage() {
     {/* RIPPLE / IMPACT */}
     <section id="rippleSection" style={{ display: 'none' }}>
       <div className="ripple-wrap">
-        <h3 style={{ margin: '0 0 10px' }}>The Ripple Effect — See the Transformation</h3>
-        <div style={{ color: '#6b5446', marginBottom: '12px' }}>
-          You sponsored {`{x}`} students who are now on track to become...
+        <h3 className='text-3xl font-bold'>The Ripple Effect — See the Transformation</h3>
+        <div className="text-muted-foreground mt-2 mb-4">
+          You sponsored <strong id="rippleSuccessCount" className='text-primary'>0</strong> students who are now on track to become...
         </div>
         <div className="ripple-canvas" id="rippleCanvas">
           {/* expanding circles will be added here */}
@@ -437,8 +444,8 @@ export default function GamePage() {
         </div>
 
         <div className="final-cta" style={{ marginTop: '22px' }}>
-          <h2>Every dream begins with a choice.</h2>
-          <p style={{ color: '#6b5446' }}>
+          <h2 className='text-2xl font-bold'>Every dream begins with a choice.</h2>
+          <p className="text-muted-foreground mt-2">
             Your choice today can ripple into careers, families supported, and stronger communities.
           </p>
           <div className="cta-row">
