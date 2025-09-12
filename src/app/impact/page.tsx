@@ -1,4 +1,6 @@
+'use client';
 import { Award, BookOpen, GraduationCap, Users } from 'lucide-react';
+import CountUp from 'react-countup';
 import {
   Card,
   CardContent,
@@ -9,27 +11,32 @@ import {
 const impactStats = [
   {
     icon: <Users className="h-8 w-8 text-primary" />,
-    value: '4,600+',
+    value: 4600,
     label: 'Students Supported',
     description: 'Since our inception, we have provided comprehensive support to thousands of students, enabling them to complete their education.',
+    suffix: '+',
   },
   {
     icon: <GraduationCap className="h-8 w-8 text-primary" />,
-    value: '98%',
+    value: 98,
     label: 'University Transition Rate',
     description: 'An overwhelming majority of our sponsored students successfully transition to universities and tertiary institutions.',
+    suffix: '%',
   },
   {
     icon: <BookOpen className="h-8 w-8 text-primary" />,
-    value: '20,000+',
+    value: 20000,
     label: 'Mentorship Hours',
     description: 'Our CREW (Creating Respect and Equality for Women) and mentorship programs have provided thousands of hours of guidance.',
+    suffix: '+',
   },
   {
     icon: <Award className="h-8 w-8 text-primary" />,
-    value: 'Top 1%',
+    value: 1,
     label: 'National Exam Performance',
     description: 'KEF students consistently rank in the top 1% of all students taking the Kenya Certificate of Secondary Education (KCSE) exam.',
+    prefix: 'Top ',
+    suffix: '%',
   },
 ];
 
@@ -54,7 +61,18 @@ export default function ImpactPage() {
               {stat.icon}
             </CardHeader>
             <CardContent className="flex-grow">
-              <div className="text-5xl font-bold">{stat.value}</div>
+              <div className="text-5xl font-bold">
+                <CountUp
+                  start={0}
+                  end={stat.value}
+                  duration={2.75}
+                  separator=","
+                  prefix={stat.prefix}
+                  suffix={stat.suffix}
+                  enableScrollSpy
+                  scrollSpyOnce
+                />
+              </div>
               <p className="text-sm text-muted-foreground mt-2">
                 {stat.description}
               </p>
