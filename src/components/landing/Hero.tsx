@@ -50,8 +50,19 @@ const Hero = () => {
           className="mt-8"
         >
           <Link href="/game" passHref>
-            <button className="btn px-8 py-4 text-lg">
-              🎮 Play the Game
+            <button className="btn px-8 py-4 text-lg flex items-center gap-2">
+              <motion.span
+                animate={{ rotate: 360 }}
+                transition={{
+                  repeat: Infinity,
+                  ease: 'linear',
+                  duration: 4,
+                }}
+                className="inline-block"
+              >
+                🎮
+              </motion.span>
+              Play the Game
             </button>
           </Link>
         </motion.div>
