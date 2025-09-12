@@ -40,7 +40,7 @@ const PrivacyPolicyPage = () => {
         <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
 
         <h2 className="text-2xl font-bold mt-8 mb-4">Contact Us</h2>
-        <p>If you have any questions about this Privacy Policy, you can understand that this is a non-functional prototype and this policy is for demonstration purposes only.</p>
+        <p>If you have any questions about this Privacy Policy, you can contact the developer, Jacques Obed, at ohbeyd01@gmail.com. Please note that this is a non-functional prototype and this policy is for demonstration purposes only.</p>
       </div>
     </main>
   );
