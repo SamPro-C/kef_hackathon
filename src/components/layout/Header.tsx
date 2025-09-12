@@ -1,10 +1,13 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +18,8 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  
+  const isHeaderVisible = !isHomePage || isScrolled;
 
   const linkClasses = `transition-colors hover:text-primary`;
   const brandTextClasses = `font-bold text-lg transition-colors`;
@@ -22,10 +27,10 @@ const Header = () => {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent text-white'
+        isHeaderVisible ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent'
       }`}
       style={{
-        color: isScrolled ? 'hsl(var(--foreground))' : 'white',
+        color: isHeaderVisible ? 'hsl(var(--foreground))' : 'white',
       }}
     >
       <div className="container mx-auto px-4">
@@ -37,7 +42,7 @@ const Header = () => {
             <span
               className={brandTextClasses}
               style={{
-                color: isScrolled ? 'hsl(var(--heading))' : 'white',
+                color: isHeaderVisible ? 'hsl(var(--heading))' : 'white',
               }}
             >
               Sponsor a Dream
