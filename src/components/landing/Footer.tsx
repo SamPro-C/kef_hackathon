@@ -24,6 +24,7 @@ const Footer = () => {
             <h3 className="font-semibold mb-4">Navigate</h3>
             <ul className="space-y-2 text-sm">
               <li><Link href="/" className="text-muted-foreground hover:text-primary transition-colors">Home</Link></li>
+              <li><Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link></li>
               <li><Link href="/stories" className="text-muted-foreground hover:text-primary transition-colors">Stories</Link></li>
               <li><Link href="/impact" className="text-muted-foreground hover:text-primary transition-colors">Impact</Link></li>
               <li><Link href="/game" className="text-muted-foreground hover:text-primary transition-colors">The Game</Link></li>

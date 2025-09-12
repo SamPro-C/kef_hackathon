@@ -37,6 +37,9 @@ const Header = () => {
             <Link href="/" className={linkClasses}>
               Home
             </Link>
+            <Link href="/about" className={linkClasses}>
+              About
+            </Link>
             <Link href="/stories" className={linkClasses}>
               KEF Stories
             </Link>

@@ -18,7 +18,7 @@ const About = () => {
           <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-8">
             The Kenya Education Fund (KEF) provides comprehensive, 4-year scholarships to promising yet disadvantaged students in Kenya so they can complete high school and build a brighter future for themselves, their families, and their communities.
           </p>
-          <Link href="/impact" passHref>
+          <Link href="/about" passHref>
             <button className="btn secondary px-8 py-3 text-lg">
               Learn More &rarr;
             </button>
