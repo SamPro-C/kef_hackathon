@@ -60,11 +60,7 @@ export default function ImpactPage() {
       document.getElementById('startBtn')?.addEventListener('click', () => {
         document.getElementById('gameSection')?.scrollIntoView({ behavior: 'smooth' });
       });
-      document.getElementById('learnBtn')?.addEventListener('click', () => {
-        alert(
-          'Click or drag coins into buckets. Each coin supports fees, uniforms, or mentorship. Then click "See Results" to watch transformation.'
-        );
-      });
+
       seeResultsBtn?.addEventListener('click', showResults);
       resetBtn?.addEventListener('click', () => {
         init();
@@ -182,7 +178,7 @@ export default function ImpactPage() {
 
         const speech = document.createElement('div');
         speech.className = 'speech';
-        speech.textContent = 'Thank you.';
+        speech.textContent = 'Thank you, Jacques!';
         el.appendChild(speech);
 
         const avatar = document.createElement('div');
@@ -349,59 +345,14 @@ export default function ImpactPage() {
   return (
     <main id="impact-page">
       <div className="container">
-        <header>
-          <div className="brand">
-            <div className="logo">KEF</div>
-            <div>
-              <div className="title">KEF — Sponsor a Dream</div>
-              <div className="small">Interactive prototype for the Alumni Hack-a-thon</div>
-            </div>
-          </div>
-          <div className="smallmuted">Playable on PC • Tablet • Phone</div>
-        </header>
-
         <section className="hero" id="hero">
-          <div className="hero-left">
-            <h1>Dreams shouldn’t die at the classroom door.</h1>
-            <p>
-              Thousands of bright Kenyan students drop out because of fees, uniforms, or missing mentorship. Step into
-              the story: play, learn how a small choice becomes a life changed, and sponsor a dream.
-            </p>
-            <div className="hero-cta">
+          <div className="hero-left" style={{textAlign: 'center', margin: '0 auto', maxWidth: '600px'}}>
+            <h1>Sponsor a Dream Simulator</h1>
+            <p>See how your choices can change a student’s future.</p>
+            <div className="hero-cta" style={{justifyContent: 'center'}}>
               <button className="btn" id="startBtn">
-                Start the Journey
+                Play Now
               </button>
-              <button className="btn secondary" id="learnBtn">
-                How it works
-              </button>
-            </div>
-            <div style={{ marginTop: '14px', color: '#8a6d59', fontSize: '14px' }}>
-              Real KEF facts included: <strong>4,600+</strong> students supported &nbsp;•&nbsp; <strong>98%</strong>{' '}
-              university transition (prototype content)
-            </div>
-          </div>
-
-          <div>
-            <div
-              style={{
-                padding: '12px',
-                borderRadius: '12px',
-                background: 'linear-gradient(180deg,#fff,#fff8f5)',
-                boxShadow: 'var(--soft)',
-              }}
-            >
-              <div style={{ fontSize: '13px', color: '#5a4638', marginBottom: '10px' }}>Try a quick preview</div>
-              <div className="coins-pile" aria-hidden="true">
-                <div className="coin">1</div>
-                <div className="coin">2</div>
-                <div className="coin">3</div>
-                <div className="coin">4</div>
-                <div className="coin">5</div>
-              </div>
-              <div style={{ marginTop: '10px', fontSize: '13px', color: '#6e5a4e' }}>
-                Drag coins into buckets to fund school fees, uniforms, and mentorship. See students transform — then
-                sponsor a real student.
-              </div>
             </div>
           </div>
         </section>
@@ -535,3 +486,5 @@ export default function ImpactPage() {
     </main>
   );
 }
+
+    
