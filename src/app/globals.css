@@ -64,7 +64,7 @@
   }
 }
 
-/* Custom game styles from previous version */
+/* Custom game styles */
 .game {
   margin-top: 18px;
   padding: 24px;
@@ -90,6 +90,7 @@
   align-items: center;
   justify-content: center;
   border: 1px solid hsl(var(--border));
+  cursor: default;
 }
 .coin {
   width: 48px;
@@ -101,15 +102,10 @@
   justify-content: center;
   font-weight: 700;
   box-shadow: 0 4px 12px hsla(var(--primary), 0.2);
-  cursor: grab;
   user-select: none;
   touch-action: none;
   color: white;
   border: 2px solid white;
-}
-.coin:active {
-  cursor: grabbing;
-  transform: scale(0.98);
 }
 .buckets {
   display: flex;
@@ -128,6 +124,12 @@
   border: 1px solid hsl(var(--border) / 0.8);
   box-shadow: 0 4px 10px hsla(var(--primary), 0.05);
   position: relative;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.bucket:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px hsla(var(--primary), 0.1);
 }
 .bucket .icon {
   font-size: 28px;
@@ -152,6 +154,7 @@
   height: 100%;
   background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
   width: 0%;
+  transition: width 0.5s ease-in-out;
 }
 .smallmuted {
   font-size: 13px;
@@ -174,6 +177,7 @@
   box-shadow: 0 4px 10px hsla(var(--primary), 0.05);
   position: relative;
   transition: all 0.4s;
+  cursor: pointer;
 }
 .avatar {
   width: 68px;
@@ -218,9 +222,9 @@
   border-radius: 8px;
   border: 1px solid hsl(var(--border));
   box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-  display: none;
   font-size: 13px;
   white-space: nowrap;
+  z-index: 10;
 }
 .speech:after {
   content: '';
@@ -245,14 +249,30 @@
   height: 220px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+@keyframes ripple-effect {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
 .ripple-circle {
   position: absolute;
   border-radius: 50%;
   background: hsla(var(--accent), 0.09);
   transform: scale(0);
-  box-shadow: 0 8px 40px hsla(var(--accent), 0.08);
+  animation: ripple-effect 2s cubic-bezier(.2,.8,.2,1) infinite;
 }
+
 .career-grid {
   display: flex;
   gap: 12px;

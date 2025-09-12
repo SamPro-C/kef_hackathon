@@ -1,354 +1,115 @@
 'use client';
-import { useEffect } from 'react';
+import { useState, useMemo } from 'react';
+
+const STARTING_COINS = 10;
+const STUDENT_COUNT = 6;
+const REQUIRED_PER_STUDENT = {
+  fees: 2,
+  uniforms: 1,
+  mentorship: 1,
+};
+
+const initialStudents = Array.from({ length: STUDENT_COUNT }, (_, i) => ({
+  id: i + 1,
+  name: `Student ${i + 1}`,
+  funded: false,
+  progress: 0,
+  showSpeech: false,
+}));
 
 export default function GamePage() {
-  useEffect(() => {
-    /******************************
-     * Sponsor a Dream — Prototype
-     * Vanilla JS implementation
-     ******************************/
+  const [coinsLeft, setCoinsLeft] = useState(STARTING_COINS);
+  const [pools, setPools] = useState({ fees: 0, uniforms: 0, mentorship: 0 });
+  const [students, setStudents] = useState(initialStudents);
+  const [resultsVisible, setResultsVisible] = useState(false);
 
-    /* ---------- Config ---------- */
-    const STARTING_COINS = 10;
-    const STUDENT_COUNT = 6;
+  const careers = useMemo(() => [
+    'Doctor',
+    'Teacher',
+    'Engineer',
+    'Entrepreneur',
+    'Community Leader',
+    'Mentor',
+  ], []);
 
-    // Each student needs these amounts (per student) in order to fully "succeed"
-    // We will attempt to "fund" students sequentially using the buckets.
-    const REQUIRED_PER_STUDENT = {
-      fees: 2, // tuition/exam
-      uniforms: 1, // uniform/books
-      mentorship: 1, // mentorship/workshops
-    };
+  const successes = useMemo(() => students.filter((s) => s.funded).length, [students]);
 
-    /* ---------- State ---------- */
-    let state = {
-      coinsLeft: STARTING_COINS,
-      pools: { fees: 0, uniforms: 0, mentorship: 0 }, // coins allocated per category
-      students: [], // will hold objects with funded info
-    };
+  const handleAllocateCoin = (bucketKey: keyof typeof pools) => {
+    if (coinsLeft <= 0) return;
+    setCoinsLeft(coinsLeft - 1);
+    setPools((prevPools) => ({
+      ...prevPools,
+      [bucketKey]: prevPools[bucketKey] + 1,
+    }));
+  };
 
-    /* ---------- Helpers / DOM refs ---------- */
-    const coinsPile = document.getElementById('coinsPile');
-    const budgetDisplay = document.getElementById('budgetDisplay');
-    const fillFees = document.getElementById('fill-fees');
-    const fillUniforms = document.getElementById('fill-uniforms');
-    const fillMentorship = document.getElementById('fill-mentorship');
-    const countFees = document.getElementById('count-fees');
-    const countUniforms = document.getElementById('count-uniforms');
-    const countMentorship = document.getElementById('count-mentorship');
-    const studentsRow = document.getElementById('studentsRow');
-    const seeResultsBtn = document.getElementById('seeResultsBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const rippleSection = document.getElementById('rippleSection');
-    const gameSection = document.getElementById('gameSection');
-    const rippleCanvas = document.getElementById('rippleCanvas');
-    const careerGrid = document.getElementById('careerGrid');
-    const rippleSuccessCount = document.getElementById('rippleSuccessCount');
+  const handleShowResults = () => {
+    let feesPool = pools.fees;
+    let uniformsPool = pools.uniforms;
+    let mentorshipPool = pools.mentorship;
 
-    /* ---------- Init UI ---------- */
-    function init() {
-      // initial coins
-      state.coinsLeft = STARTING_COINS;
-      state.pools = { fees: 0, uniforms: 0, mentorship: 0 };
-      state.students = [];
-      for (let i = 0; i < STUDENT_COUNT; i++) {
-        state.students.push({
-          id: i + 1,
-          name: `Student ${i + 1}`,
-          funded: false,
-          progress: 0,
-        });
+    const newStudents = students.map((s) => {
+      let funded = false;
+      let progress = 0;
+      if (
+        feesPool >= REQUIRED_PER_STUDENT.fees &&
+        uniformsPool >= REQUIRED_PER_STUDENT.uniforms &&
+        mentorshipPool >= REQUIRED_PER_STUDENT.mentorship
+      ) {
+        feesPool -= REQUIRED_PER_STUDENT.fees;
+        uniformsPool -= REQUIRED_PER_STUDENT.uniforms;
+        mentorshipPool -= REQUIRED_PER_STUDENT.mentorship;
+        funded = true;
+        progress = 1;
       }
+      return { ...s, funded, progress };
+    });
 
-      // Hide sections
-      if(rippleSection) rippleSection.style.display = 'none';
-      if(gameSection) gameSection.style.display = 'block';
-
-      // render coins & students
-      renderCoins();
-      renderBuckets();
-      renderStudents();
-      updateBudgetUI();
-      
-      if (seeResultsBtn) seeResultsBtn.addEventListener('click', showResults);
-      if (resetBtn)
-        resetBtn.addEventListener('click', () => {
-          init();
-          if (gameSection) gameSection.scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-
-    /* ---------- Render coins (click-to-allocate + pointer drag) ---------- */
-    function renderCoins() {
-      if (!coinsPile) return;
-      coinsPile.innerHTML = '';
-      for (let i = 0; i < state.coinsLeft; i++) {
-        const c = document.createElement('div');
-        c.className = 'coin';
-        c.textContent = '¢';
-        c.setAttribute('role', 'button');
-        c.setAttribute('tabindex', '0');
-
-        // pointer events for drag support (simple)
-        let dragging = false;
-        let offset = { x: 0, y: 0 };
-        c.addEventListener('pointerdown', (ev) => {
-          c.setPointerCapture(ev.pointerId);
-          dragging = true;
-          c.style.position = 'relative';
-          c.style.zIndex = '999';
-          offset.x = ev.clientX;
-          offset.y = ev.clientY;
-          c.style.transform = 'scale(1.05)';
-        });
-        c.addEventListener('pointermove', (ev) => {
-          if (!dragging) return;
-          const dx = ev.clientX - offset.x;
-          const dy = ev.clientY - offset.y;
-          c.style.transform = `translate(${dx}px, ${dy}px) scale(1.05)`;
-        });
-        c.addEventListener('pointerup', (ev) => {
-          dragging = false;
-          c.releasePointerCapture(ev.pointerId);
-          c.style.transform = '';
-          c.style.zIndex = '';
-          c.style.position = '';
-          // check drop target:
-          const elem = document.elementFromPoint(ev.clientX, ev.clientY);
-          const bucket = elem && elem.closest && elem.closest('.bucket');
-          if (bucket) {
-            const key = bucket.getAttribute('data-bucket');
-            allocateCoin(key);
-          }
-          renderCoins();
-        });
-
-        coinsPile.appendChild(c);
-      }
-      if (state.coinsLeft === 0) {
-        const hint = document.createElement('div');
-        hint.style.fontSize = '13px';
-        hint.style.color = '#7a6457';
-        hint.style.padding = '8px';
-        hint.textContent =
-          'No coins left — click "See Results" to view impact or Reset to try again';
-        coinsPile.appendChild(hint);
-      }
-    }
-
-    function allocateCoin(bucketKey) {
-      if (state.coinsLeft <= 0) return;
-      if (!['fees', 'uniforms', 'mentorship'].includes(bucketKey)) return;
-      state.coinsLeft--;
-      state.pools[bucketKey] = (state.pools[bucketKey] || 0) + 1;
-      updateBudgetUI();
-      renderBuckets();
-    }
-
-    /* ---------- Update bucket UI ---------- */
-    function renderBuckets() {
-      if(countFees) countFees.textContent = state.pools.fees || 0;
-      if(countUniforms) countUniforms.textContent = state.pools.uniforms || 0;
-      if(countMentorship) countMentorship.textContent = state.pools.mentorship || 0;
-
-      const totalNeededPerCat = REQUIRED_PER_STUDENT.fees * STUDENT_COUNT;
-      const percentFees = Math.min(
-        100,
-        Math.round(((state.pools.fees / totalNeededPerCat) * 100))
-      );
-      if(fillFees) fillFees.style.width = percentFees + '%';
-
-      const totalUniformsNeeded = REQUIRED_PER_STUDENT.uniforms * STUDENT_COUNT;
-      const percentUniforms = Math.min(
-        100,
-        Math.round((state.pools.uniforms / totalUniformsNeeded) * 100)
-      );
-      if(fillUniforms) fillUniforms.style.width = percentUniforms + '%';
-
-      const totalMentorshipNeeded =
-        REQUIRED_PER_STUDENT.mentorship * STUDENT_COUNT;
-      const percentMentorship = Math.min(
-        100,
-        Math.round((state.pools.mentorship / totalMentorshipNeeded) * 100)
-      );
-      if(fillMentorship) fillMentorship.style.width = percentMentorship + '%';
-    }
-
-    /* ---------- Render Students ---------- */
-    function renderStudents() {
-      if (!studentsRow) return;
-      studentsRow.innerHTML = '';
-      state.students.forEach((s) => {
-        const el = document.createElement('div');
-        el.className =
-          'student' +
-          (s.funded ? ' success' : '') +
-          (s.progress < 1 ? ' faded' : '');
-
-        const speech = document.createElement('div');
-        speech.className = 'speech';
-        speech.textContent = 'Thank you, Jacques!';
-        el.appendChild(speech);
-
-        const avatar = document.createElement('div');
-        avatar.className = 'avatar';
-        avatar.textContent = `S${s.id}`;
-        el.appendChild(avatar);
-
-        const name = document.createElement('div');
-        name.className = 'name';
-        name.textContent = s.name;
-        el.appendChild(name);
-
-        const role = document.createElement('div');
-        role.className = 'role';
-        role.textContent = s.funded ? 'Sponsored' : 'Needs support';
-        el.appendChild(role);
-
-        el.addEventListener('click', () => {
-          speech.style.display = 'block';
-          setTimeout(() => (speech.style.display = 'none'), 1800);
-        });
-
-        studentsRow.appendChild(el);
-      });
-    }
-
-    /* ---------- Funding Logic (sequential funding) ---------- */
-    function computeFunding() {
-      let feesPool = state.pools.fees || 0;
-      let uniformsPool = state.pools.uniforms || 0;
-      let mentorshipPool = state.pools.mentorship || 0;
-
-      state.students.forEach((s) => {
-        s.funded = false;
-        s.progress = 0;
-        if (
-          feesPool >= REQUIRED_PER_STUDENT.fees &&
-          uniformsPool >= REQUIRED_PER_STUDENT.uniforms &&
-          mentorshipPool >= REQUIRED_PER_STUDENT.mentorship
-        ) {
-          feesPool -= REQUIRED_PER_STUDENT.fees;
-          uniformsPool -= REQUIRED_PER_STUDENT.uniforms;
-          mentorshipPool -= REQUIRED_PER_STUDENT.mentorship;
-          s.funded = true;
-          s.progress = 1;
-        } else {
-          const provided =
-            Math.min(feesPool, REQUIRED_PER_STUDENT.fees) /
-              REQUIRED_PER_STUDENT.fees +
-            Math.min(uniformsPool, REQUIRED_PER_STUDENT.uniforms) /
-              REQUIRED_PER_STUDENT.uniforms +
-            Math.min(mentorshipPool, REQUIRED_PER_STUDENT.mentorship) /
-              REQUIRED_PER_STUDENT.mentorship;
-          s.progress = Math.min(1, provided / 3);
-          if (feesPool > 0) {
-            feesPool = Math.max(
-              0,
-              feesPool - Math.min(feesPool, REQUIRED_PER_STUDENT.fees * s.progress)
-            );
-          }
-          if (uniformsPool > 0) {
-            uniformsPool = Math.max(
-              0,
-              uniformsPool -
-                Math.min(
-                  uniformsPool,
-                  REQUIRED_PER_STUDENT.uniforms * s.progress
-                )
-            );
-          }
-          if (mentorshipPool > 0) {
-            mentorshipPool = Math.max(
-              0,
-              mentorshipPool -
-                Math.min(
-                  mentorshipPool,
-                  REQUIRED_PER_STUDENT.mentorship * s.progress
-                )
-            );
-          }
+    setStudents(newStudents);
+    setResultsVisible(true);
+    setTimeout(() => {
+        const rippleSection = document.getElementById('rippleSection');
+        if (rippleSection) {
+            rippleSection.scrollIntoView({ behavior: 'smooth' });
         }
-      });
-    }
-
-    /* ---------- Show results & ripple animation ---------- */
-    function showResults() {
-      computeFunding();
-      renderStudents();
-
-      const successes = state.students.filter((s) => s.funded).length;
-      if (rippleSuccessCount) {
-        rippleSuccessCount.textContent = successes;
-      }
-      
-
-      if (rippleSection) {
-        rippleSection.style.display = 'block';
-        rippleSection.scrollIntoView({ behavior: 'smooth' });
-      }
-
-      playRipple(successes);
-    }
-
-    function playRipple(successCount) {
-      if (!rippleCanvas || !careerGrid) return;
-      rippleCanvas.innerHTML = '';
-      careerGrid.innerHTML = '';
-      const base = Math.max(1, successCount);
-      const maxCircles = Math.min(6, base + 2);
-      for (let i = 0; i < maxCircles; i++) {
-        const c = document.createElement('div');
-        c.className = 'ripple-circle';
-        const size = 60 + i * 80;
-        c.style.width = size + 'px';
-        c.style.height = size + 'px';
-        c.style.left = 50 - (size / 2 / rippleCanvas.clientWidth) * 100 + '%';
-        c.style.top = 50 - (size / 2 / rippleCanvas.clientHeight) * 100 + '%';
-        rippleCanvas.appendChild(c);
+    }, 100);
+  };
+  
+  const handleStudentClick = (id: number) => {
+    setStudents(currentStudents => currentStudents.map(s => {
+      if (s.id === id) {
+        // Show speech bubble
         setTimeout(() => {
-          c.style.transition =
-            'transform 1200ms cubic-bezier(.2,.8,.2,1), opacity 1000ms';
-          c.style.transform = 'scale(3)';
-          c.style.opacity = '0';
-        }, 120 * i);
+          setStudents(prev => prev.map(innerS => innerS.id === id ? { ...innerS, showSpeech: false } : innerS));
+        }, 1800);
+        return { ...s, showSpeech: true };
       }
+      return s;
+    }));
+  };
 
-      const careers = [
-        'Doctor',
-        'Teacher',
-        'Engineer',
-        'Entrepreneur',
-        'Community Leader',
-        'Mentor',
-      ];
-      for (let i = 0; i < successCount; i++) {
-        const card = document.createElement('div');
-        card.className = 'career';
-        card.innerHTML = `<div style="font-weight:700">${
-          careers[i % careers.length]
-        }</div><div style="font-size:13px;color:#7a6457;margin-top:6px">An outcome of KEF support</div>`;
-        careerGrid.appendChild(card);
-      }
-      if (successCount === 0) {
-        const note = document.createElement('div');
-        note.style.color = '#7a6457';
-        note.style.marginTop = '10px';
-        note.textContent =
-          'No students fully funded — try another allocation to see ripple effects.';
-        careerGrid.appendChild(note);
-      }
-    }
+  const handleReset = () => {
+    setCoinsLeft(STARTING_COINS);
+    setPools({ fees: 0, uniforms: 0, mentorship: 0 });
+    setStudents(initialStudents);
+    setResultsVisible(false);
+    const gameSection = document.getElementById('gameSection');
+    if(gameSection) gameSection.scrollIntoView({ behavior: 'smooth' });
+  };
 
-    /* ---------- Budget UI ---------- */
-    function updateBudgetUI() {
-      if (budgetDisplay) budgetDisplay.textContent = `${state.coinsLeft} Coins`;
-      renderBuckets();
-      renderCoins();
-    }
-
-    init();
-  }, []);
+  const totalNeededFees = REQUIRED_PER_STUDENT.fees * STUDENT_COUNT;
+  const percentFees = Math.min(100, Math.round((pools.fees / totalNeededFees) * 100));
+  const totalNeededUniforms = REQUIRED_PER_STUDENT.uniforms * STUDENT_COUNT;
+  const percentUniforms = Math.min(100, Math.round((pools.uniforms / totalNeededUniforms) * 100));
+  const totalNeededMentorship = REQUIRED_PER_STUDENT.mentorship * STUDENT_COUNT;
+  const percentMentorship = Math.min(100, Math.round((pools.mentorship / totalNeededMentorship) * 100));
+  
+  const rippleCircles = useMemo(() => {
+      if (!resultsVisible) return [];
+      const base = Math.max(1, successes);
+      const maxCircles = Math.min(6, base + 2);
+      return Array.from({length: maxCircles});
+  }, [resultsVisible, successes]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -361,38 +122,45 @@ export default function GamePage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
           <div style={{ minWidth: '220px' }}>
             <div style={{ fontSize: '13px', color: '#6e5a4e', marginBottom: '6px' }}>Your Budget</div>
-            <div id="budgetDisplay" style={{ fontWeight: 800, fontSize: '22px' }}>10 Coins</div>
-            <div style={{ marginTop: '8px', color: '#8a6d59', fontSize: '13px' }}>Drag coins into the buckets to allocate your funds.</div>
+            <div id="budgetDisplay" style={{ fontWeight: 800, fontSize: '22px' }}>{coinsLeft} Coins</div>
+            <div style={{ marginTop: '8px', color: '#8a6d59', fontSize: '13px' }}>Click coins into the buckets to allocate your funds.</div>
           </div>
 
           <div style={{ flex: 1 }}>
             <div className="budget-row">
               <div className="coins-pile" id="coinsPile" aria-label="coins pile">
-                {/* coins created by JS */}
+                {Array.from({ length: coinsLeft }).map((_, i) => (
+                    <div key={i} className="coin" role="button">¢</div>
+                ))}
+                {coinsLeft === 0 && (
+                    <div style={{ fontSize: '13px', color: '#7a6457', padding: '8px' }}>
+                        No coins left — click "See Results" to view impact or Reset to try again
+                    </div>
+                )}
               </div>
 
               <div className="buckets" style={{ flex: 1 }}>
-                <div className="bucket" data-bucket="fees" id="bucket-fees" aria-label="School fees bucket">
+                <div className="bucket" data-bucket="fees" onClick={() => handleAllocateCoin('fees')}>
                   <div className="icon">🎓</div>
                   <div>School Fees</div>
-                  <div className="progress-bar" aria-hidden="true"><div className="progress-fill" id="fill-fees"></div></div>
-                  <div className="count" id="count-fees">0</div>
+                  <div className="progress-bar" aria-hidden="true"><div className="progress-fill" style={{width: `${percentFees}%`}}></div></div>
+                  <div className="count">{pools.fees}</div>
                   <div className="smallmuted">Covers tuition &amp; exam fees</div>
                 </div>
 
-                <div className="bucket" data-bucket="uniforms" id="bucket-uniforms" aria-label="Uniforms bucket">
+                <div className="bucket" data-bucket="uniforms" onClick={() => handleAllocateCoin('uniforms')}>
                   <div className="icon">👕</div>
                   <div>Uniforms &amp; Supplies</div>
-                  <div className="progress-bar"><div className="progress-fill" id="fill-uniforms"></div></div>
-                  <div className="count" id="count-uniforms">0</div>
+                  <div className="progress-bar"><div className="progress-fill" style={{width: `${percentUniforms}%`}}></div></div>
+                  <div className="count">{pools.uniforms}</div>
                   <div className="smallmuted">Uniforms, shoes, books</div>
                 </div>
 
-                <div className="bucket" data-bucket="mentorship" id="bucket-mentorship" aria-label="Mentorship bucket">
+                <div className="bucket" data-bucket="mentorship" onClick={() => handleAllocateCoin('mentorship')}>
                   <div className="icon">🤝</div>
                   <div>Mentorship</div>
-                  <div className="progress-bar"><div className="progress-fill" id="fill-mentorship"></div></div>
-                  <div className="count" id="count-mentorship">0</div>
+                  <div className="progress-bar"><div className="progress-fill" style={{width: `${percentMentorship}%`}}></div></div>
+                  <div className="count">{pools.mentorship}</div>
                   <div className="smallmuted">Guidance, workshops, CREW</div>
                 </div>
               </div>
@@ -408,53 +176,87 @@ export default function GamePage() {
           </div>
 
           <div className="students" id="studentsRow">
-            {/* students rendered by JS */}
+            {students.map((s) => (
+                <div key={s.id} 
+                    className={`student ${s.funded ? 'success' : ''} ${s.progress < 1 ? 'faded' : ''}`}
+                    onClick={() => handleStudentClick(s.id)}
+                >
+                    <div className="speech" style={{ display: s.showSpeech ? 'block' : 'none' }}>
+                        Thank you, Jacques!
+                    </div>
+                    <div className="avatar">S{s.id}</div>
+                    <div className="name">{s.name}</div>
+                    <div className="role">{s.funded ? 'Sponsored' : 'Needs support'}</div>
+                </div>
+            ))}
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '14px' }}>
-            <button className="btn" id="seeResultsBtn">See Results</button>
-            <button className="btn secondary" id="resetBtn">Reset</button>
+            <button className="btn" id="seeResultsBtn" onClick={handleShowResults}>See Results</button>
+            <button className="btn secondary" id="resetBtn" onClick={handleReset}>Reset</button>
           </div>
         </div>
       </div>
     </section>
 
     {/* RIPPLE / IMPACT */}
-    <section id="rippleSection" style={{ display: 'none' }}>
-      <div className="ripple-wrap">
-        <h3 className='text-3xl font-bold'>The Ripple Effect — See the Transformation</h3>
-        <div className="text-muted-foreground mt-2 mb-4">
-          You sponsored <strong id="rippleSuccessCount" className='text-primary'>0</strong> students who are now on track to become...
-        </div>
-        <div className="ripple-canvas" id="rippleCanvas">
-          {/* expanding circles will be added here */}
-        </div>
+    {resultsVisible && (
+        <section id="rippleSection">
+        <div className="ripple-wrap">
+            <h3 className='text-3xl font-bold'>The Ripple Effect — See the Transformation</h3>
+            <div className="text-muted-foreground mt-2 mb-4">
+            You sponsored <strong className='text-primary'>{successes}</strong> students who are now on track to become...
+            </div>
+            <div className="ripple-canvas" id="rippleCanvas">
+                {rippleCircles.map((_, i) => {
+                    const size = 60 + i * 80;
+                    return (
+                        <div key={i} className="ripple-circle" style={{
+                            width: `${size}px`,
+                            height: `${size}px`,
+                            animationDelay: `${i * 150}ms`,
+                        }}></div>
+                    );
+                })}
+            </div>
 
-        <div className="career-grid" id="careerGrid" aria-hidden="true">
-          {/* careers added by JS */}
-        </div>
+            <div className="career-grid" id="careerGrid">
+                {successes > 0 ? (
+                    Array.from({ length: successes }).map((_, i) => (
+                        <div key={i} className="career">
+                            <div style={{ fontWeight: 700 }}>{careers[i % careers.length]}</div>
+                            <div style={{ fontSize: '13px', color: '#7a6457', marginTop: '6px' }}>An outcome of KEF support</div>
+                        </div>
+                    ))
+                ) : (
+                    <div style={{ color: '#7a6457', marginTop: '10px' }}>
+                        No students fully funded — try another allocation to see ripple effects.
+                    </div>
+                )}
+            </div>
 
-        <div style={{ marginTop: '14px' }}>
-          <div style={{ fontWeight: 700 }}>Real KEF numbers</div>
-          <div style={{ color: '#6b5446', marginTop: '6px' }}>
-            <div>• Over <strong>4,600+</strong> students supported since KEF began</div>
-            <div>• KEF holistic support: scholarships, uniforms, sanitary products, mentorship</div>
-            <div>• KEF focus turns school access into lifelong impact</div>
-          </div>
-        </div>
+            <div style={{ marginTop: '14px' }}>
+            <div style={{ fontWeight: 700 }}>Real KEF numbers</div>
+            <div style={{ color: '#6b5446', marginTop: '6px' }}>
+                <div>• Over <strong>4,600+</strong> students supported since KEF began</div>
+                <div>• KEF holistic support: scholarships, uniforms, sanitary products, mentorship</div>
+                <div>• KEF focus turns school access into lifelong impact</div>
+            </div>
+            </div>
 
-        <div className="final-cta" style={{ marginTop: '22px' }}>
-          <h2 className='text-2xl font-bold'>Every dream begins with a choice.</h2>
-          <p className="text-muted-foreground mt-2">
-            Your choice today can ripple into careers, families supported, and stronger communities.
-          </p>
-          <div className="cta-row">
-            <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Student</a>
-            <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn secondary">Donate</a>
-          </div>
+            <div className="final-cta" style={{ marginTop: '22px' }}>
+            <h2 className='text-2xl font-bold'>Every dream begins with a choice.</h2>
+            <p className="text-muted-foreground mt-2">
+                Your choice today can ripple into careers, families supported, and stronger communities.
+            </p>
+            <div className="cta-row">
+                <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Student</a>
+                <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn secondary">Donate</a>
+            </div>
+            </div>
         </div>
-      </div>
-    </section>
+        </section>
+    )}
     </div>
   );
 }
