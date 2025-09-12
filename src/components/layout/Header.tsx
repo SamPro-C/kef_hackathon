@@ -1,32 +1,53 @@
+'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export default function Header() {
+const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="bg-white shadow-sm">
+    <motion.header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+      }`}
+    >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-yellow-400 flex items-center justify-center text-white font-bold text-lg shadow-md">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg shadow-md">
               KEF
             </div>
-            <span className="font-bold text-lg">Sponsor a Dream</span>
+            <span className={`font-bold text-lg transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>Sponsor a Dream</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
-            <Link href="/" className="text-gray-600 hover:text-orange-500 transition-colors">
+            <Link href="/" className={`transition-colors hover:text-primary ${isScrolled ? 'text-gray-600' : 'text-white'}`}>
               Home
             </Link>
-            <Link href="/stories" className="text-gray-600 hover:text-orange-500 transition-colors">
+            <Link href="/stories" className={`transition-colors hover:text-primary ${isScrolled ? 'text-gray-600' : 'text-white'}`}>
               KEF Stories
             </Link>
-            <Link href="/impact" className="text-gray-600 hover:text-orange-500 transition-colors">
+            <Link href="/impact" className={`transition-colors hover:text-primary ${isScrolled ? 'text-gray-600' : 'text-white'}`}>
               Impact
             </Link>
-            <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">
+            <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="px-4 py-2 bg-accent text-white font-semibold rounded-md shadow-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
               Donate
             </Link>
           </nav>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
-}
+};
+
+export default Header;
