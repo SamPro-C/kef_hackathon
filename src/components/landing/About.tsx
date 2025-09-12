@@ -12,7 +12,7 @@ const About = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true, amount: 0.5 }}
         >
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-4xl font-bold mb-4">
             About the Kenya Education Fund
           </h2>
           <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-8">

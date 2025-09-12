@@ -81,7 +81,7 @@ export default function ImpactPage() {
         ))}
       </div>
        <div className="text-center mt-16">
-          <p className="text-lg text-gray-700">
+          <p className="text-lg text-muted-foreground">
             These numbers are a testament to the generosity of our donors and the resilience of our students.
           </p>
           <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn mt-6 text-lg px-8 py-3">

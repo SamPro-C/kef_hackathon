@@ -46,7 +46,7 @@ const Header = () => {
             <Link href="/game" className={linkClasses}>
               The Game
             </Link>
-            <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="px-4 py-2 bg-accent text-accent-foreground font-semibold rounded-md shadow-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
+            <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">
               Donate
             </Link>
           </nav>
