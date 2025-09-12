@@ -43,8 +43,6 @@ export default function HomePage() {
     const gameSection = document.getElementById('gameSection');
     const rippleCanvas = document.getElementById('rippleCanvas');
     const careerGrid = document.getElementById('careerGrid');
-    const ctaSponsor = document.getElementById('ctaSponsor');
-    const ctaDonate = document.getElementById('ctaDonate');
 
     /* ---------- Init UI ---------- */
     function init() {
@@ -88,9 +86,6 @@ export default function HomePage() {
           init();
           if (gameSection) gameSection.scrollIntoView({ behavior: 'smooth' });
         });
-      
-      if(ctaSponsor) ctaSponsor.addEventListener('click', () => window.open('https://www.kenyaeducationfund.org/donate/', '_blank'));
-      if(ctaDonate) ctaDonate.addEventListener('click', () => window.open('https://www.kenyaeducationfund.org/donate/', '_blank'));
     }
 
     /* ---------- Render coins (click-to-allocate + pointer drag) ---------- */
@@ -396,12 +391,12 @@ export default function HomePage() {
                   <div>School Fees</div>
                   <div className="progress-bar" aria-hidden="true"><div className="progress-fill" id="fill-fees"></div></div>
                   <div className="count" id="count-fees">0</div>
-                  <div className="smallmuted">Covers tuition & exam fees</div>
+                  <div className="smallmuted">Covers tuition &amp; exam fees</div>
                 </div>
 
                 <div className="bucket" data-bucket="uniforms" id="bucket-uniforms" aria-label="Uniforms bucket">
                   <div className="icon">👕</div>
-                  <div>Uniforms & Supplies</div>
+                  <div>Uniforms &amp; Supplies</div>
                   <div className="progress-bar"><div className="progress-fill" id="fill-uniforms"></div></div>
                   <div className="count" id="count-uniforms">0</div>
                   <div className="smallmuted">Uniforms, shoes, books</div>
@@ -468,8 +463,8 @@ export default function HomePage() {
             Your choice today can ripple into careers, families supported, and stronger communities.
           </p>
           <div className="cta-row">
-            <button className="btn" id="ctaSponsor">Sponsor a Student</button>
-            <button className="btn secondary" id="ctaDonate">Donate</button>
+            <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Student</a>
+            <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn secondary">Donate</a>
           </div>
         </div>
       </div>
