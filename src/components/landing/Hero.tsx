@@ -7,7 +7,6 @@ import FallingItems from './FallingItems';
 const Hero = () => {
   return (
     <div className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden">
-      <FallingItems />
       <Image
         src="https://picsum.photos/seed/hero-bg/1800/1200"
         alt="Students in a classroom looking hopeful"
@@ -16,6 +15,7 @@ const Hero = () => {
         data-ai-hint="kenyan students classroom smiling"
         priority
       />
+      <FallingItems />
       <div className="absolute inset-0 bg-black/60 z-10" />
 
       <div className="relative z-20 flex flex-col items-center px-4 text-white">
