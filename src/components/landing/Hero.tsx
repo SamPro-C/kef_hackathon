@@ -22,7 +22,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl md:text-6xl font-bold"
+          className="text-4xl md:text-6xl font-bold text-white [text-shadow:0_2px_4px_rgba(0,0,0,0.5)]"
         >
           Sponsor a Dream. Change a Life.
         </motion.h1>
@@ -31,7 +31,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-4 max-w-2xl text-lg text-gray-200"
+          className="mt-4 max-w-2xl text-lg text-gray-200 [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]"
         >
           Education is the bridge to opportunity. Step into the shoes of a donor and see how your choices can unlock futures.
         </motion.p>
