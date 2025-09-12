@@ -63,7 +63,7 @@ export default function HomePage() {
 
       // Hide sections
       if(rippleSection) rippleSection.style.display = 'none';
-      if(gameSection) gameSection.style.display = 'none';
+      if(gameSection) gameSection.style.display = 'block';
 
       // render coins & students
       renderCoins();
@@ -442,7 +442,9 @@ export default function HomePage() {
     <section id="rippleSection" style={{ display: 'none' }}>
       <div className="ripple-wrap">
         <h3 style={{ margin: '0 0 10px' }}>The Ripple Effect — See the Transformation</h3>
-        <div style={{ color: '#6b5446', marginBottom: '12px' }}>Watch students grow into careers and communities transform — powered by small choices.</div>
+        <div style={{ color: '#6b5446', marginBottom: '12px' }}>
+          You sponsored {`{x}`} students who are now on track to become...
+        </div>
         <div className="ripple-canvas" id="rippleCanvas">
           {/* expanding circles will be added here */}
         </div>
@@ -460,9 +462,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div style={{ marginTop: '14px', textAlign: 'center' }}>
-          <button className="btn" id="ctaSponsor">Sponsor a Student</button>
-          <button className="btn secondary" id="ctaDonate">Donate</button>
+        <div className="final-cta" style={{ marginTop: '22px' }}>
+          <h2>Every dream begins with a choice.</h2>
+          <p style={{ color: '#6b5446' }}>
+            Your choice today can ripple into careers, families supported, and stronger communities.
+          </p>
+          <div className="cta-row">
+            <button className="btn" id="ctaSponsor">Sponsor a Student</button>
+            <button className="btn secondary" id="ctaDonate">Donate</button>
+          </div>
         </div>
       </div>
     </section>
