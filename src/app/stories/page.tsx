@@ -98,13 +98,13 @@ export default function StoriesPage() {
               </CardHeader>
               <CardContent className="pt-6">
                 <CardTitle className="text-2xl font-bold">{story.name}</CardTitle>
-                <p className="text-lg text-orange-500 mt-2 font-semibold">
+                <p className="text-lg text-primary mt-2 font-semibold">
                   &ldquo;{story.quote}&rdquo;
                 </p>
                 <p className="text-gray-600 mt-4">{story.summary}</p>
               </CardContent>
               <CardFooter>
-                 <p className="text-sm font-bold text-gray-500 group-hover:text-orange-500 transition-colors">Read full story &rarr;</p>
+                 <p className="text-sm font-bold text-gray-500 group-hover:text-primary transition-colors">Read full story &rarr;</p>
               </CardFooter>
             </Card>
           ))}
@@ -126,7 +126,7 @@ export default function StoriesPage() {
                     />
                 </div>
                 <DialogTitle className="text-3xl font-bold">{selectedStory.name}</DialogTitle>
-                <p className="text-xl text-orange-500 mt-2 font-semibold">
+                <p className="text-xl text-primary mt-2 font-semibold">
                   &ldquo;{selectedStory.quote}&rdquo;
                 </p>
               </DialogHeader>

@@ -8,25 +8,25 @@ import {
 
 const impactStats = [
   {
-    icon: <Users className="h-8 w-8 text-orange-500" />,
+    icon: <Users className="h-8 w-8 text-primary" />,
     value: '4,600+',
     label: 'Students Supported',
     description: 'Since our inception, we have provided comprehensive support to thousands of students, enabling them to complete their education.',
   },
   {
-    icon: <GraduationCap className="h-8 w-8 text-orange-500" />,
+    icon: <GraduationCap className="h-8 w-8 text-primary" />,
     value: '98%',
     label: 'University Transition Rate',
     description: 'An overwhelming majority of our sponsored students successfully transition to universities and tertiary institutions.',
   },
   {
-    icon: <BookOpen className="h-8 w-8 text-orange-500" />,
+    icon: <BookOpen className="h-8 w-8 text-primary" />,
     value: '20,000+',
     label: 'Mentorship Hours',
     description: 'Our CREW (Creating Respect and Equality for Women) and mentorship programs have provided thousands of hours of guidance.',
   },
   {
-    icon: <Award className="h-8 w-8 text-orange-500" />,
+    icon: <Award className="h-8 w-8 text-primary" />,
     value: 'Top 1%',
     label: 'National Exam Performance',
     description: 'KEF students consistently rank in the top 1% of all students taking the Kenya Certificate of Secondary Education (KCSE) exam.',
@@ -55,7 +55,7 @@ export default function ImpactPage() {
             </CardHeader>
             <CardContent className="flex-grow">
               <div className="text-4xl font-bold">{stat.value}</div>
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-muted-foreground mt-2">
                 {stat.description}
               </p>
             </CardContent>

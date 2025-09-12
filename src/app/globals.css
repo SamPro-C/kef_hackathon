@@ -276,14 +276,15 @@
   flex-wrap: wrap;
 }
 .btn {
-  @apply inline-block rounded-lg px-4 py-2 text-sm font-semibold text-white;
+  @apply inline-block rounded-lg px-4 py-2 text-sm font-semibold;
   background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
   box-shadow: 0 6px 28px hsla(var(--primary), 0.18);
   cursor: pointer;
   border: 0;
 }
 .btn.secondary {
-  @apply bg-transparent text-gray-800;
-  border: 1px solid #e5e7eb;
+  @apply bg-transparent text-foreground;
+  border: 1px solid hsl(var(--border));
   box-shadow: none;
 }
