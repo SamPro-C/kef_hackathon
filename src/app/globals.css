@@ -6,48 +6,50 @@
 
 @layer base {
   :root {
-    --background: 27 100% 94%; /* Light Orange */
-    --foreground: 240 10% 3.9%;
-    --card: 27 80% 90%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 27 100% 94%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 25 84% 51%; /* Saturated Orange */
-    --primary-foreground: 60 9.1% 97.8%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 257 51% 55%; /* Purple */
-    --accent-foreground: 60 9.1% 97.8%;
+    --background: 0 0% 100%; /* Soft White */
+    --foreground: 0 0% 20%; /* Charcoal Gray */
+    --card: 0 0% 96%; /* Light Gray */
+    --card-foreground: 0 0% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 20%;
+    --primary: 22 90% 54%; /* Bright Orange */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 173 100% 38%; /* Cool Aqua */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 43 100% 65%; /* Warm Yellow */
+    --accent-foreground: 0 0% 20%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9.1% 97.8%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 25 84% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 22 90% 54%;
     --radius: 0.5rem;
+    --heading: 210 100% 20%; /* Deep Blue */
   }
  
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 60 9.1% 97.8%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 60 9.1% 97.8%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 60 9.1% 97.8%;
-    --primary: 25 84% 51%;
-    --primary-foreground: 60 9.1% 97.8%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 60 9.1% 97.8%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 257 51% 55%;
-    --accent-foreground: 60 9.1% 97.8%;
+    --background: 0 0% 20%; /* Charcoal Gray */
+    --foreground: 0 0% 96%; /* Light Gray */
+    --card: 0 0% 24%;
+    --card-foreground: 0 0% 96%;
+    --popover: 0 0% 20%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 22 90% 54%; /* Bright Orange */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 173 100% 38%; /* Cool Aqua */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 24%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 43 100% 65%; /* Warm Yellow */
+    --accent-foreground: 0 0% 20%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 60 9.1% 97.8%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 25 84% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 30%;
+    --input: 0 0% 30%;
+    --ring: 22 90% 54%;
+    --heading: 210 100% 80%;
   }
 }
 
@@ -60,7 +62,7 @@
     font-family: 'Inter', sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+    @apply font-heading text-[hsl(var(--heading))];
   }
 }
 
@@ -69,7 +71,7 @@
   margin-top: 18px;
   padding: 24px;
   border-radius: 16px;
-  background-color: hsl(var(--background));
+  background-color: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   box-shadow: 0 10px 30px -15px hsla(var(--primary), 0.1);
 }
@@ -117,7 +119,7 @@
 .bucket {
   flex: 1;
   min-width: 160px;
-  background: hsl(var(--card));
+  background: hsl(var(--background));
   padding: 14px;
   border-radius: 12px;
   text-align: center;
@@ -169,7 +171,7 @@
 }
 .student {
   width: 120px;
-  background: hsl(var(--card));
+  background: hsl(var(--background));
   padding: 10px;
   border-radius: 12px;
   text-align: center;
@@ -191,7 +193,7 @@
   font-weight: 700;
   font-size: 20px;
   color: white;
-  border: 3px solid hsl(var(--card));
+  border: 3px solid hsl(var(--background));
   box-shadow: 0 0 0 1px hsl(var(--border));
 }
 .student .name {
@@ -217,7 +219,7 @@
   left: 50%;
   transform: translateX(-50%);
   top: -36px;
-  background: hsl(var(--card));
+  background: hsl(var(--background));
   padding: 6px 10px;
   border-radius: 8px;
   border: 1px solid hsl(var(--border));
@@ -234,7 +236,7 @@
   transform: translateX(-50%);
   border-width: 6px;
   border-style: solid;
-  border-color: hsl(var(--card)) transparent transparent transparent;
+  border-color: hsl(var(--background)) transparent transparent transparent;
 }
 .ripple-wrap {
   padding: 26px;

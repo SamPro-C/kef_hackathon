@@ -22,8 +22,11 @@ const Header = () => {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent'
+        isScrolled ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent text-white'
       }`}
+      style={{
+        color: isScrolled ? 'hsl(var(--foreground))' : 'white',
+      }}
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
@@ -31,7 +34,14 @@ const Header = () => {
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg shadow-md">
               KEF
             </div>
-            <span className={brandTextClasses}>Sponsor a Dream</span>
+            <span
+              className={brandTextClasses}
+              style={{
+                color: isScrolled ? 'hsl(var(--heading))' : 'white',
+              }}
+            >
+              Sponsor a Dream
+            </span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link href="/" className={linkClasses}>
