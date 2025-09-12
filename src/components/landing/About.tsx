@@ -8,17 +8,17 @@ const principles = [
   {
     icon: <Target className="h-8 w-8 text-primary" />,
     title: 'Our Mission',
-    description: 'To provide educational opportunities that empower disadvantaged students in Kenya to create self-reliant futures for themselves, their families, and their communities.',
+    description: 'To provide economically disadvantaged students in Kenya with scholarships, support and educational resources for them to improve their lives and communities.',
   },
   {
     icon: <Eye className="h-8 w-8 text-primary" />,
     title: 'Our Vision',
-    description: 'A Kenya where every young person has the opportunity to achieve their full potential and contribute to a prosperous and equitable society.',
+    description: 'Self-reliance for people in Kenya through education.',
   },
   {
     icon: <Gem className="h-8 w-8 text-primary" />,
     title: 'Our Core Values',
-    description: 'We are driven by Opportunity, Integrity, Empowerment, and Community. We believe talent is universal, but opportunity is not.',
+    description: 'Integrity, Transparency, Equity, Inclusivity, and Compassion.',
   },
 ];
 
