@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import {
   Card,
   CardContent,
@@ -73,64 +74,80 @@ export default function StoriesPage() {
     <>
       <main className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold">Real Lives, Real Impact</h1>
-          <p className="text-center text-lg mt-4 text-muted-foreground max-w-3xl mx-auto">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-5xl font-bold">Real Lives, Real Impact</motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-center text-lg mt-4 text-muted-foreground max-w-3xl mx-auto">
             Every scholarship is a story of resilience, hope, and opportunity. These are the voices of KEF scholars and alumni.
-          </p>
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
           {stories.map((story) => (
-            <Card
+            <motion.div
               key={story.id}
+              whileHover={{ scale: 1.05, y: -10 }}
+              transition={{ type: 'spring', stiffness: 300 }}
               onClick={() => setSelectedStory(story)}
-              className="cursor-pointer hover:shadow-2xl hover:border-primary/80 hover:scale-[1.02] transition-all duration-300 ease-in-out group"
             >
-              <CardHeader className="p-0">
-                <Image
-                  src={story.image}
-                  alt={`Portrait of ${story.name}`}
-                  width={600}
-                  height={400}
-                  className="rounded-t-lg object-cover w-full h-64"
-                  data-ai-hint={story['data-ai-hint']}
-                />
-              </CardHeader>
-              <CardContent className="pt-6">
-                <CardTitle className="text-2xl font-bold">{story.name}</CardTitle>
-                <p className="text-lg text-primary mt-2 font-semibold">
-                  &ldquo;{story.quote}&rdquo;
-                </p>
-                <p className="text-muted-foreground mt-4">{story.summary}</p>
-              </CardContent>
-              <CardFooter>
-                 <p className="text-sm font-bold text-muted-foreground group-hover:text-primary transition-colors">Read full story &rarr;</p>
-              </CardFooter>
-            </Card>
+              <Card
+                className="cursor-pointer overflow-hidden group h-full flex flex-col"
+              >
+                <CardHeader className="p-0">
+                  <div className="relative w-full h-64">
+                    <Image
+                      src={story.image}
+                      alt={`Portrait of ${story.name}`}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      data-ai-hint={story['data-ai-hint']}
+                    />
+                  </div>
+                </CardHeader>
+                <CardContent className="pt-6 flex-grow">
+                  <CardTitle className="text-2xl font-bold">{story.name}</CardTitle>
+                  <p className="text-lg text-primary mt-2 font-semibold">
+                    &ldquo;{story.quote}&rdquo;
+                  </p>
+                  <p className="text-muted-foreground mt-4">{story.summary}</p>
+                </CardContent>
+                <CardFooter>
+                  <p className="text-sm font-bold text-muted-foreground group-hover:text-primary transition-colors">Read full story &rarr;</p>
+                </CardFooter>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </main>
 
       <Dialog open={!!selectedStory} onOpenChange={() => setSelectedStory(null)}>
-        <DialogContent className="max-w-3xl">
+        <DialogContent className="max-w-3xl p-0">
           {selectedStory && (
             <>
-              <DialogHeader>
-                <div className="relative h-64 w-full mb-4">
+              <DialogHeader className="p-0">
+                <div className="relative h-80 w-full">
                    <Image
                       src={selectedStory.image}
                       alt={`Portrait of ${selectedStory.name}`}
                       fill
-                      className="rounded-lg object-cover"
+                      className="rounded-t-lg object-cover"
                       data-ai-hint={selectedStory['data-ai-hint']}
                     />
                 </div>
-                <DialogTitle className="text-3xl font-bold">{selectedStory.name}</DialogTitle>
-                <p className="text-xl text-primary mt-2 font-semibold">
-                  &ldquo;{selectedStory.quote}&rdquo;
-                </p>
+                <div className="p-6">
+                  <DialogTitle className="text-3xl font-bold">{selectedStory.name}</DialogTitle>
+                  <p className="text-xl text-primary mt-2 font-semibold">
+                    &ldquo;{selectedStory.quote}&rdquo;
+                  </p>
+                </div>
               </DialogHeader>
-              <DialogDescription className="mt-4 text-base text-gray-700 leading-relaxed">
+              <DialogDescription className="px-6 pb-6 mt-4 text-base text-gray-700 leading-relaxed">
                 {selectedStory.fullStory}
               </DialogDescription>
             </>
