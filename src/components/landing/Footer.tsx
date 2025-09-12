@@ -38,7 +38,7 @@ const Footer = () => {
               <Link href="https://twitter.com/kenyaed" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Twitter size={20} />
               </Link>
-              <Link href="https://youtube.com/@kenyaeducationfund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://youtube.com/@kenyaeducationfund.?si=JKMCtb2lr6SJa5ds" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Youtube size={20} />
               </Link>
               <Link href="https://instagram.com/kenyaeducationfund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
