@@ -8,15 +8,15 @@ const founders = [
   {
     name: 'Bradley J. Broder',
     title: 'Co-Founder & Executive Director (In Memoriam)',
-    bio: `Bradley Broder’s journey began with a simple yet powerful vision: to unlock opportunities for Kenyan youth through access to quality education. Born and raised in the United States, Brad first traveled to Kenya as a Peace Corps volunteer, where he witnessed firsthand the challenges faced by young people in underserved communities. Moved by their resilience and potential, he returned to Kenya with a purpose: to create a path for talented but financially disadvantaged students to access secondary education and beyond.`,
+    bio: `Bradley Broder’s journey began as a Peace Corps volunteer in Kenya, where he witnessed firsthand the potential of bright but disadvantaged students. Moved by their resilience, he founded the Kenya Education Fund (KEF) in 2006 to create a pathway for them to access secondary education and build brighter futures.`,
     sections: [
       {
         title: 'A Vision Turned Legacy',
-        content: `In 2006, Brad founded the Kenya Education Fund (KEF) to provide scholarships for students from Kenya's most marginalized communities. His work quickly grew, impacting over 4,500 students across the country. KEF’s programs were designed not only to fund education but to empower students with mentorship, life skills, and the tools to break the cycle of poverty. Through workshops and career support, Brad ensured that KEF’s students were equipped for success long after they left school, with 98% transitioning successfully to university.`
+        content: `Under Brad's leadership, KEF grew to support over 4,500 students, providing not just school fees but also mentorship and life skills. His holistic approach ensured students were equipped for success long after graduation, with 98% transitioning to university.`
       },
       {
         title: 'A Lasting Impact',
-        content: `Brad’s legacy continues to inspire KEF’s mission today. Though he passed away in 2022, his spirit of service, compassion, and resilience remains at the heart of KEF. Thanks to Brad’s vision, KEF has grown into an organization that not only funds education but fosters hope and opportunity for Kenya’s youth. Today, we honor Brad’s life and the thousands of students whose futures have been forever changed by his vision.`
+        content: `Though he passed away in 2022, Brad's spirit of service and compassion remains at the heart of KEF. His legacy lives on through the thousands of lives transformed by his vision, and his work continues to inspire our mission to foster hope and opportunity for Kenya’s youth.`
       }
     ],
     image: 'https://picsum.photos/seed/founder2/400/400',
@@ -25,15 +25,15 @@ const founders = [
   {
     name: 'Dominic M. Mwenja',
     title: 'Co-Founder & President',
-    bio: "Dominic is a thought leader with over 26 years of consistent and progressive leadership experience. Before KEF, he worked for the Ministry of Health as a Public Health Officer. Dom met the late Bradly Broder – who was a Peace Corp Volunteer – while working in Loitokitok District Hospital over 20 years ago. He believes in empowering young people who will be responsible and dependable citizens of the future with a deep sense of community and giving back. Dominic studied in Kenya and Japan and holds a Masters’ Degree from the Great Lakes University of Kisumu.",
+    bio: "With over 26 years of leadership experience, Dominic co-founded KEF alongside Bradley Broder. Having grown up in poverty, Dominic saw education as the definitive tool to break the cycle. His experience as a Public Health Officer reinforced his belief that empowering youth is the key to building a responsible and self-reliant society.",
     sections: [
       {
         title: 'From Hardship to Hope',
-        content: `The late Nelson Mandela once said, “Education is the most powerful weapon which we can use to change the world.” This has remained true for Dominic. The 2nd born in a family of 5 boys, he grew up poor in the informal settlements of Nairobi, a struggle he attributes to his parents not being educated. He saw that people were poor because they did not go to school, and they did not go to school because they were poor. Dom believed breaking this cycle would change their lives for the better.`
+        content: `Dominic's personal journey fueled his passion. He believes that people were trapped in a cycle: “They were poor because they did not go to school, and they did not go to school because they were poor.” He committed himself to breaking this cycle by providing access to quality education.`
       },
       {
         title: 'A Unique Investment in People',
-        content: `KEF has remained laser-focused on providing access to quality education and ensuring that scholars transition to tertiary education and eventually the world of work. “The cycle of poverty will not be broken if they don’t earn a meaningful income,” says Dom. KEF’s “secret sauce” includes auxiliary programs that allow scholars to become well-rounded change-makers. “KEF does not give charity. We invest in young people who have the potential to change their lives and those around them.”`
+        content: `“KEF does not give charity. We invest in young people who have the potential to change their lives and those around them.” Dominic champions KEF’s holistic approach, which includes mentorship and life skills to ensure scholars become well-rounded change-makers who earn a meaningful income and give back to their communities.`
       }
     ],
     image: 'https://picsum.photos/seed/founder1/400/400',
