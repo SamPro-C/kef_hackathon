@@ -18,8 +18,6 @@ const Header = () => {
 
   const linkClasses = `transition-colors hover:text-primary`;
   const brandTextClasses = `font-bold text-lg transition-colors`;
-  const initialLinkClasses = `transition-colors hover:text-primary`;
-
 
   return (
     <motion.header

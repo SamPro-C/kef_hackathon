@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Twitter, Youtube, Instagram, Facebook } from 'lucide-react';
+import { Twitter, Youtube, Instagram, Facebook, Linkedin } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -27,6 +27,7 @@ const Footer = () => {
               <li><Link href="/stories" className="text-muted-foreground hover:text-primary transition-colors">Stories</Link></li>
               <li><Link href="/impact" className="text-muted-foreground hover:text-primary transition-colors">Impact</Link></li>
               <li><Link href="/game" className="text-muted-foreground hover:text-primary transition-colors">The Game</Link></li>
+              <li><Link href="https://kenyaeducationfund.org" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">KEF Website</Link></li>
             </ul>
           </div>
 
@@ -34,17 +35,20 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Connect</h3>
             <div className="flex space-x-4">
-              <Link href="https://twitter.com/KenyaEdFund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://twitter.com/kenyaed" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Twitter size={20} />
               </Link>
               <Link href="https://www.youtube.com/user/KenyaEducationFund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Youtube size={20} />
               </Link>
-              <Link href="https://www.instagram.com/kenyaeducationfund/" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://instagram.com/kenyaeducationfund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Instagram size={20} />
               </Link>
-              <Link href="https://www.facebook.com/KenyaEducationFund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://facebook.com/kenyaeducationfund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
                 <Facebook size={20} />
+              </Link>
+              <Link href="https://www.linkedin.com/company/kenya-education-fund/" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+                <Linkedin size={20} />
               </Link>
             </div>
           </div>
