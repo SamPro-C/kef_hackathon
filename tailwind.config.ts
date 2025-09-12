@@ -8,7 +8,19 @@ const config: Config = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        orange: {
+          '500': '#ef6f12',
+        },
+        yellow: {
+          '400': '#fbac2a',
+        },
+        cream: {
+          '100': '#fdd9a6',
+        }
+      }
+    },
   },
   plugins: [],
 };

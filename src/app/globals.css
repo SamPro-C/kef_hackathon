@@ -1,3 +1,265 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --orange: #ef6f12;
+  --gold: #fbac2a;
+  --cream: #fdd9a6;
+  --dark: #040201;
+  --muted: #f6f3ef;
+  --card-radius: 16px;
+  --max-width: 1100px;
+  --accent-glow: 0 6px 28px rgba(239, 111, 18, 0.18);
+  --soft: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial;
+  background: linear-gradient(180deg, var(--cream), #fff);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
+}
+
+.btn {
+  @apply inline-block rounded-lg px-4 py-2 text-sm font-semibold text-white;
+  background-color: var(--orange);
+  box-shadow: var(--accent-glow);
+  cursor: pointer;
+  border: 0;
+}
+
+.btn.secondary {
+  @apply bg-transparent text-gray-800;
+  border: 1px solid #e5e7eb;
+  box-shadow: none;
+}
+
+/* Game Styles */
+.game {
+  margin-top: 18px;
+  padding: 18px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: var(--soft);
+}
+.budget-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.coins-pile {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px;
+  background: linear-gradient(180deg, #fff, #fff8f0);
+  border-radius: 12px;
+  min-height: 72px;
+  align-items: center;
+  justify-content: center;
+}
+.coin {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(145deg, #ffd27a, #efb75d);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+.coin:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+.buckets {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  flex: 1;
+  flex-wrap: wrap;
+}
+.bucket {
+  flex: 1;
+  min-width: 160px;
+  background: linear-gradient(180deg, #fff, #fffcee);
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: var(--soft);
+  position: relative;
+}
+.bucket .icon {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 8px;
+}
+.bucket .count {
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 8px;
+}
+.progress-bar {
+  height: 10px;
+  background: #eee;
+  border-radius: 6px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--gold));
+  width: 0%;
+}
+.smallmuted {
+  font-size: 13px;
+  color: #816b60;
+}
+
+/* students row */
+.students {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  justify-content: center;
+}
+.student {
+  width: 120px;
+  background: linear-gradient(180deg, #fff, #fff8f7);
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: var(--soft);
+  position: relative;
+  transition: all 0.4s;
+}
+.avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffd27a, #ffb86b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--dark);
+}
+.student .name {
+  font-size: 14px;
+  font-weight: 700;
+}
+.student .role {
+  font-size: 12px;
+  color: #7a6457;
+  margin-top: 6px;
+}
+.student.faded {
+  opacity: 0.35;
+  filter: grayscale(0.2);
+}
+.student.success {
+  box-shadow: 0 10px 40px rgba(239, 111, 18, 0.15);
+  transform: translateY(-6px);
+}
+.speech {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -36px;
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  box-shadow: var(--soft);
+  display: none;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.speech:after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* ripple / careers */
+.ripple-wrap {
+  padding: 26px;
+  background: linear-gradient(180deg, #fffef7, #fffefb);
+  border-radius: 12px;
+  box-shadow: var(--soft);
+  margin-top: 20px;
+  text-align: center;
+}
+.ripple-canvas {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+.ripple-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(251, 172, 42, 0.09);
+  transform: scale(0);
+  box-shadow: 0 8px 40px rgba(251, 172, 42, 0.08);
+}
+.career-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 12px;
+}
+.career {
+  padding: 12px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #fff6ea;
+  min-width: 120px;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .coin {
+    width: 44px;
+    height: 44px;
+  }
+  .bucket {
+    min-width: unset;
+  }
+  .student {
+    width: 100px;
+  }
+  .ripple-canvas {
+    height: 180px;
+  }
+}
