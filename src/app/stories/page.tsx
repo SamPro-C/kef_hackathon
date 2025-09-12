@@ -20,34 +20,34 @@ import {
 const stories = [
   {
     id: 1,
-    name: 'James K.',
-    quote: 'From a village classroom to a world of opportunity.',
+    name: 'Sandra K.',
+    quote: "KEF gave me the gift of focus. I no longer worry about fees every Monday.",
     summary:
-      "James grew up in a rural village with limited access to education. KEF's support provided him not just with school fees, but with the confidence to pursue his dream of becoming a software engineer.",
+      "Sandra feared being sent home for unpaid fees. A KEF scholarship gave her the stability to focus on her studies and pursue a Diploma in Electrical and Electronics Technology.",
     fullStory:
-      "James' journey is a testament to the power of opportunity. Growing up, his school was a simple mud-walled building, and the journey there was long. Yet, his ambition was always strong. When KEF stepped in, it was a turning point. The scholarship covered his tuition, and the mentorship program connected him with professionals who guided his career path. Today, James works as a lead developer at a top tech firm in Nairobi, creating applications that solve real-world problems. He actively mentors young students from his community, ensuring the cycle of support continues.",
+      "From South Kinangop, Nyandarua County, Sandra completed Form 4 in 2023. Before KEF, the constant fear of being sent home for unpaid fees was a heavy burden. The scholarship provided her with stability and peace of mind, allowing her to concentrate fully on her studies. An avid volleyball player who enjoys chapati with ndengu stew, she is now pursuing a Diploma in Electrical and Electronics Technology, a future made possible by this support.",
     image: 'https://picsum.photos/seed/101/600/400',
-    'data-ai-hint': 'male portrait',
+    'data-ai-hint': 'female portrait smiling',
   },
   {
     id: 2,
-    name: 'Mary W.',
-    quote: 'KEF taught me that my voice matters.',
+    name: 'Leah W.',
+    quote: 'KEF is a lifeline for students like me. It restored my confidence and my dream.',
     summary:
-      'Mary was a shy but brilliant student who found her voice through KEF’s leadership workshops. She is now a passionate community organizer and advocate for girls’ education.',
+      'Leah is a bright Form 3 student who felt uncertain about her future. The KEF scholarship renewed her confidence and enabled her to continue school, where she dreams of becoming a teacher.',
     fullStory:
-      "Mary's transformation is one of empowerment. Initially reserved, she excelled academically but hesitated to participate in class. KEF's CREW (Creating Respect and Equality for Women) workshops were a game-changer. She learned public speaking, leadership skills, and the importance of self-advocacy. This newfound confidence propelled her to become student body president. After graduating, she founded a non-profit that provides sanitary products and health education to girls in her region, ensuring they can stay in school without interruption. Her work has been recognized nationally, and she is a powerful voice for change.",
+      "Leah, a bright Form 3 student at Ndururumo High School in Laikipia, felt her future was uncertain due to financial struggles. A KEF scholarship was the lifeline she needed, renewing her confidence and allowing her to continue her education without interruption. She is now able to dream big, with aspirations of becoming a teacher to help shape the next generation. She enjoys playing volleyball, and her favorite animal is the giraffe.",
     image: 'https://picsum.photos/seed/102/600/400',
     'data-ai-hint': 'female portrait',
   },
   {
     id: 3,
-    name: 'Samuel M.',
-    quote: 'My dream was to heal my community.',
+    name: 'Maurice O.',
+    quote: 'I’m proof that KEF turns hopelessness into purpose.',
     summary:
-      "With KEF's help, Samuel was able to complete his secondary education and attend medical school. He is now a doctor serving in his hometown, bringing vital healthcare to hundreds of families.",
+      "After repeating Class 8 twice due to lack of funds, KEF helped Maurice finish school. He is now a finance professional who gives back to his community through tutoring and mentorship.",
     fullStory:
-      'Samuel’s story is about giving back. Having witnessed the struggle to access healthcare in his village, he was determined to become a doctor. The financial burden was immense, but a KEF scholarship saw him through high school with top marks. His dedication earned him a place in medical school, and throughout his studies, he remained committed to his goal. Instead of seeking lucrative positions in the city, Dr. Samuel returned to his hometown. He now runs the local clinic, treating illnesses, delivering babies, and leading public health campaigns. He is a hero in his community.',
+      'Maurice Omondi’s journey is one of incredible perseverance. He had to repeat Class 8 twice simply because his family could not afford the fees to join high school. KEF’s intervention, covering his fees, uniform, and books, was the turning point. After successfully graduating, he pursued a career in finance and worked as a Teller at Co-operative Bank. Today, Maurice actively gives back by tutoring and public speaking, ensuring his story inspires others to overcome their own challenges.',
     image: 'https://picsum.photos/seed/103/600/400',
     'data-ai-hint': 'male portrait smiling',
   },
@@ -60,7 +60,7 @@ const stories = [
     fullStory:
       "Grace's journey is one of resilience and entrepreneurial spirit. Her parents were small-scale farmers, and every school term was a financial struggle. KEF's support was the lifeline she needed. Freed from the worry of being sent home, she focused on her studies and participated in KEF's business workshops. After university, she launched her own sustainable agribusiness, employing dozens of people from her village and promoting food security. She is a role model for young entrepreneurs and a testament to how education can break the cycle of poverty.",
     image: 'https://picsum.photos/seed/104/600/400',
-    'data-ai-hint': 'female portrait smiling',
+    'data-ai-hint': 'female portrait happy',
   },
 ];
 
@@ -73,10 +73,9 @@ export default function StoriesPage() {
     <>
       <main className="container mx-auto px-4 py-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold">KEF Alumni Stories</h1>
+          <h1 className="text-4xl font-bold">Real Lives, Real Impact</h1>
           <p className="text-center text-lg mt-4 text-gray-600 max-w-3xl mx-auto">
-            These are the real journeys of transformation your support makes possible.
-            Every donation, every sponsorship, creates a new story of hope and success.
+            Every scholarship is a story of resilience, hope, and opportunity. These are the voices of KEF scholars and alumni.
           </p>
         </div>
 
