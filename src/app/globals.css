@@ -7,48 +7,48 @@
 @layer base {
   :root {
     --background: 0 0% 100%; /* Soft White */
-    --foreground: 0 0% 20%; /* Charcoal Gray */
-    --card: 0 0% 96%; /* Light Gray */
-    --card-foreground: 0 0% 20%;
+    --foreground: 240 10% 3.9%; /* Charcoal Gray #333333 */
+    --card: 0 0% 95.7%; /* Light Gray #F4F4F4 */
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 20%;
-    --primary: 22 90% 54%; /* Bright Orange */
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 22 89% 54%; /* Bright Orange #F37021 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 173 100% 38%; /* Cool Aqua */
+    --secondary: 173 100% 38%; /* Cool Aqua #00BFA5 */
     --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 43 100% 65%; /* Warm Yellow */
-    --accent-foreground: 0 0% 20%;
+    --muted: 0 0% 95.7%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 43 100% 65%; /* Warm Yellow #FFD54F */
+    --accent-foreground: 240 10% 3.9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 22 90% 54%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 22 89% 54%;
     --radius: 0.5rem;
-    --heading: 210 100% 20%; /* Deep Blue */
+    --heading: 210 100% 20%; /* Deep Blue #003366 */
   }
- 
+
   .dark {
-    --background: 0 0% 20%; /* Charcoal Gray */
-    --foreground: 0 0% 96%; /* Light Gray */
-    --card: 0 0% 24%;
-    --card-foreground: 0 0% 96%;
-    --popover: 0 0% 20%;
-    --popover-foreground: 0 0% 96%;
-    --primary: 22 90% 54%; /* Bright Orange */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 22 89% 54%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 173 100% 38%; /* Cool Aqua */
+    --secondary: 173 100% 38%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 24%;
-    --muted-foreground: 0 0% 60%;
-    --accent: 43 100% 65%; /* Warm Yellow */
-    --accent-foreground: 0 0% 20%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 43 100% 65%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 30%;
-    --input: 0 0% 30%;
-    --ring: 22 90% 54%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 22 89% 54%;
     --heading: 210 100% 80%;
   }
 }
@@ -61,9 +61,47 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading text-[hsl(var(--heading))];
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: hsl(var(--heading));
   }
+  .prose {
+    --tw-prose-body: hsl(var(--foreground));
+    --tw-prose-headings: hsl(var(--heading));
+    --tw-prose-lead: hsl(var(--muted-foreground));
+    --tw-prose-links: hsl(var(--primary));
+    --tw-prose-bold: hsl(var(--foreground));
+    --tw-prose-counters: hsl(var(--muted-foreground));
+    --tw-prose-bullets: hsl(var(--border));
+    --tw-prose-hr: hsl(var(--border));
+    --tw-prose-quotes: hsl(var(--foreground));
+    --tw-prose-quote-borders: hsl(var(--border));
+    --tw-prose-captions: hsl(var(--muted-foreground));
+    --tw-prose-code: hsl(var(--foreground));
+    --tw-prose-pre-code: hsl(var(--foreground));
+    --tw-prose-pre-bg: hsl(var(--muted));
+    --tw-prose-th-borders: hsl(var(--border));
+    --tw-prose-td-borders: hsl(var(--border));
+  }
+}
+
+/* Glow effect for Hero text */
+.hero-glow {
+  text-shadow: 0 0 8px hsl(var(--accent) / 0.6),
+    0 0 20px hsl(var(--accent) / 0.4), 0 0 30px hsl(var(--accent) / 0.2);
+}
+
+.falling-item {
+  position: absolute;
+  top: -50px; /* Start above the screen */
+  color: white;
+  opacity: 0.2;
+  z-index: 0; /* Behind the hero text but above the image overlay */
 }
 
 /* Custom game styles */
@@ -86,7 +124,11 @@
   gap: 10px;
   flex-wrap: wrap;
   padding: 12px;
-  background: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted) / 0.5));
+  background: linear-gradient(
+    180deg,
+    hsl(var(--background)),
+    hsl(var(--muted) / 0.5)
+  );
   border-radius: 12px;
   min-height: 72px;
   align-items: center;
@@ -130,8 +172,8 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .bucket:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px hsla(var(--primary), 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px hsla(var(--primary), 0.1);
 }
 .bucket .icon {
   font-size: 28px;
@@ -223,7 +265,7 @@
   padding: 6px 10px;
   border-radius: 8px;
   border: 1px solid hsl(var(--border));
-  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
   font-size: 13px;
   white-space: nowrap;
   z-index: 10;
@@ -240,7 +282,11 @@
 }
 .ripple-wrap {
   padding: 26px;
-  background: linear-gradient(180deg, hsl(var(--primary)/0.02), transparent);
+  background: linear-gradient(
+    180deg,
+    hsl(var(--primary) / 0.02),
+    transparent
+  );
   border-radius: 12px;
   border: 1px solid hsl(var(--border));
   box-shadow: 0 4px 18px hsla(var(--primary), 0.05);
@@ -272,7 +318,7 @@
   border-radius: 50%;
   background: hsla(var(--accent), 0.09);
   transform: scale(0);
-  animation: ripple-effect 2s cubic-bezier(.2,.8,.2,1) infinite;
+  animation: ripple-effect 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
 }
 
 .career-grid {
@@ -293,7 +339,11 @@
   padding: 28px;
   text-align: center;
   border-radius: 14px;
-  background: linear-gradient(180deg, hsl(var(--primary)/0.05), hsl(var(--primary)/0.02));
+  background: linear-gradient(
+    180deg,
+    hsl(var(--primary) / 0.05),
+    hsl(var(--primary) / 0.02)
+  );
   margin-top: 22px;
   border: 1px solid hsl(var(--border));
 }
@@ -322,7 +372,8 @@
   box-shadow: 0 8px 25px -8px hsla(var(--primary), 0.5);
 }
 .btn.secondary {
-  @apply bg-transparent text-foreground;
+  @apply bg-transparent;
+  color: hsl(var(--foreground));
   border: 1px solid hsl(var(--border));
   box-shadow: none;
 }
