@@ -15,8 +15,8 @@ const Hero = () => {
         data-ai-hint="kenyan students classroom smiling"
         priority
       />
-      <FallingItems />
       <div className="absolute inset-0 bg-black/60 z-10" />
+      <FallingItems />
 
       <div className="relative z-20 flex flex-col items-center px-4 text-white">
         <motion.h1
