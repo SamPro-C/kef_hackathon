@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Twitter, Youtube, Instagram, Facebook, Linkedin } from 'lucide-react';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -9,9 +10,14 @@ const Footer = () => {
           {/* Column 1: Brand */}
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg shadow-md">
-                KEF
-              </div>
+                <Image
+                    src="https://picsum.photos/seed/logo/40/40"
+                    alt="KEF Logo"
+                    width={40}
+                    height={40}
+                    className="rounded-lg"
+                    data-ai-hint="logo"
+                />
               <span className="font-bold text-lg">Sponsor a Dream</span>
             </Link>
             <p className="text-muted-foreground text-sm">
@@ -66,7 +72,7 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
           <p>&copy; 2025 Kenya Education Fund. All rights reserved.</p>
-          <p className="mt-1">This is an interactive prototype developed for the KEF Alumni Hack-a-thon. NOT THE KEF OFFICIAL SITE.</p>
+          <p className="mt-1">THIS IS AN INTERACTIVE PROTOTYPE DEVELOPED FOR THE KEF ALUMNI HACK-A-THON. NOT THE KEF OFFICIAL SITE.</p>
         </div>
       </div>
     </footer>

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,9 +37,14 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg shadow-md">
-              KEF
-            </div>
+            <Image
+                src="https://picsum.photos/seed/logo/40/40"
+                alt="KEF Logo"
+                width={40}
+                height={40}
+                className="rounded-lg"
+                data-ai-hint="logo"
+            />
             <span
               className={brandTextClasses}
               style={{
