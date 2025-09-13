@@ -236,64 +236,72 @@ export default function GamePage() {
 
     {/* RIPPLE / IMPACT */}
     {resultsVisible && (
-        <section id="rippleSection">
-        <div className="ripple-wrap">
-            <h3 className='text-3xl font-bold'>The Ripple Effect — See the Transformation</h3>
-            <div className="text-muted-foreground mt-2 mb-4">
-            You sponsored <strong className='text-primary'>{successes}</strong> students who are now on track to become...
-            </div>
-            <div className="ripple-canvas" id="rippleCanvas">
-                {rippleCircles.map((_, i) => {
-                    const size = 60 + i * 80;
-                    return (
-                        <div key={i} className="ripple-circle" style={{
-                            width: `${size}px`,
-                            height: `${size}px`,
-                            animationDelay: `${i * 150}ms`,
-                        }}></div>
-                    );
-                })}
-            </div>
-
-            <div className="career-grid" id="careerGrid">
-                {successes > 0 ? (
-                    Array.from({ length: successes }).map((_, i) => (
-                        <div key={i} className="career">
-                            <div style={{ fontWeight: 700 }}>{careers[i % careers.length]}</div>
-                            <div style={{ fontSize: '13px', color: '#7a6457', marginTop: '6px' }}>An outcome of KEF support</div>
-                        </div>
-                    ))
-                ) : (
-                    <div style={{ color: '#7a6457', marginTop: '10px' }}>
-                        No students fully funded — try another allocation to see ripple effects.
+        <section id="rippleSection" className="mt-16">
+          <div className="ripple-wrap">
+              <h3 className='text-3xl font-bold'>The Ripple Effect — See the Transformation</h3>
+              <p className="text-muted-foreground mt-2 mb-8">
+              You sponsored <strong className='text-primary'>{successes}</strong> students who are now on track to become...
+              </p>
+              
+              <div className="flex flex-col lg:flex-row items-center gap-8">
+                {/* Ripple Canvas */}
+                <div className="w-full lg:w-1/2 flex justify-center items-center">
+                    <div className="ripple-canvas" id="rippleCanvas">
+                        {rippleCircles.map((_, i) => {
+                            const size = 60 + i * 80;
+                            return (
+                                <div key={i} className="ripple-circle" style={{
+                                    width: `${size}px`,
+                                    height: `${size}px`,
+                                    animationDelay: `${i * 150}ms`,
+                                }}></div>
+                            );
+                        })}
+                        <span className="text-6xl font-bold text-primary">{successes}</span>
                     </div>
-                )}
-            </div>
+                </div>
 
-            <div className="mt-6 text-left">
-            <h4 className='font-bold text-lg'>Real KEF Impact</h4>
-            <div className="text-muted-foreground mt-2 text-sm space-y-1">
-                <p>• Over <strong>4,600+</strong> students supported since KEF began.</p>
-                <p>• KEF provides holistic support: scholarships, uniforms, sanitary products, and mentorship.</p>
-                <p>• This comprehensive approach turns school access into lifelong success.</p>
-            </div>
-            </div>
+                {/* Career Grid */}
+                <div className="w-full lg:w-1/2">
+                    <div className="career-grid" id="careerGrid">
+                        {successes > 0 ? (
+                            Array.from({ length: successes }).map((_, i) => (
+                                <div key={i} className="career">
+                                    <div className="font-bold text-lg">{careers[i % careers.length]}</div>
+                                    <div className="text-sm text-muted-foreground mt-1">An outcome of KEF support</div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-muted-foreground text-center py-8">
+                                No students fully funded — try another allocation to see the ripple effects.
+                            </div>
+                        )}
+                    </div>
+                </div>
+              </div>
 
-            <div className="final-cta">
-            <h2 className='text-2xl font-bold'>Every dream begins with a choice.</h2>
-            <p className="text-muted-foreground mt-2">
-                Your choice today can ripple into careers, families supported, and stronger communities.
-            </p>
-            <div className="cta-row">
-                <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Real Student</a>
-                <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn secondary">Learn More</a>
-            </div>
-            </div>
-        </div>
+              <div className="mt-12 text-left bg-background/50 p-6 rounded-lg">
+                <h4 className='font-bold text-lg'>Real KEF Impact</h4>
+                <div className="text-muted-foreground mt-2 text-sm space-y-1">
+                    <p>• Over <strong>4,600+</strong> students supported since KEF began.</p>
+                    <p>• KEF provides holistic support: scholarships, uniforms, sanitary products, and mentorship.</p>
+                    <p>• This comprehensive approach turns school access into lifelong success.</p>
+                </div>
+              </div>
+
+              <div className="final-cta">
+                <h2 className='text-2xl font-bold'>Your choice today can change a life.</h2>
+                <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+                    The game shows how every contribution matters. You can make a real-world impact by sponsoring a KEF student today.
+                </p>
+                <div className="cta-row">
+                    <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Real Student</a>
+                    <a href="/stories" className="btn secondary">Read Success Stories</a>
+                </div>
+              </div>
+          </div>
         </section>
     )}
     </div>
   );
 }
-
-    

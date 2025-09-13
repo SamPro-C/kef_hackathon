@@ -306,7 +306,7 @@
   text-align: center;
 }
 .ripple-canvas {
-  height: 220px;
+  min-height: 250px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -316,7 +316,7 @@
 
 @keyframes ripple-effect {
   0% {
-    transform: scale(0);
+    transform: scale(0.1);
     opacity: 1;
   }
   100% {
@@ -334,18 +334,22 @@
 }
 
 .career-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 12px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 12px;
+  width: 100%;
 }
 .career {
-  padding: 12px;
+  padding: 16px;
   border-radius: 12px;
   background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
-  min-width: 120px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.career:hover {
+  transform: translateY(-4px);
+  border-color: hsl(var(--primary));
 }
 .final-cta {
   padding: 28px;
@@ -399,5 +403,3 @@
   background-color: hsl(var(--muted));
   border-color: hsl(var(--border));
 }
-
-    
