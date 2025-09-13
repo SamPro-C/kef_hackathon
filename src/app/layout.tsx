@@ -17,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "KEF - Sponsor a Dream",
-  description: "Interactive prototype for the KEF Alumni Hack-a-thon",
+  description: "Interactive prototype for the KEF Alumni Hack-a-thon. Play a game to see how your support can change a student's life in Kenya.",
 };
 
 export default function RootLayout({

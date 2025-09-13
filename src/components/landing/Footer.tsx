@@ -41,19 +41,19 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Connect</h3>
             <div className="flex space-x-4">
-              <Link href="https://twitter.com/kenyaed" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://twitter.com/kenyaed" target="_blank" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Visit our Twitter page">
                 <Twitter size={20} />
               </Link>
-              <Link href="https://youtube.com/@kenyaeducationfund.?si=JKMCtb2lr6SJa5ds" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://youtube.com/@kenyaeducationfund.?si=JKMCtb2lr6SJa5ds" target="_blank" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Visit our YouTube page">
                 <Youtube size={20} />
               </Link>
-              <Link href="https://instagram.com/kenyaeducationfund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://instagram.com/kenyaeducationfund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Visit our Instagram page">
                 <Instagram size={20} />
               </Link>
-              <Link href="https://facebook.com/kenyaeducationfund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://facebook.com/kenyaeducationfund" target="_blank" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Visit our Facebook page">
                 <Facebook size={20} />
               </Link>
-              <Link href="https://www.linkedin.com/company/kenya-education-fund/" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://www.linkedin.com/company/kenya-education-fund/" target="_blank" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Visit our LinkedIn page">
                 <Linkedin size={20} />
               </Link>
             </div>
