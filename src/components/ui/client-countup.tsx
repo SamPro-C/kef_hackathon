@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import CountUp, { CountUpProps } from 'react-countup';
+import CountUp, { type CountUpProps } from 'react-countup';
 
 const ClientCountUp = (props: CountUpProps) => {
   const [isMounted, setIsMounted] = useState(false);
