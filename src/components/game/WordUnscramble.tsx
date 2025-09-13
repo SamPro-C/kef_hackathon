@@ -5,21 +5,21 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { CheckCircle, XCircle, Gift, PlayCircle } from 'lucide-react';
 
 const ALL_WORDS = [
-  { word: 'HOPE', hint: 'A feeling of expectation and desire for a certain thing to happen.', time: 10 },
-  { word: 'DREAM', hint: 'A cherished aspiration, ambition, or ideal.', time: 10 },
-  { word: 'FUTURE', hint: 'The time or a period of time following the moment of speaking or writing.', time: 10 },
-  { word: 'SCHOOL', hint: 'An institution for educating children.', time: 10 },
-  { word: 'CHANGE', hint: 'Make or become different.', time: 10 },
-  { word: 'IMPACT', hint: 'Have a strong effect on someone or something.', time: 10 },
-  { word: 'GIVING', hint: 'Freely transfer the possession of something to someone.', time: 10 },
-  { word: 'LEARN', hint: 'Gain or acquire knowledge of or skill in something.', time: 10 },
-  { word: 'LEADER', hint: 'A person who leads or commands a group.', time: 10 },
-  { word: 'VISION', hint: 'The ability to think about or plan the future with imagination or wisdom.', time: 10 },
-  { word: 'SUPPORT', hint: 'Bear all or part of the weight of; hold up.', time: 10 },
-  { word: 'SUCCESS', hint: 'The accomplishment of an aim or purpose.', time: 10 },
-  { word: 'JOURNEY', hint: 'An act of traveling from one place to another.', time: 10 },
-  { word: 'EMPOWER', hint: 'Give (someone) the authority or power to do something.', time: 10 },
-  { word: 'INSPIRE', hint: 'Fill (someone) with the urge or ability to do or feel something.', time: 10 },
+  { word: 'HOPE', hint: 'A feeling of expectation and desire for a certain thing to happen.', time: 15 },
+  { word: 'DREAM', hint: 'A cherished aspiration, ambition, or ideal.', time: 15 },
+  { word: 'FUTURE', hint: 'The time or a period of time following the moment of speaking or writing.', time: 15 },
+  { word: 'SCHOOL', hint: 'An institution for educating children.', time: 15 },
+  { word: 'CHANGE', hint: 'Make or become different.', time: 15 },
+  { word: 'IMPACT', hint: 'Have a strong effect on someone or something.', time: 15 },
+  { word: 'GIVING', hint: 'Freely transfer the possession of something to someone.', time: 15 },
+  { word: 'LEARN', hint: 'Gain or acquire knowledge of or skill in something.', time: 15 },
+  { word: 'LEADER', hint: 'A person who leads or commands a group.', time: 15 },
+  { word: 'VISION', hint: 'The ability to think about or plan the future with imagination or wisdom.', time: 15 },
+  { word: 'SUPPORT', hint: 'Bear all or part of the weight of; hold up.', time: 15 },
+  { word: 'SUCCESS', hint: 'The accomplishment of an aim or purpose.', time: 15 },
+  { word: 'JOURNEY', hint: 'An act of traveling from one place to another.', time: 15 },
+  { word: 'EMPOWER', hint: 'Give (someone) the authority or power to do something.', time: 15 },
+  { word: 'INSPIRE', hint: 'Fill (someone) with the urge or ability to do or feel something.', time: 15 },
 ];
 
 const GAME_WORD_LIMIT = 10;
@@ -43,12 +43,13 @@ const getGameWords = () => {
 
 const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) => {
   const [gameWords, setGameWords] = useState<(typeof ALL_WORDS[0])[]>([]);
-  const [gameState, setGameState] = useState<'intro' | 'playing' | 'paused' | 'finished'>('intro');
+  const [gameState, setGameState] = useState<'intro' | 'playing' | 'finished'>('intro');
   const [wordIndex, setWordIndex] = useState(0);
   const [guess, setGuess] = useState('');
   const [status, setStatus] = useState<'idle' | 'correct' | 'incorrect'>('idle');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [scrambledWord, setScrambledWord] = useState('');
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   
   const currentWordData = useMemo(() => gameWords[wordIndex], [wordIndex, gameWords]);
@@ -57,39 +58,45 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
   const score = useMemo(() => correctAnswers * 2, [correctAnswers]);
 
   const nextWord = useCallback(() => {
-    if (wordIndex + 1 >= GAME_WORD_LIMIT) {
-      setGameState('finished');
-      return;
-    }
-    setWordIndex(i => i + 1);
-    setGameState('playing');
-  }, [wordIndex]);
+    setIsTransitioning(true);
+    
+    setTimeout(() => {
+      const nextIndex = wordIndex + 1;
+      if (nextIndex >= GAME_WORD_LIMIT) {
+        setGameState('finished');
+        setIsTransitioning(false);
+        return;
+      }
+      
+      setWordIndex(nextIndex);
+      const newWordData = gameWords[nextIndex];
+      setScrambledWord(shuffle(newWordData.word));
+      setTimeLeft(newWordData.time);
+      setGuess('');
+      setStatus('idle');
+      setIsTransitioning(false);
+      inputRef.current?.focus();
+    }, PAUSE_DURATION);
+
+  }, [wordIndex, gameWords]);
   
   const handleStartGame = () => {
-    setGameWords(getGameWords());
+    const words = getGameWords();
+    setGameWords(words);
     setWordIndex(0);
     setCorrectAnswers(0);
+    setScrambledWord(shuffle(words[0].word));
+    setTimeLeft(words[0].time);
     setGameState('playing');
+    inputRef.current?.focus();
   }
 
   useEffect(() => {
-    if (gameState === 'playing' && currentWordData) {
-      const newScrambledWord = shuffle(currentWordData.word);
-      setScrambledWord(newScrambledWord);
-      setTimeLeft(currentWordData.time);
-      setStatus('idle');
-      setGuess('');
-      inputRef.current?.focus();
-    }
-  }, [wordIndex, currentWordData, gameState]);
-
-  useEffect(() => {
-    if (gameState !== 'playing') return;
+    if (gameState !== 'playing' || isTransitioning) return;
 
     if (timeLeft <= 0) {
       setStatus('incorrect');
-      setGameState('paused');
-      setTimeout(nextWord, PAUSE_DURATION);
+      nextWord();
       return;
     }
 
@@ -98,21 +105,19 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, gameState, nextWord]);
+  }, [timeLeft, gameState, isTransitioning, nextWord]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (gameState !== 'playing') return;
+    if (gameState !== 'playing' || isTransitioning) return;
 
-    setGameState('paused');
     if (guess.trim().toUpperCase() === currentWordData.word) {
       setStatus('correct');
       setCorrectAnswers(c => c + 1);
-      setTimeout(nextWord, PAUSE_DURATION);
     } else {
       setStatus('incorrect');
-      setTimeout(nextWord, PAUSE_DURATION);
     }
+    nextWord();
   };
   
   const getBorderColor = () => {
@@ -154,7 +159,7 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
             </div>
         )}
 
-        {(gameState === 'playing' || gameState === 'paused') && (
+        {(gameState === 'playing' || gameState === 'finished') && currentWordData && (
           <>
             <p className="text-muted-foreground mb-2 text-sm">Word {wordIndex + 1} of {GAME_WORD_LIMIT}:</p>
             <div className="scrambled-word">
@@ -179,7 +184,7 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
                 onChange={(e) => setGuess(e.target.value)}
                 className={`unscramble-input transition-all ${getBorderColor()}`}
                 placeholder="Your answer..."
-                disabled={gameState !== 'playing'}
+                disabled={isTransitioning || gameState !== 'playing'}
                 autoCapitalize="off"
                 autoCorrect="off"
               />
