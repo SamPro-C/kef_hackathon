@@ -213,13 +213,18 @@ export default function GamePage() {
                             </div>
 
                             {currentStudent.isRevealed && (
-                                <div className="aspiration-reveal">
+                                <motion.div 
+                                  className="aspiration-reveal"
+                                  initial={{ opacity: 0, y: 10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ duration: 0.8, delay: 0.2 }}
+                                >
                                      <p className="text-primary font-semibold text-lg">&ldquo;{currentStudent.quote}&rdquo;</p>
                                      <div className="flex items-center justify-center gap-3 mt-3">
                                         <Award className="h-6 w-6 text-muted-foreground" />
                                         <p className="text-xl font-bold">Future {currentStudent.aspiration}</p>
                                      </div>
-                                </div>
+                                </motion.div>
                             )}
                              {isGenerating && !currentStudent.isRevealed && (
                                 <div className="aspiration-reveal">
@@ -236,7 +241,7 @@ export default function GamePage() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.5 }}
                    >
-                     <Card className="student-card-large flex flex-col items-center justify-center text-center p-8">
+                     <Card className="student-card-large flex flex-col items-center justify-center text-center p-8 min-h-[350px]">
                        <Award className="h-20 w-20 text-primary mb-4" />
                        <h4 className="text-3xl font-bold">Congratulations!</h4>
                        <p className="text-muted-foreground mt-2">You've given all available students the chance to build a brighter future!</p>
@@ -246,7 +251,7 @@ export default function GamePage() {
                  </AnimatePresence>
                  <div className="flex items-center justify-between mt-4">
                     <button className="btn secondary" id="resetBtn" onClick={handleReset}>Reset Game</button>
-                    <button onClick={handleFindAnother} disabled={unfundedStudents.length <= 1} className="btn secondary flex items-center gap-2">
+                    <button onClick={handleFindAnother} disabled={unfundedStudents.length <= 1 || !currentStudent} className="btn secondary flex items-center gap-2">
                         <Users className="h-5 w-5" /> Find Another Student
                     </button>
                 </div>
@@ -279,3 +284,5 @@ export default function GamePage() {
     </div>
   );
 }
+
+    
