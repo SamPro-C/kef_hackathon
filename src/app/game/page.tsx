@@ -1,3 +1,4 @@
+
 'use client';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
@@ -287,3 +288,5 @@ export default function GamePage() {
     </div>
   );
 }
+
+    
