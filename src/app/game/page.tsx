@@ -1,7 +1,6 @@
 'use client';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { generateAspiration } from '@/ai/flows/generate-aspiration-flow';
-import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
 import Image from 'next/image';
 import { GraduationCap, CheckCircle2, Award, Users, RefreshCw } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -84,12 +83,9 @@ export default function GamePage() {
       updatedStudent.isSponsored = true;
       setIsGenerating(studentId);
       try {
-        const [aspirationResult, thankYouResult] = await Promise.all([
-          generateAspiration({ studentName: updatedStudent.name, studentGender: updatedStudent.gender }),
-          generateThankYou({ studentName: updatedStudent.name, donorName: playerName })
-        ]);
+        const aspirationResult = await generateAspiration({ studentName: updatedStudent.name, studentGender: updatedStudent.gender });
         updatedStudent.aspiration = aspirationResult.career;
-        updatedStudent.quote = thankYouResult.message;
+        updatedStudent.quote = `Thank you, ${playerName}! Your support has opened up a world of possibilities for me.`;
       } catch (error) {
         console.error("Error generating content:", error);
         updatedStudent.aspiration = 'Future Leader';
