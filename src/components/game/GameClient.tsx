@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { generateAspiration } from '@/ai/flows/generate-aspiration-flow';
 import Image from 'next/image';
-import { GraduationCap, CheckCircle2, Award, Users, RefreshCw } from 'lucide-react';
+import { GraduationCap, CheckCircle2, Award, RefreshCw } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import WordUnscramble from '@/components/game/WordUnscramble';
@@ -86,7 +86,7 @@ export default function GameClient() {
       try {
         const aspirationResult = await generateAspiration({ studentName: updatedStudent.name, studentGender: updatedStudent.gender });
         updatedStudent.aspiration = aspirationResult.career;
-        updatedStudent.quote = `Thank you, ${playerName}! Your support has opened up a world of possibilities for me.`;
+        updatedStudent.quote = `Thank you, ${playerName}! ${aspirationResult.quote}`;
       } catch (error) {
         console.error("Error generating content:", error);
         updatedStudent.aspiration = 'Future Leader';
@@ -108,14 +108,16 @@ export default function GameClient() {
   }
 
   useEffect(() => {
-    if(gameState === 'playing' && coins === 0 && students.every(s => !s.isSponsored || s.fundedYears < YEARS_TO_FUND)){
-      const allSponsored = students.every(s => s.isSponsored);
-      if(!allSponsored && sponsoredCount < STUDENT_COUNT) {
-         setTimeout(() => setGameState('finished'), 1500);
+    if (gameState !== 'playing' || students.length === 0) return;
+
+    const allStudentsSponsored = students.every(s => s.isSponsored);
+    const noCoinsLeft = coins === 0;
+
+    if (allStudentsSponsored || noCoinsLeft) {
+      const sponsoredNow = students.filter(s => s.isSponsored).length;
+      if (sponsoredCount === sponsoredNow) {
+          setTimeout(() => setGameState('finished'), 1500);
       }
-    }
-    if(gameState === 'playing' && students.length > 0 && students.every(s => s.isSponsored)){
-      setTimeout(() => setGameState('finished'), 1500);
     }
   }, [coins, students, gameState, sponsoredCount]);
 
@@ -136,6 +138,7 @@ export default function GameClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
           >
             <Card className="word-unscramble-card max-w-lg mx-auto">
               <CardHeader>
@@ -167,6 +170,7 @@ export default function GameClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
           >
             <WordUnscramble onGameEnd={handleGameStart} />
           </motion.div>
@@ -177,6 +181,7 @@ export default function GameClient() {
             key="playing"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
           >
             <div className="flex justify-between items-center mb-6 sticky top-24 bg-background/80 backdrop-blur-sm py-4 z-10 rounded-lg px-4 border">
                 <div>
@@ -199,7 +204,7 @@ export default function GameClient() {
                                     alt={student.name}
                                     width={80}
                                     height={80}
-                                    className="rounded-full object-cover border-4 border-card"
+                                    className="rounded-full object-cover border-4"
                                     data-ai-hint="student portrait"
                                 />
                                 <div className="flex-1">
@@ -229,7 +234,7 @@ export default function GameClient() {
                             )}
                              {isGenerating === student.id && (
                                 <div className="aspiration-reveal">
-                                    <p className="text-sm">Unlocking {student.name}'s bright future...</p>
+                                    <p className="text-sm text-muted-foreground">Unlocking {student.name}'s bright future...</p>
                                 </div>
                             )}
 
@@ -251,12 +256,12 @@ export default function GameClient() {
             <AnimatePresence>
             {gameState === 'finished' && (
               <motion.div 
-                className="fixed inset-0 bg-black/60 z-40 flex items-center justify-center"
+                className="fixed inset-0 bg-black/60 z-40 flex items-center justify-center p-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                  <Card className="w-full max-w-lg text-center z-50 m-4"
+                  <Card className="w-full max-w-lg text-center z-50"
                      as={motion.div}
                      initial={{ opacity: 0, scale: 0.7 }}
                      animate={{ opacity: 1, scale: 1 }}
@@ -268,8 +273,8 @@ export default function GameClient() {
                       </CardHeader>
                       <CardContent>
                           <p className="text-5xl font-bold my-4">You sponsored <span className="text-primary">{sponsoredCount}</span> student{sponsoredCount !== 1 ? 's' : ''}!</p>
-                          <p className="text-muted-foreground">
-                              Every year of support makes a difference. You can see how strategic choices can change lives. Now, imagine the impact you could make for real.
+                          <p className="text-muted-foreground max-w-md mx-auto">
+                              Every year of support makes a difference. You've seen how strategic choices can change lives. Now, imagine the impact you could make for real.
                           </p>
                       </CardContent>
                       <div className="cta-row p-6">

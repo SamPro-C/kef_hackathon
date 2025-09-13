@@ -41,11 +41,11 @@ const prompt = ai.definePrompt({
   Make the career something that can create a positive impact in their community. Avoid generic choices.
   Make the quote sound authentic, like it's coming from a grateful teenager.
 
-  Example for a female student:
+  Example for a female student named Amina:
   Career: "Public Health Nurse"
   Quote: "Now, I can focus on my books and one day bring healthcare to my village. Thank you for making this real."
   
-  Example for a male student:
+  Example for a male student named Jomo:
   Career: "Civil Engineer"
   Quote: "This is more than just school fees; it's a foundation to build a better future for my family."
   `,
