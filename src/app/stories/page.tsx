@@ -124,6 +124,20 @@ export default function StoriesPage() {
             </motion.div>
           ))}
         </div>
+
+        <div className="text-center mt-20">
+          <p className="text-lg text-muted-foreground">
+            These stories are a testament to the generosity of our donors and the
+            resilience of our students.
+          </p>
+          <a
+            href="https://www.kenyaeducationfund.org/donate/"
+            target="_blank"
+            className="btn mt-6 text-lg px-8 py-3"
+          >
+            Become a part of the story
+          </a>
+        </div>
       </main>
 
       <Dialog open={!!selectedStory} onOpenChange={() => setSelectedStory(null)}>
