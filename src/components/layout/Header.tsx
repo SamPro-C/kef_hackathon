@@ -96,15 +96,15 @@ const Header = () => {
                 animate={{ x: 0 }}
                 exit={{ x: '100%' }}
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                className="fixed inset-0 bg-background z-40 p-4 pt-24 md:hidden"
+                className="fixed inset-0 bg-background z-40 p-4 pt-20 md:hidden"
              >
-                <nav className="flex flex-col items-center justify-center h-full text-center gap-8">
+                <nav className="flex flex-col items-center justify-center h-full text-center gap-6">
                     {navLinks.map(link => (
                         <Link key={link.href} href={link.href} className="text-2xl font-bold tracking-tight hover:text-primary transition-colors">
                             {link.label}
                         </Link>
                     ))}
-                    <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn btn-lg text-xl mt-8 px-10 py-4">
+                    <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn text-lg mt-6 px-8 py-3">
                         Donate Now
                     </Link>
                 </nav>
