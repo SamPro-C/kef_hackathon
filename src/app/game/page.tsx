@@ -1,118 +1,108 @@
 'use client';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
 import Image from 'next/image';
+import { GraduationCap, Shirt, Users } from 'lucide-react';
 
 const STARTING_COINS = 18;
 const STUDENT_COUNT = 6;
-const REQUIRED_PER_STUDENT = {
+const REQUIRED_RESOURCES = {
   fees: 2,
   uniforms: 1,
   mentorship: 1,
 };
+const TOTAL_PER_STUDENT = Object.values(REQUIRED_RESOURCES).reduce((a, b) => a + b, 0);
 
-const studentNames = [
-    "Jomo", "Amina", "Baraka", "Wanjiru", "Simba", "Zola"
-];
+const studentNames = ["Jomo", "Amina", "Baraka", "Wanjiru", "Simba", "Zola"];
 
-const initialStudents = Array.from({ length: STUDENT_COUNT }, (_, i) => ({
-  id: i + 1,
-  name: studentNames[i % studentNames.length],
-  funded: false,
-  progress: 0,
-  showSpeech: false,
-  speechText: 'Thank you!',
-  image: `https://picsum.photos/seed/student${i+1}/100/100`
-}));
+type ResourceKey = keyof typeof REQUIRED_RESOURCES;
 
-// Helper to shuffle an array
+interface Student {
+  id: number;
+  name: string;
+  image: string;
+  funded: boolean;
+  resources: {
+    fees: number;
+    uniforms: number;
+    mentorship: number;
+  };
+  showSpeech: boolean;
+  speechText: string;
+}
+
+const createInitialStudents = (): Student[] => 
+  Array.from({ length: STUDENT_COUNT }, (_, i) => ({
+    id: i + 1,
+    name: studentNames[i % studentNames.length],
+    image: `https://picsum.photos/seed/student${i + 1}/100/100`,
+    funded: false,
+    resources: { fees: 0, uniforms: 0, mentorship: 0 },
+    showSpeech: false,
+    speechText: 'Thank you!',
+  }));
+
 function shuffle<T>(array: T[]): T[] {
-  let currentIndex = array.length,  randomIndex;
-
-  // While there remain elements to shuffle.
+  let currentIndex = array.length, randomIndex;
   while (currentIndex > 0) {
-    // Pick a remaining element.
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
-
   return array;
 }
 
-
 export default function GamePage() {
   const [coinsLeft, setCoinsLeft] = useState(STARTING_COINS);
-  const [pools, setPools] = useState({ fees: 0, uniforms: 0, mentorship: 0 });
-  const [students, setStudents] = useState(initialStudents);
-  const [resultsVisible, setResultsVisible] = useState(false);
+  const [students, setStudents] = useState<Student[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [selectedCoin, setSelectedCoin] = useState<number | null>(null);
 
-  // This will only run on the client, preventing hydration errors
   useEffect(() => {
-    setStudents(shuffle([...initialStudents]));
+    setStudents(shuffle(createInitialStudents()));
   }, []);
 
   const careers = useMemo(() => [
-    'Doctor',
-    'Teacher',
-    'Engineer',
-    'Entrepreneur',
-    'Community Leader',
-    'Mentor',
+    'Doctor', 'Teacher', 'Engineer', 'Entrepreneur', 'Community Leader', 'Mentor',
   ], []);
 
   const successes = useMemo(() => students.filter((s) => s.funded).length, [students]);
 
-  const handleAllocateCoin = (bucketKey: keyof typeof pools) => {
-    if (coinsLeft <= 0 || resultsVisible) return;
-    setCoinsLeft(coinsLeft - 1);
-    setPools((prevPools) => ({
-      ...prevPools,
-      [bucketKey]: prevPools[bucketKey] + 1,
-    }));
-  };
+  const checkStudentFunded = useCallback((student: Student) => {
+    return (
+      student.resources.fees >= REQUIRED_RESOURCES.fees &&
+      student.resources.uniforms >= REQUIRED_RESOURCES.uniforms &&
+      student.resources.mentorship >= REQUIRED_RESOURCES.mentorship
+    );
+  }, []);
 
-  const handleShowResults = () => {
-    let feesPool = pools.fees;
-    let uniformsPool = pools.uniforms;
-    let mentorshipPool = pools.mentorship;
+  const handleResourceClick = (studentId: number, resource: ResourceKey) => {
+    if (selectedCoin === null || isGenerating) return;
 
-    // Shuffle students before allocating funds to make it random
-    const shuffledStudents = shuffle([...students]);
-
-    const newStudents = shuffledStudents.map((s) => {
-      let funded = s.funded;
-      let progress = s.progress;
-      if (!funded &&
-        feesPool >= REQUIRED_PER_STUDENT.fees &&
-        uniformsPool >= REQUIRED_PER_STUDENT.uniforms &&
-        mentorshipPool >= REQUIRED_PER_STUDENT.mentorship
-      ) {
-        feesPool -= REQUIRED_PER_STUDENT.fees;
-        uniformsPool -= REQUIRED_PER_STUDENT.uniforms;
-        mentorshipPool -= REQUIRED_PER_STUDENT.mentorship;
-        funded = true;
-        progress = 1;
-      }
-      return { ...s, funded, progress };
+    setStudents(prevStudents => {
+      const newStudents = prevStudents.map(s => {
+        if (s.id === studentId && s.resources[resource] < REQUIRED_RESOURCES[resource]) {
+          const updatedStudent = {
+            ...s,
+            resources: { ...s.resources, [resource]: s.resources[resource] + 1 },
+          };
+          if (checkStudentFunded(updatedStudent)) {
+            updatedStudent.funded = true;
+          }
+          return updatedStudent;
+        }
+        return s;
+      });
+      return newStudents;
     });
 
-    setStudents(newStudents.sort((a,b) => a.id - b.id)); // sort back for display
-    setResultsVisible(true);
-    setTimeout(() => {
-        const rippleSection = document.getElementById('rippleSection');
-        if (rippleSection) {
-            rippleSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, 100);
+    setCoinsLeft(coinsLeft - 1);
+    setSelectedCoin(null);
   };
   
   const handleStudentClick = async (id: number) => {
-    if (isGenerating || !students.find(s => s.id === id)?.funded) return;
+    const student = students.find(s => s.id === id);
+    if (isGenerating || !student?.funded || student.showSpeech) return;
 
     setStudents(currentStudents => currentStudents.map(s => 
       s.id === id ? { ...s, showSpeech: true, speechText: '...' } : s
@@ -120,7 +110,6 @@ export default function GamePage() {
     setIsGenerating(true);
 
     try {
-      const student = students.find(s => s.id === id);
       if (student) {
         const result = await generateThankYou({ studentName: student.name, donorName: 'Donor' });
         setStudents(currentStudents => currentStudents.map(s =>
@@ -136,201 +125,165 @@ export default function GamePage() {
       setIsGenerating(false);
       setTimeout(() => {
         setStudents(prev => prev.map(innerS => innerS.id === id ? { ...innerS, showSpeech: false } : innerS));
-      }, 3000); 
+      }, 4000); 
     }
   };
 
   const handleReset = () => {
     setCoinsLeft(STARTING_COINS);
-    setPools({ fees: 0, uniforms: 0, mentorship: 0 });
-    setStudents(shuffle([...initialStudents]));
-    setResultsVisible(false);
+    setStudents(shuffle(createInitialStudents()));
+    setSelectedCoin(null);
     const gameSection = document.getElementById('gameSection');
     if(gameSection) gameSection.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const totalNeededFees = REQUIRED_PER_STUDENT.fees * STUDENT_COUNT;
-  const percentFees = Math.min(100, Math.round((pools.fees / totalNeededFees) * 100));
-  const totalNeededUniforms = REQUIRED_PER_STUDENT.uniforms * STUDENT_COUNT;
-  const percentUniforms = Math.min(100, Math.round((pools.uniforms / totalNeededUniforms) * 100));
-  const totalNeededMentorship = REQUIRED_PER_STUDENT.mentorship * STUDENT_COUNT;
-  const percentMentorship = Math.min(100, Math.round((pools.mentorship / totalNeededMentorship) * 100));
-  
+  const handleCoinClick = (index: number) => {
+    if (coinsLeft <= 0) return;
+    setSelectedCoin(selectedCoin === index ? null : index);
+  }
+
   const rippleCircles = useMemo(() => {
-      if (!resultsVisible) return [];
-      const base = Math.max(1, successes);
-      const maxCircles = Math.min(6, base + 2);
-      return Array.from({length: maxCircles});
-  }, [resultsVisible, successes]);
+    const base = Math.max(1, successes);
+    const maxCircles = Math.min(6, base + 2);
+    return Array.from({length: maxCircles});
+  }, [successes]);
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Game Section */}
       <section id="gameSection" className="mt-20">
-      <div className="game">
-        <h3 className='text-3xl font-bold text-center mb-2'>Sponsor a Dream — Interactive Simulator</h3>
-        <p className="text-muted-foreground text-center mb-8">You have <strong>{STARTING_COINS} coins</strong> to invest in education. See how your choices can change a student’s future.</p>
-        
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          {/* Coins Pile */}
-          <div className="w-full md:w-1/3">
-            <div className="text-sm text-muted-foreground mb-2">Your Donation</div>
+        <div className="game">
+          <h3 className='text-3xl font-bold text-center mb-2'>Sponsor a Dream — The Giving Game</h3>
+          <p className="text-muted-foreground text-center mb-8">You have <strong>{STARTING_COINS} coins</strong> to change lives. Click a coin, then click a need on a student's card to fund it.</p>
+          
+          <div className="mb-8">
+            <div className="text-sm text-muted-foreground mb-2 text-center">Your Donation</div>
             <div className="coins-pile" id="coinsPile" aria-label="coins pile">
-                {Array.from({ length: coinsLeft }).map((_, i) => (
-                    <div key={i} className="coin" role="button">¢</div>
+                {Array.from({ length: STARTING_COINS }).map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`coin ${i < coinsLeft ? 'available' : 'spent'} ${selectedCoin === i ? 'selected' : ''}`} 
+                      role="button"
+                      onClick={() => i < coinsLeft && handleCoinClick(i)}
+                    >¢</div>
                 ))}
-                {coinsLeft === 0 && !resultsVisible ? (
+                {coinsLeft === 0 && (
                     <div className="text-sm text-muted-foreground p-2">
-                        No coins left! Click "See Results" to view your impact.
-                    </div>
-                ) : (
-                    <div className="text-sm text-muted-foreground p-2">
-                        { !resultsVisible && 'Click a bucket to allocate a coin.'}
+                        No coins left! See the impact you've made below.
                     </div>
                 )}
             </div>
           </div>
 
-          {/* Buckets */}
-          <div className="w-full md:w-2/3">
-              <div className="buckets">
-                <div className="bucket" data-bucket="fees" onClick={() => handleAllocateCoin('fees')}>
-                  <div className="icon">🎓</div>
-                  <div className='font-bold'>School Fees ({REQUIRED_PER_STUDENT.fees} coins/student)</div>
-                  <div className="progress-bar" aria-hidden="true"><div className="progress-fill" style={{width: `${percentFees}%`}}></div></div>
-                  <div className="count">{pools.fees}</div>
-                  <div className="smallmuted">Covers tuition &amp; exam fees</div>
-                </div>
+          <div className="mt-8">
+            <div className="text-center mb-4">
+              <h4 className="font-bold">Students Awaiting Support</h4>
+              <p className="text-sm text-muted-foreground">Click a sponsored student to hear their thanks!</p>
+            </div>
 
-                <div className="bucket" data-bucket="uniforms" onClick={() => handleAllocateCoin('uniforms')}>
-                  <div className="icon">👕</div>
-                  <div className='font-bold'>Uniforms &amp; Supplies ({REQUIRED_PER_STUDENT.uniforms} coin/student)</div>
-                  <div className="progress-bar"><div className="progress-fill" style={{width: `${percentUniforms}%`}}></div></div>
-                  <div className="count">{pools.uniforms}</div>
-                  <div className="smallmuted">Uniforms, shoes, books</div>
-                </div>
+            <div className="students-grid" id="studentsGrid">
+              {students.map((s) => (
+                  <div key={s.id} 
+                      className={`student-card ${s.funded ? 'success' : ''} ${(isGenerating || !s.funded) ? '' : 'clickable'}`}
+                      onClick={() => handleStudentClick(s.id)}
+                  >
+                      <div className="speech" style={{ display: s.showSpeech ? 'block' : 'none' }}>
+                          {s.speechText}
+                      </div>
+                      <div className='flex items-center gap-4'>
+                        <div className="avatar">
+                          <Image 
+                            src={s.image} 
+                            alt={s.name} 
+                            width={68} 
+                            height={68} 
+                            className="rounded-full object-cover" 
+                            data-ai-hint="student portrait"
+                          />
+                        </div>
+                        <div className='flex-grow'>
+                            <div className="name">{s.name}</div>
+                            <div className={`role ${s.funded ? 'text-primary' : 'text-muted-foreground'}`}>{s.funded ? 'Fully Sponsored!' : 'Needs Support'}</div>
+                        </div>
+                      </div>
+                      <div className="needs">
+                        <div className={`need-item ${s.resources.fees >= REQUIRED_RESOURCES.fees ? 'filled' : ''}`} onClick={() => !s.funded && handleResourceClick(s.id, 'fees')}>
+                          <GraduationCap className='icon' />
+                          <span>{s.resources.fees}/{REQUIRED_RESOURCES.fees}</span>
+                        </div>
+                        <div className={`need-item ${s.resources.uniforms >= REQUIRED_RESOURCES.uniforms ? 'filled' : ''}`} onClick={() => !s.funded && handleResourceClick(s.id, 'uniforms')}>
+                          <Shirt className='icon' />
+                          <span>{s.resources.uniforms}/{REQUIRED_RESOURCES.uniforms}</span>
+                        </div>
+                        <div className={`need-item ${s.resources.mentorship >= REQUIRED_RESOURCES.mentorship ? 'filled' : ''}`} onClick={() => !s.funded && handleResourceClick(s.id, 'mentorship')}>
+                          <Users className='icon' />
+                          <span>{s.resources.mentorship}/{REQUIRED_RESOURCES.mentorship}</span>
+                        </div>
+                      </div>
+                  </div>
+              ))}
+            </div>
 
-                <div className="bucket" data-bucket="mentorship" onClick={() => handleAllocateCoin('mentorship')}>
-                  <div className="icon">🤝</div>
-                  <div className='font-bold'>Mentorship ({REQUIRED_PER_STUDENT.mentorship} coin/student)</div>
-                  <div className="progress-bar"><div className="progress-fill" style={{width: `${percentMentorship}%`}}></div></div>
-                  <div className="count">{pools.mentorship}</div>
-                  <div className="smallmuted">Guidance & workshops</div>
-                </div>
+            <div className="text-center mt-8 space-x-4">
+              <button className="btn secondary" id="resetBtn" onClick={handleReset}>Reset Game</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="rippleSection" className="mt-16">
+        <div className="ripple-wrap">
+            <h3 className='text-3xl font-bold'>The Ripple Effect — Your Real-Time Impact</h3>
+            <p className="text-muted-foreground mt-2 mb-8">
+            You've sponsored <strong className='text-primary'>{successes}</strong> students who are now on track to become...
+            </p>
+            
+            <div className="flex flex-col lg:flex-row items-center gap-8">
+              <div className="w-full lg:w-1/2 flex justify-center items-center">
+                  <div className="ripple-canvas" id="rippleCanvas">
+                      {successes > 0 && rippleCircles.map((_, i) => {
+                          const size = 60 + i * 80;
+                          return (
+                              <div key={i} className="ripple-circle" style={{
+                                  width: `${size}px`,
+                                  height: `${size}px`,
+                                  animationDelay: `${i * 150}ms`,
+                              }}></div>
+                          );
+                      })}
+                      <span className="text-6xl font-bold text-primary">{successes}</span>
+                  </div>
               </div>
-          </div>
-        </div>
 
-        {/* students preview */}
-        <div className="mt-8">
-          <div className="text-center mb-4">
-            <h4 className="font-bold">Students Awaiting Support</h4>
-            <p className="text-sm text-muted-foreground">Click a funded student after seeing results to hear their thanks.</p>
-          </div>
+              <div className="w-full lg:w-1/2">
+                  <div className="career-grid" id="careerGrid">
+                      {successes > 0 ? (
+                          Array.from({ length: successes }).map((_, i) => (
+                              <div key={i} className="career">
+                                  <div className="font-bold text-lg">{careers[i % careers.length]}</div>
+                                  <div className="text-sm text-muted-foreground mt-1">An outcome of your support</div>
+                              </div>
+                          ))
+                      ) : (
+                          <div className="text-muted-foreground text-center py-8">
+                              Fund a student to see the ripple effects of your donation!
+                          </div>
+                      )}
+                  </div>
+              </div>
+            </div>
 
-          <div className="students" id="studentsRow">
-            {students.map((s) => (
-                <div key={s.id} 
-                    className={`student ${s.funded ? 'success' : ''} ${s.progress < 1 ? 'faded' : ''} ${(isGenerating || !s.funded) ? 'no-click' : ''}`}
-                    onClick={() => handleStudentClick(s.id)}
-                >
-                    <div className="speech" style={{ display: s.showSpeech ? 'block' : 'none' }}>
-                        {s.speechText}
-                    </div>
-                    <div className="avatar">
-                      <Image 
-                        src={s.image} 
-                        alt={s.name} 
-                        width={68} 
-                        height={68} 
-                        className="rounded-full object-cover" 
-                        data-ai-hint="student portrait"
-                      />
-                    </div>
-                    <div className="name">{s.name}</div>
-                    <div className={`role ${s.funded ? 'text-primary' : ''}`}>{s.funded ? 'Sponsored!' : 'Needs Support'}</div>
-                </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-8 space-x-4">
-            <button className="btn" id="seeResultsBtn" onClick={handleShowResults} disabled={resultsVisible}>See Results</button>
-            <button className="btn secondary" id="resetBtn" onClick={handleReset}>Reset</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* RIPPLE / IMPACT */}
-    {resultsVisible && (
-        <section id="rippleSection" className="mt-16">
-          <div className="ripple-wrap">
-              <h3 className='text-3xl font-bold'>The Ripple Effect — See the Transformation</h3>
-              <p className="text-muted-foreground mt-2 mb-8">
-              You sponsored <strong className='text-primary'>{successes}</strong> students who are now on track to become...
+            <div className="final-cta">
+              <h2 className='text-2xl font-bold'>Your choice today can change a life.</h2>
+              <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
+                  The game shows how every contribution matters. You can make a real-world impact by sponsoring a KEF student today.
               </p>
-              
-              <div className="flex flex-col lg:flex-row items-center gap-8">
-                {/* Ripple Canvas */}
-                <div className="w-full lg:w-1/2 flex justify-center items-center">
-                    <div className="ripple-canvas" id="rippleCanvas">
-                        {rippleCircles.map((_, i) => {
-                            const size = 60 + i * 80;
-                            return (
-                                <div key={i} className="ripple-circle" style={{
-                                    width: `${size}px`,
-                                    height: `${size}px`,
-                                    animationDelay: `${i * 150}ms`,
-                                }}></div>
-                            );
-                        })}
-                        <span className="text-6xl font-bold text-primary">{successes}</span>
-                    </div>
-                </div>
-
-                {/* Career Grid */}
-                <div className="w-full lg:w-1/2">
-                    <div className="career-grid" id="careerGrid">
-                        {successes > 0 ? (
-                            Array.from({ length: successes }).map((_, i) => (
-                                <div key={i} className="career">
-                                    <div className="font-bold text-lg">{careers[i % careers.length]}</div>
-                                    <div className="text-sm text-muted-foreground mt-1">An outcome of KEF support</div>
-                                </div>
-                            ))
-                        ) : (
-                            <div className="text-muted-foreground text-center py-8">
-                                No students fully funded — try another allocation to see the ripple effects.
-                            </div>
-                        )}
-                    </div>
-                </div>
+              <div className="cta-row">
+                  <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Real Student</a>
+                  <a href="/stories" className="btn secondary">Read Success Stories</a>
               </div>
-
-              <div className="mt-12 text-left bg-background/50 p-6 rounded-lg">
-                <h4 className='font-bold text-lg'>Real KEF Impact</h4>
-                <div className="text-muted-foreground mt-2 text-sm space-y-1">
-                    <p>• Over <strong>4,600+</strong> students supported since KEF began.</p>
-                    <p>• KEF provides holistic support: scholarships, uniforms, sanitary products, and mentorship.</p>
-                    <p>• This comprehensive approach turns school access into lifelong success.</p>
-                </div>
-              </div>
-
-              <div className="final-cta">
-                <h2 className='text-2xl font-bold'>Your choice today can change a life.</h2>
-                <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
-                    The game shows how every contribution matters. You can make a real-world impact by sponsoring a KEF student today.
-                </p>
-                <div className="cta-row">
-                    <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Real Student</a>
-                    <a href="/stories" className="btn secondary">Read Success Stories</a>
-                </div>
-              </div>
-          </div>
-        </section>
-    )}
+            </div>
+        </div>
+      </section>
     </div>
   );
 }
-
-    
