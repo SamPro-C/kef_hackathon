@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import {
   Award,
   BookOpen,
@@ -21,7 +22,7 @@ import {
 } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
-import ClientCountUp from '@/components/ui/client-countup';
+import CountUp from 'react-countup';
 
 const impactStats = [
   {
@@ -101,6 +102,12 @@ const partners = [
 
 
 export default function ImpactPage() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <main className="container mx-auto px-4 py-16">
       <div className="text-center mb-12 mt-12">
@@ -126,15 +133,17 @@ export default function ImpactPage() {
             </CardHeader>
             <CardContent className="flex-grow">
               <div className="text-5xl font-bold">
-                <ClientCountUp
-                  start={0}
-                  end={stat.value}
-                  duration={2.75}
-                  separator=","
-                  suffix={stat.suffix}
-                  enableScrollSpy
-                  scrollSpyOnce
-                />
+                {isMounted && (
+                  <CountUp
+                    start={0}
+                    end={stat.value}
+                    duration={2.75}
+                    separator=","
+                    suffix={stat.suffix}
+                    enableScrollSpy
+                    scrollSpyOnce
+                  />
+                )}
               </div>
               <p className="text-sm text-muted-foreground mt-2">
                 {stat.description}
