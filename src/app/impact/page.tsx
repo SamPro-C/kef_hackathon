@@ -7,6 +7,9 @@ import {
   HeartHandshake,
   School,
   Calendar,
+  Percent,
+  PiggyBank,
+  Briefcase,
 } from 'lucide-react';
 import {
   Card,
@@ -59,28 +62,34 @@ const impactStats = [
       'An overwhelming majority of our students transition to university or other tertiary institutions.',
     suffix: '%',
   },
+   {
+    icon: <Award className="h-8 w-8 text-primary" />,
+    value: 95,
+    label: 'Completion Rate',
+    description:
+      'The vast majority of KEF students successfully complete their secondary education.',
+    suffix: '%',
+  },
 ];
 
-const alumniStories = [
+const confidencePoints = [
     {
-        title: "Sandra's Story of Focus",
-        excerpt: "A KEF scholarship gave Sandra the stability to focus on her studies, free from the constant worry of school fees. She's now pursuing a Diploma in Electrical and Electronics Technology.",
-        image: "https://picsum.photos/seed/101/600/400",
-        'data-ai-hint': "female portrait smiling"
+        icon: <Percent className="h-10 w-10 text-primary" />,
+        title: "100% Donation Model",
+        description: "Through the generosity of private supporters who cover our operational costs, 100% of your donation goes directly to student scholarships and support programs."
     },
     {
-        title: "Maurice's Journey of Perseverance",
-        excerpt: "After repeating Class 8 twice due to lack of funds, KEF helped Maurice finish school. He is now a finance professional who gives back to his community.",
-        image: "https://picsum.photos/seed/103/600/400",
-        'data-ai-hint': "male portrait smiling"
+        icon: <PiggyBank className="h-10 w-10 text-primary" />,
+        title: "Comprehensive Scholarships",
+        description: "We cover more than just tuition. Our support includes school fees, uniforms, textbooks, and essential sanitary products for girls to ensure they can learn without obstacles."
     },
     {
-        title: "Leah's Renewed Confidence",
-        excerpt: "The KEF scholarship was a lifeline for Leah, restoring her confidence and allowing her to dream big. She now aspires to become a teacher to help the next generation.",
-        image: "https://picsum.photos/seed/102/600/400",
-        'data-ai-hint': "female portrait"
+        icon: <Briefcase className="h-10 w-10 text-primary" />,
+        title: "Career Readiness & Mentorship",
+        description: "Our programs go beyond the classroom, providing students with life skills workshops, career guidance, and dedicated mentorship to prepare them for a successful future."
     }
 ]
+
 
 export default function ImpactPage() {
   return (
@@ -132,43 +141,21 @@ export default function ImpactPage() {
             Give With Confidence
           </h2>
           <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-12 text-center">
-            At Kenya Education Fund, we ensure that every donation directly
-            impacts the education and well-being of vulnerable Kenyan youth.
-            Through the generosity of our private supporters, we cover
-            operational costs separately, allowing 100% of your donation to
-            support scholarships, resources, and mentorship for our students.
+            Your donation is an investment in a brighter future. We are committed to transparency and maximizing the impact of every contribution. Here’s how we do it.
           </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {confidencePoints.map(point => (
+                <div key={point.title} className="flex flex-col items-center p-6">
+                    {point.icon}
+                    <h3 className="text-2xl font-bold mt-4 mb-2">{point.title}</h3>
+                    <p className="text-muted-foreground">{point.description}</p>
+                </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="container mx-auto px-4 text-center">
-             <h2 className="text-4xl font-bold mb-12">KEF Alumni Stories</h2>
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {alumniStories.map(story => (
-                    <Link href="/stories" key={story.title}>
-                        <Card className="overflow-hidden h-full flex flex-col group cursor-pointer hover:border-primary">
-                             <CardHeader className="p-0">
-                                <div className="relative w-full h-48">
-                                <Image src={story.image} alt={story.title} fill className="object-cover transition-transform duration-300 group-hover:scale-110" data-ai-hint={story['data-ai-hint']} />
-                                </div>
-                            </CardHeader>
-                            <CardContent className="p-6 flex-grow">
-                                <CardTitle className="text-xl mb-2">{story.title}</CardTitle>
-                                <CardDescription>{story.excerpt}</CardDescription>
-                            </CardContent>
-                             <CardFooter>
-                                <p className="text-sm font-bold text-muted-foreground group-hover:text-primary transition-colors">Read more &rarr;</p>
-                            </CardFooter>
-                        </Card>
-                    </Link>
-                ))}
-             </div>
-        </div>
-      </section>
-
-
-      <div className="text-center mt-16">
+      <div className="text-center mt-20">
         <p className="text-lg text-muted-foreground">
           These numbers are a testament to the generosity of our donors and the
           resilience of our students.
