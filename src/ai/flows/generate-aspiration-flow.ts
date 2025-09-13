@@ -9,6 +9,7 @@
  */
 
 import { ai } from '@/ai/genkit';
+import { geminiPro } from 'genkit/models';
 import { z } from 'zod';
 
 const GenerateAspirationInputSchema = z.object({
@@ -29,6 +30,7 @@ export async function generateAspiration(input: GenerateAspirationInput): Promis
 
 const prompt = ai.definePrompt({
   name: 'generateAspirationPrompt',
+  model: geminiPro,
   input: { schema: GenerateAspirationInputSchema },
   output: { schema: GenerateAspirationOutputSchema },
   prompt: `You are a creative assistant helping to imagine the future of a student in Kenya who has just received a life-changing scholarship.
@@ -65,4 +67,3 @@ const generateAspirationFlow = ai.defineFlow(
     return output;
   }
 );
-
