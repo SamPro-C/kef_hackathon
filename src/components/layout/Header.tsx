@@ -23,8 +23,7 @@ const Header = () => {
   const isHeaderVisible = !isHomePage || isScrolled;
 
   const linkClasses = `transition-colors hover:text-primary`;
-  const brandTextClasses = `font-bold text-lg transition-colors`;
-
+  
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -38,21 +37,13 @@ const Header = () => {
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center gap-2">
             <Image
-                src="https://picsum.photos/seed/logo/40/40"
+                src="https://picsum.photos/seed/logo/120/40"
                 alt="KEF Logo"
-                width={40}
+                width={120}
                 height={40}
                 className="rounded-lg"
                 data-ai-hint="logo"
             />
-            <span
-              className={brandTextClasses}
-              style={{
-                color: isHeaderVisible ? 'hsl(var(--heading))' : 'white',
-              }}
-            >
-              Sponsor a Dream
-            </span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link href="/" className={linkClasses}>

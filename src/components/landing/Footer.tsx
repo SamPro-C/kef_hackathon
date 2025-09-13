@@ -11,14 +11,13 @@ const Footer = () => {
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
                 <Image
-                    src="https://picsum.photos/seed/logo/40/40"
+                    src="https://picsum.photos/seed/logo/120/40"
                     alt="KEF Logo"
-                    width={40}
+                    width={120}
                     height={40}
                     className="rounded-lg"
                     data-ai-hint="logo"
                 />
-              <span className="font-bold text-lg">Sponsor a Dream</span>
             </Link>
             <p className="text-muted-foreground text-sm">
               Self-reliance for people in Kenya through education.
