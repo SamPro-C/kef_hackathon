@@ -9,7 +9,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { geminiPro } from 'genkit/models';
+import { geminiPro } from '@genkit-ai/googleai';
 import { z } from 'zod';
 
 const GenerateAspirationInputSchema = z.object({
