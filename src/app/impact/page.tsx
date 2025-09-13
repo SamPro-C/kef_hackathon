@@ -63,19 +63,22 @@ const impactStats = [
 
 const alumniStories = [
     {
-        title: "From Worry to Wonder: Jeff’s Journey",
-        excerpt: "It wasn’t just about school fees or supplies. It was the generosity, the warmth, the feeling of being seen and supported that changed everything.",
-        image: "https://picsum.photos/seed/alum1/600/400"
+        title: "Sandra's Story of Focus",
+        excerpt: "A KEF scholarship gave Sandra the stability to focus on her studies, free from the constant worry of school fees. She's now pursuing a Diploma in Electrical and Electronics Technology.",
+        image: "https://picsum.photos/seed/101/600/400",
+        'data-ai-hint': "female portrait smiling"
     },
     {
-        title: "Hope to Achievement with KEF",
-        excerpt: "Did you know Sandra’s favorite meal is chapati with ndengu stew? Pair that with her love for volleyball and dogs, and you’ve got a well-rounded future electrical engineer in the making!",
-        image: "https://picsum.photos/seed/alum2/600/400"
+        title: "Maurice's Journey of Perseverance",
+        excerpt: "After repeating Class 8 twice due to lack of funds, KEF helped Maurice finish school. He is now a finance professional who gives back to his community.",
+        image: "https://picsum.photos/seed/103/600/400",
+        'data-ai-hint': "male portrait smiling"
     },
     {
-        title: "From Hopelessness to Dreaming Big with KEF",
-        excerpt: "For Leah, KEF is a lifeline for students like her. 'It is a good organization because it helps the needy achieve their dreams,' she says gratefully. Leah’s story is proof that with the right support, anything is possible.",
-        image: "https://picsum.photos/seed/alum3/600/400"
+        title: "Leah's Renewed Confidence",
+        excerpt: "The KEF scholarship was a lifeline for Leah, restoring her confidence and allowing her to dream big. She now aspires to become a teacher to help the next generation.",
+        image: "https://picsum.photos/seed/102/600/400",
+        'data-ai-hint': "female portrait"
     }
 ]
 
@@ -110,7 +113,6 @@ export default function ImpactPage() {
                   end={stat.value}
                   duration={2.75}
                   separator=","
-                  prefix={stat.prefix}
                   suffix={stat.suffix}
                   enableScrollSpy
                   scrollSpyOnce
@@ -148,7 +150,7 @@ export default function ImpactPage() {
                         <Card className="overflow-hidden h-full flex flex-col group cursor-pointer hover:border-primary">
                              <CardHeader className="p-0">
                                 <div className="relative w-full h-48">
-                                <Image src={story.image} alt={story.title} fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
+                                <Image src={story.image} alt={story.title} fill className="object-cover transition-transform duration-300 group-hover:scale-110" data-ai-hint={story['data-ai-hint']} />
                                 </div>
                             </CardHeader>
                             <CardContent className="p-6 flex-grow">
