@@ -254,17 +254,25 @@
 .need-item.filled {
   background: hsl(var(--accent) / 0.2);
   border-color: hsl(var(--accent));
-  cursor: not-allowed;
+  cursor: default;
 }
 .need-item.filled .icon {
-  color: hsl(var(--accent-foreground));
+  color: hsl(var(--accent));
 }
 .need-item.filled span {
-  color: hsl(var(--accent-foreground));
+  color: hsl(var(--foreground));
 }
-.student-card.success .needs .need-item:not(.filled) {
+.student-card.success .needs .need-item {
   cursor: not-allowed;
   opacity: 0.6;
+}
+.student-card.success .needs .need-item:hover {
+  border-color: hsl(var(--border));
+  background: hsl(var(--muted));
+}
+.student-card.success .needs .need-item.filled:hover {
+    background: hsl(var(--accent) / 0.2);
+    border-color: hsl(var(--accent));
 }
 
 .speech {
@@ -405,5 +413,3 @@
   background-color: hsl(var(--muted));
   border-color: hsl(var(--border));
 }
-
-    

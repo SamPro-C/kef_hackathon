@@ -82,7 +82,7 @@ export default function GamePage() {
 
     setStudents(prevStudents => {
       const newStudents = prevStudents.map(s => {
-        if (s.id === studentId && s.resources[resource] < REQUIRED_RESOURCES[resource]) {
+        if (s.id === studentId && s.resources[resource] < REQUIRED_RESOURCES[resource] && !s.funded) {
           const updatedStudent = {
             ...s,
             resources: { ...s.resources, [resource]: s.resources[resource] + 1 },
@@ -90,15 +90,14 @@ export default function GamePage() {
           if (checkStudentFunded(updatedStudent)) {
             updatedStudent.funded = true;
           }
+          setCoinsLeft(coinsLeft - 1);
+          setSelectedCoin(null);
           return updatedStudent;
         }
         return s;
       });
       return newStudents;
     });
-
-    setCoinsLeft(coinsLeft - 1);
-    setSelectedCoin(null);
   };
   
   const handleStudentClick = async (id: number) => {
@@ -207,15 +206,15 @@ export default function GamePage() {
                         </div>
                       </div>
                       <div className="needs">
-                        <div className={`need-item ${s.resources.fees >= REQUIRED_RESOURCES.fees ? 'filled' : ''}`} onClick={() => !s.funded && handleResourceClick(s.id, 'fees')}>
+                        <div className={`need-item ${s.resources.fees >= REQUIRED_RESOURCES.fees ? 'filled' : ''}`} onClick={() => handleResourceClick(s.id, 'fees')}>
                           <GraduationCap className='icon' />
                           <span>{s.resources.fees}/{REQUIRED_RESOURCES.fees}</span>
                         </div>
-                        <div className={`need-item ${s.resources.uniforms >= REQUIRED_RESOURCES.uniforms ? 'filled' : ''}`} onClick={() => !s.funded && handleResourceClick(s.id, 'uniforms')}>
+                        <div className={`need-item ${s.resources.uniforms >= REQUIRED_RESOURCES.uniforms ? 'filled' : ''}`} onClick={() => handleResourceClick(s.id, 'uniforms')}>
                           <Shirt className='icon' />
                           <span>{s.resources.uniforms}/{REQUIRED_RESOURCES.uniforms}</span>
                         </div>
-                        <div className={`need-item ${s.resources.mentorship >= REQUIRED_RESOURCES.mentorship ? 'filled' : ''}`} onClick={() => !s.funded && handleResourceClick(s.id, 'mentorship')}>
+                        <div className={`need-item ${s.resources.mentorship >= REQUIRED_RESOURCES.mentorship ? 'filled' : ''}`} onClick={() => handleResourceClick(s.id, 'mentorship')}>
                           <Users className='icon' />
                           <span>{s.resources.mentorship}/{REQUIRED_RESOURCES.mentorship}</span>
                         </div>
@@ -288,5 +287,3 @@ export default function GamePage() {
     </div>
   );
 }
-
-    
