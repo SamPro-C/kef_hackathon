@@ -1,5 +1,6 @@
 'use client';
 import { useState, useMemo } from 'react';
+import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
 
 const STARTING_COINS = 10;
 const STUDENT_COUNT = 6;
@@ -15,6 +16,7 @@ const initialStudents = Array.from({ length: STUDENT_COUNT }, (_, i) => ({
   funded: false,
   progress: 0,
   showSpeech: false,
+  speechText: 'Thank you!',
 }));
 
 export default function GamePage() {
@@ -22,6 +24,7 @@ export default function GamePage() {
   const [pools, setPools] = useState({ fees: 0, uniforms: 0, mentorship: 0 });
   const [students, setStudents] = useState(initialStudents);
   const [resultsVisible, setResultsVisible] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const careers = useMemo(() => [
     'Doctor',
@@ -75,17 +78,33 @@ export default function GamePage() {
     }, 100);
   };
   
-  const handleStudentClick = (id: number) => {
-    setStudents(currentStudents => currentStudents.map(s => {
-      if (s.id === id) {
-        // Show speech bubble
-        setTimeout(() => {
-          setStudents(prev => prev.map(innerS => innerS.id === id ? { ...innerS, showSpeech: false } : innerS));
-        }, 1800);
-        return { ...s, showSpeech: true };
+  const handleStudentClick = async (id: number) => {
+    if (isGenerating) return;
+
+    setStudents(currentStudents => currentStudents.map(s => 
+      s.id === id ? { ...s, showSpeech: true, speechText: '...' } : s
+    ));
+    setIsGenerating(true);
+
+    try {
+      const student = students.find(s => s.id === id);
+      if (student) {
+        const result = await generateThankYou({ studentName: student.name, donorName: 'Donor' });
+        setStudents(currentStudents => currentStudents.map(s =>
+          s.id === id ? { ...s, speechText: result.message } : s
+        ));
       }
-      return s;
-    }));
+    } catch (error) {
+      console.error("Error generating thank you message:", error);
+      setStudents(currentStudents => currentStudents.map(s =>
+        s.id === id ? { ...s, speechText: 'Thank you so much!' } : s
+      ));
+    } finally {
+      setIsGenerating(false);
+      setTimeout(() => {
+        setStudents(prev => prev.map(innerS => innerS.id === id ? { ...innerS, showSpeech: false } : innerS));
+      }, 3000); 
+    }
   };
 
   const handleReset = () => {
@@ -178,11 +197,11 @@ export default function GamePage() {
           <div className="students" id="studentsRow">
             {students.map((s) => (
                 <div key={s.id} 
-                    className={`student ${s.funded ? 'success' : ''} ${s.progress < 1 ? 'faded' : ''}`}
+                    className={`student ${s.funded ? 'success' : ''} ${s.progress < 1 ? 'faded' : ''} ${isGenerating ? 'no-click' : ''}`}
                     onClick={() => handleStudentClick(s.id)}
                 >
                     <div className="speech" style={{ display: s.showSpeech ? 'block' : 'none' }}>
-                        Thank you, Jacques!
+                        {s.speechText}
                     </div>
                     <div className="avatar">S{s.id}</div>
                     <div className="name">{s.name}</div>
