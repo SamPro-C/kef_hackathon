@@ -43,14 +43,13 @@ const getGameWords = () => {
 
 const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) => {
   const [gameWords, setGameWords] = useState<(typeof ALL_WORDS[0])[]>([]);
-  const [gameStarted, setGameStarted] = useState(false);
+  const [gameState, setGameState] = useState<'intro' | 'playing' | 'paused' | 'finished'>('intro');
   const [wordIndex, setWordIndex] = useState(0);
   const [guess, setGuess] = useState('');
   const [status, setStatus] = useState<'idle' | 'correct' | 'incorrect'>('idle');
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [scrambledWord, setScrambledWord] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isFinished, setIsFinished] = useState(false);
   
   const currentWordData = useMemo(() => gameWords[wordIndex], [wordIndex, gameWords]);
   const [timeLeft, setTimeLeft] = useState(0);
@@ -58,38 +57,38 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
   const score = useMemo(() => correctAnswers * 2, [correctAnswers]);
 
   const nextWord = useCallback(() => {
-    setStatus('idle');
-    setGuess('');
     if (wordIndex + 1 >= GAME_WORD_LIMIT) {
-      setIsFinished(true);
+      setGameState('finished');
       return;
     }
     setWordIndex(i => i + 1);
+    setGameState('playing');
   }, [wordIndex]);
   
   const handleStartGame = () => {
     setGameWords(getGameWords());
     setWordIndex(0);
     setCorrectAnswers(0);
-    setIsFinished(false);
-    setGameStarted(true);
+    setGameState('playing');
   }
 
   useEffect(() => {
-    if (gameStarted && currentWordData && !isFinished) {
+    if (gameState === 'playing' && currentWordData) {
       const newScrambledWord = shuffle(currentWordData.word);
       setScrambledWord(newScrambledWord);
       setTimeLeft(currentWordData.time);
       setStatus('idle');
+      setGuess('');
       inputRef.current?.focus();
     }
-  }, [wordIndex, currentWordData, gameStarted, isFinished]);
+  }, [wordIndex, currentWordData, gameState]);
 
   useEffect(() => {
-    if (!gameStarted || status !== 'idle' || isFinished) return;
+    if (gameState !== 'playing') return;
 
     if (timeLeft <= 0) {
-      setStatus('incorrect'); // Time's up, mark as incorrect
+      setStatus('incorrect');
+      setGameState('paused');
       setTimeout(nextWord, PAUSE_DURATION);
       return;
     }
@@ -99,12 +98,13 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, gameStarted, status, nextWord, isFinished]);
+  }, [timeLeft, gameState, nextWord]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (status !== 'idle' || isFinished) return;
+    if (gameState !== 'playing') return;
 
+    setGameState('paused');
     if (guess.trim().toUpperCase() === currentWordData.word) {
       setStatus('correct');
       setCorrectAnswers(c => c + 1);
@@ -131,12 +131,12 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
                 <Gift className="h-5 w-5 text-primary"/>
                 <span>Years Earned: {score}</span>
             </div>
-            {gameStarted && !isFinished && <span>Word Time: {timeLeft}s</span>}
-            {isFinished && <span className="text-primary">Finished!</span>}
+            {gameState === 'playing' && <span>Word Time: {timeLeft}s</span>}
+            {gameState === 'finished' && <span className="text-primary">Finished!</span>}
         </div>
       </CardHeader>
       <CardContent className="text-center">
-        {!gameStarted ? (
+        {gameState === 'intro' && (
             <div className="flex flex-col items-center gap-4 my-8">
                 <p className="text-muted-foreground">Unscramble {GAME_WORD_LIMIT} words to earn scholarship years.</p>
                 <button onClick={handleStartGame} className="btn">
@@ -144,13 +144,17 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
                     Start Challenge
                 </button>
             </div>
-        ) : isFinished ? (
+        )}
+
+        {gameState === 'finished' && (
             <div className="flex flex-col items-center gap-4 my-8">
                 <p className="text-3xl font-bold">Challenge Complete!</p>
                 <p className="text-xl">You answered <span className="text-primary">{correctAnswers} out of {GAME_WORD_LIMIT}</span> correctly.</p>
                  <p className="text-lg">You earned <span className="font-bold">{score}</span> scholarship years.</p>
             </div>
-        ) : (
+        )}
+
+        {(gameState === 'playing' || gameState === 'paused') && (
           <>
             <p className="text-muted-foreground mb-2 text-sm">Word {wordIndex + 1} of {GAME_WORD_LIMIT}:</p>
             <div className="scrambled-word">
@@ -175,7 +179,7 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
                 onChange={(e) => setGuess(e.target.value)}
                 className={`unscramble-input transition-all ${getBorderColor()}`}
                 placeholder="Your answer..."
-                disabled={status !== 'idle'}
+                disabled={gameState !== 'playing'}
                 autoCapitalize="off"
                 autoCorrect="off"
               />
@@ -189,7 +193,7 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
               {status === 'incorrect' && (
                 <p>The correct word was: <span className="font-bold text-primary">{currentWordData?.word}</span></p>
               )}
-               {status === 'idle' && (
+               {status === 'idle' && gameState === 'playing' && (
                 <p>{currentWordData?.hint ?? ''}</p>
               )}
             </div>
@@ -198,7 +202,7 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
 
         <div className="mt-8">
             <p className="text-sm text-muted-foreground mb-2">Ready to sponsor students?</p>
-            <button onClick={() => onGameEnd(score)} className="btn secondary" disabled={!gameStarted}>
+            <button onClick={() => onGameEnd(score)} className="btn secondary" disabled={gameState === 'intro'}>
                 Proceed with {score} Scholarship Years
             </button>
         </div>
