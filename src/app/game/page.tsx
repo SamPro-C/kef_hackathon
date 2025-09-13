@@ -1,12 +1,12 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
 import Image from 'next/image';
 
 const STARTING_COINS = 18;
 const STUDENT_COUNT = 6;
 const REQUIRED_PER_STUDENT = {
-  fees: 1,
+  fees: 2,
   uniforms: 1,
   mentorship: 1,
 };
@@ -25,12 +25,36 @@ const initialStudents = Array.from({ length: STUDENT_COUNT }, (_, i) => ({
   image: `https://picsum.photos/seed/student${i+1}/100/100`
 }));
 
+// Helper to shuffle an array
+function shuffle<T>(array: T[]): T[] {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex > 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+
 export default function GamePage() {
   const [coinsLeft, setCoinsLeft] = useState(STARTING_COINS);
   const [pools, setPools] = useState({ fees: 0, uniforms: 0, mentorship: 0 });
   const [students, setStudents] = useState(initialStudents);
   const [resultsVisible, setResultsVisible] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // This will only run on the client, preventing hydration errors
+  useEffect(() => {
+    setStudents(shuffle([...initialStudents]));
+  }, []);
 
   const careers = useMemo(() => [
     'Doctor',
@@ -44,7 +68,7 @@ export default function GamePage() {
   const successes = useMemo(() => students.filter((s) => s.funded).length, [students]);
 
   const handleAllocateCoin = (bucketKey: keyof typeof pools) => {
-    if (coinsLeft <= 0) return;
+    if (coinsLeft <= 0 || resultsVisible) return;
     setCoinsLeft(coinsLeft - 1);
     setPools((prevPools) => ({
       ...prevPools,
@@ -57,10 +81,13 @@ export default function GamePage() {
     let uniformsPool = pools.uniforms;
     let mentorshipPool = pools.mentorship;
 
-    const newStudents = students.map((s) => {
-      let funded = false;
-      let progress = 0;
-      if (
+    // Shuffle students before allocating funds to make it random
+    const shuffledStudents = shuffle([...students]);
+
+    const newStudents = shuffledStudents.map((s) => {
+      let funded = s.funded;
+      let progress = s.progress;
+      if (!funded &&
         feesPool >= REQUIRED_PER_STUDENT.fees &&
         uniformsPool >= REQUIRED_PER_STUDENT.uniforms &&
         mentorshipPool >= REQUIRED_PER_STUDENT.mentorship
@@ -74,7 +101,7 @@ export default function GamePage() {
       return { ...s, funded, progress };
     });
 
-    setStudents(newStudents);
+    setStudents(newStudents.sort((a,b) => a.id - b.id)); // sort back for display
     setResultsVisible(true);
     setTimeout(() => {
         const rippleSection = document.getElementById('rippleSection');
@@ -116,7 +143,7 @@ export default function GamePage() {
   const handleReset = () => {
     setCoinsLeft(STARTING_COINS);
     setPools({ fees: 0, uniforms: 0, mentorship: 0 });
-    setStudents(initialStudents);
+    setStudents(shuffle([...initialStudents]));
     setResultsVisible(false);
     const gameSection = document.getElementById('gameSection');
     if(gameSection) gameSection.scrollIntoView({ behavior: 'smooth' });
@@ -152,13 +179,13 @@ export default function GamePage() {
                 {Array.from({ length: coinsLeft }).map((_, i) => (
                     <div key={i} className="coin" role="button">¢</div>
                 ))}
-                {coinsLeft === 0 ? (
+                {coinsLeft === 0 && !resultsVisible ? (
                     <div className="text-sm text-muted-foreground p-2">
                         No coins left! Click "See Results" to view your impact.
                     </div>
                 ) : (
                     <div className="text-sm text-muted-foreground p-2">
-                        Click a bucket to allocate a coin.
+                        { !resultsVisible && 'Click a bucket to allocate a coin.'}
                     </div>
                 )}
             </div>
@@ -169,7 +196,7 @@ export default function GamePage() {
               <div className="buckets">
                 <div className="bucket" data-bucket="fees" onClick={() => handleAllocateCoin('fees')}>
                   <div className="icon">🎓</div>
-                  <div className='font-bold'>School Fees</div>
+                  <div className='font-bold'>School Fees ({REQUIRED_PER_STUDENT.fees} coins/student)</div>
                   <div className="progress-bar" aria-hidden="true"><div className="progress-fill" style={{width: `${percentFees}%`}}></div></div>
                   <div className="count">{pools.fees}</div>
                   <div className="smallmuted">Covers tuition &amp; exam fees</div>
@@ -177,7 +204,7 @@ export default function GamePage() {
 
                 <div className="bucket" data-bucket="uniforms" onClick={() => handleAllocateCoin('uniforms')}>
                   <div className="icon">👕</div>
-                  <div className='font-bold'>Uniforms &amp; Supplies</div>
+                  <div className='font-bold'>Uniforms &amp; Supplies ({REQUIRED_PER_STUDENT.uniforms} coin/student)</div>
                   <div className="progress-bar"><div className="progress-fill" style={{width: `${percentUniforms}%`}}></div></div>
                   <div className="count">{pools.uniforms}</div>
                   <div className="smallmuted">Uniforms, shoes, books</div>
@@ -185,7 +212,7 @@ export default function GamePage() {
 
                 <div className="bucket" data-bucket="mentorship" onClick={() => handleAllocateCoin('mentorship')}>
                   <div className="icon">🤝</div>
-                  <div className='font-bold'>Mentorship</div>
+                  <div className='font-bold'>Mentorship ({REQUIRED_PER_STUDENT.mentorship} coin/student)</div>
                   <div className="progress-bar"><div className="progress-fill" style={{width: `${percentMentorship}%`}}></div></div>
                   <div className="count">{pools.mentorship}</div>
                   <div className="smallmuted">Guidance & workshops</div>
@@ -305,3 +332,5 @@ export default function GamePage() {
     </div>
   );
 }
+
+    
