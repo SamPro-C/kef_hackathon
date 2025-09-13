@@ -65,30 +65,33 @@ export default function GameClient() {
 
   const handleGameStart = (earnedCoins: number) => {
     setCoins(earnedCoins);
-    setStudents(createInitialStudents());
     setGameState('playing');
   };
+  
+  useEffect(() => {
+    if (gameState === 'playing' && students.length === 0) {
+      setStudents(createInitialStudents());
+    }
+  }, [gameState, students.length]);
+
 
   const handleFundYear = async (studentId: number) => {
     const student = students.find(s => s.id === studentId);
     if (coins <= 0 || !student || student.isSponsored) return;
 
-    let updatedStudent = {
-      ...student,
-      fundedYears: student.fundedYears + 1,
-    };
-    
     setCoins(c => c - 1);
+
+    const updatedStudent = { ...student, fundedYears: student.fundedYears + 1 };
     
     if (updatedStudent.fundedYears >= YEARS_TO_FUND) {
       updatedStudent.isSponsored = true;
       setIsGenerating(studentId);
       try {
-        const aspirationResult = await generateAspiration({ studentName: updatedStudent.name, studentGender: updatedStudent.gender });
-        updatedStudent.aspiration = aspirationResult.career;
-        updatedStudent.quote = `Thank you, ${playerName}! ${aspirationResult.quote}`;
+        const result = await generateAspiration({ studentName: updatedStudent.name, studentGender: updatedStudent.gender });
+        updatedStudent.aspiration = result.career;
+        updatedStudent.quote = `Thank you, ${playerName}! ${result.quote}`;
       } catch (error) {
-        console.error("Error generating content:", error);
+        console.error("Error generating aspiration:", error);
         updatedStudent.aspiration = 'Future Leader';
         updatedStudent.quote = `Thank you for believing in me, ${playerName}!`;
       } finally {
@@ -111,15 +114,16 @@ export default function GameClient() {
     if (gameState !== 'playing' || students.length === 0) return;
 
     const allStudentsSponsored = students.every(s => s.isSponsored);
-    const noCoinsLeft = coins === 0;
-
-    if (allStudentsSponsored || noCoinsLeft) {
-      const sponsoredNow = students.filter(s => s.isSponsored).length;
-      if (sponsoredCount === sponsoredNow) {
-          setTimeout(() => setGameState('finished'), 1500);
-      }
+    // End the game if all students are sponsored OR if there are no coins left and no funding is in progress
+    if (allStudentsSponsored || (coins === 0 && isGenerating === null)) {
+      setTimeout(() => {
+          // Check again inside timeout in case state changed
+          if(students.every(s => s.isSponsored) || (coins === 0 && isGenerating === null)) {
+             setGameState('finished');
+          }
+      }, 1500);
     }
-  }, [coins, students, gameState, sponsoredCount]);
+  }, [coins, students, gameState, isGenerating]);
 
 
   return (
@@ -234,7 +238,7 @@ export default function GameClient() {
                             )}
                              {isGenerating === student.id && (
                                 <div className="aspiration-reveal">
-                                    <p className="text-sm text-muted-foreground">Unlocking {student.name}'s bright future...</p>
+                                    <p className="text-sm text-muted-foreground animate-pulse">Unlocking {student.name}'s bright future...</p>
                                 </div>
                             )}
 
@@ -261,8 +265,8 @@ export default function GameClient() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                  <Card className="w-full max-w-lg text-center z-50"
-                     as={motion.div}
+                  <motion.div
+                     className="w-full max-w-lg text-center z-50 bg-card rounded-lg shadow-xl"
                      initial={{ opacity: 0, scale: 0.7 }}
                      animate={{ opacity: 1, scale: 1 }}
                      exit={{ opacity: 0, scale: 0.7 }}
@@ -284,7 +288,7 @@ export default function GameClient() {
                          </button>
                          <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Real Student</a>
                       </div>
-                  </Card>
+                  </motion.div>
               </motion.div>
             )}
             </AnimatePresence>
