@@ -1,10 +1,10 @@
 
 'use client';
 import { useState, useMemo, useEffect, useCallback } from 'react';
-import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
 import { generateAspiration } from '@/ai/flows/generate-aspiration-flow';
 import Image from 'next/image';
-import { GraduationCap, CheckCircle2, Award } from 'lucide-react';
+import { GraduationCap, CheckCircle2, Award, Users } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const STARTING_COINS = 8;
 const YEARS_TO_FUND = 4;
@@ -49,22 +49,40 @@ const createInitialStudents = (): Student[] => {
 export default function GamePage() {
   const [coins, setCoins] = useState(STARTING_COINS);
   const [students, setStudents] = useState<Student[]>([]);
-  const [currentStudentIndex, setCurrentStudentIndex] = useState(0);
+  const [currentStudentId, setCurrentStudentId] = useState<number | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [sponsoredCount, setSponsoredCount] = useState(0);
-
-  useEffect(() => {
-    setStudents(createInitialStudents());
-  }, []);
-
-  const currentStudent = useMemo(() => {
-    return students[currentStudentIndex];
-  }, [students, currentStudentIndex]);
   
+  useEffect(() => {
+    handleReset();
+  }, []);
+  
+  const currentStudent = useMemo(() => {
+    if (currentStudentId === null) return null;
+    return students.find(s => s.id === currentStudentId) || null;
+  }, [students, currentStudentId]);
+  
+  const unfundedStudents = useMemo(() => students.filter(s => !s.isSponsored), [students]);
+  const sponsoredCount = useMemo(() => students.filter(s => s.isSponsored).length, [students]);
+
+  const selectRandomStudent = useCallback(() => {
+    if (unfundedStudents.length > 0) {
+      const randomIndex = Math.floor(Math.random() * unfundedStudents.length);
+      setCurrentStudentId(unfundedStudents[randomIndex].id);
+    } else {
+      setCurrentStudentId(null); // All students are sponsored
+    }
+  }, [unfundedStudents]);
+  
+  useEffect(() => {
+    if (students.length > 0 && currentStudentId === null) {
+      selectRandomStudent();
+    }
+  }, [students, currentStudentId, selectRandomStudent]);
+
   const handleFundYear = async () => {
     if (coins <= 0 || !currentStudent || currentStudent.isSponsored) return;
 
-    const updatedStudent = {
+    let updatedStudent = {
       ...currentStudent,
       fundedYears: currentStudent.fundedYears + 1,
     };
@@ -84,28 +102,38 @@ export default function GamePage() {
         updatedStudent.quote = 'Thank you for believing in me!';
       } finally {
         updatedStudent.isRevealed = true;
-        setSponsoredCount(sc => sc + 1);
+        // The student is now sponsored, update state and select a new student
+        setStudents(prev => prev.map(s => s.id === updatedStudent.id ? updatedStudent : s));
         setIsGenerating(false);
+        // Wait a moment before switching to show the reveal
+        setTimeout(() => selectRandomStudent(), 2500);
       }
+    } else {
+      setStudents(prev => prev.map(s => s.id === updatedStudent.id ? updatedStudent : s));
     }
-
-    setStudents(prev => prev.map(s => s.id === updatedStudent.id ? updatedStudent : s));
   };
 
-  const handleNextStudent = () => {
-    if(currentStudentIndex < students.length - 1) {
-      setCurrentStudentIndex(i => i + 1);
-    } else {
-      // Optional: Loop back to the start
-      setCurrentStudentIndex(0);
+  const handleFindAnother = () => {
+    if (unfundedStudents.length > 1) {
+      let nextId = currentStudentId;
+      while (nextId === currentStudentId) {
+        const randomIndex = Math.floor(Math.random() * unfundedStudents.length);
+        nextId = unfundedStudents[randomIndex].id;
+      }
+      setCurrentStudentId(nextId);
     }
   };
 
   const handleReset = () => {
     setCoins(STARTING_COINS);
-    setStudents(createInitialStudents());
-    setCurrentStudentIndex(0);
-    setSponsoredCount(0);
+    const newStudents = createInitialStudents();
+    setStudents(newStudents);
+    if (newStudents.length > 0) {
+       const randomIndex = Math.floor(Math.random() * newStudents.length);
+       setCurrentStudentId(newStudents[randomIndex].id);
+    } else {
+       setCurrentStudentId(null);
+    }
     const gameSection = document.getElementById('gameSection');
     if(gameSection) gameSection.scrollIntoView({ behavior: 'smooth' });
   };
@@ -128,19 +156,27 @@ export default function GamePage() {
                 </div>
                 <button 
                     onClick={handleFundYear} 
-                    disabled={coins <= 0 || isGenerating || currentStudent?.isSponsored}
+                    disabled={coins <= 0 || isGenerating || !currentStudent || currentStudent.isSponsored}
                     className="btn w-full text-lg py-3"
                 >
                     <GraduationCap className="mr-2 h-5 w-5" />
                     Fund One Year
                 </button>
-                 <p className="text-xs text-muted-foreground text-center mt-2">Fund a year of high school for {currentStudent?.name}.</p>
+                 <p className="text-xs text-muted-foreground text-center mt-2">Fund a year of high school for {currentStudent?.name || 'a student'}.</p>
             </div>
 
             {/* Student Panel */}
-            <div className="md:col-span-2">
-                {currentStudent && (
-                    <div className={`student-card-large ${currentStudent.isSponsored ? 'sponsored' : ''}`}>
+            <div className="md:col-span-2 relative min-h-[350px]">
+              <AnimatePresence mode="wait">
+                {currentStudent ? (
+                    <motion.div
+                      key={currentStudent.id}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -50 }}
+                      transition={{ duration: 0.5 }}
+                      className={`student-card-large ${currentStudent.isSponsored ? 'sponsored' : ''}`}
+                    >
                         <div className="flex flex-col md:flex-row items-center gap-6">
                             <div className="relative">
                                 <Image
@@ -182,12 +218,25 @@ export default function GamePage() {
                                 <p>Unlocking {currentStudent.name}'s bright future...</p>
                             </div>
                         )}
-                    </div>
+                    </motion.div>
+                ) : (
+                   <motion.div
+                      key="all-sponsored"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5 }}
+                      className="student-card-large flex flex-col items-center justify-center text-center"
+                   >
+                     <Award className="h-20 w-20 text-primary mb-4" />
+                     <h4 className="text-3xl font-bold">Congratulations!</h4>
+                     <p className="text-muted-foreground mt-2">You've given all available students the chance to build a brighter future!</p>
+                   </motion.div>
                 )}
+                 </AnimatePresence>
                  <div className="flex items-center justify-between mt-4">
                     <button className="btn secondary" id="resetBtn" onClick={handleReset}>Reset Game</button>
-                    <button onClick={handleNextStudent} className="btn">
-                        Next Student &rarr;
+                    <button onClick={handleFindAnother} disabled={unfundedStudents.length <= 1} className="btn secondary flex items-center gap-2">
+                        <Users className="h-5 w-5" /> Find Another Student
                     </button>
                 </div>
             </div>
