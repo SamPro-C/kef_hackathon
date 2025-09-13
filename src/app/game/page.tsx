@@ -33,11 +33,10 @@ interface Student {
 }
 
 const createInitialStudents = (): Student[] => {
-  const shuffledData = [...studentData].sort(() => Math.random() - 0.5);
   return Array.from({ length: STUDENT_COUNT }, (_, i) => ({
     id: i,
-    name: shuffledData[i].name,
-    gender: shuffledData[i].gender,
+    name: studentData[i % studentData.length].name,
+    gender: studentData[i % studentData.length].gender as 'male' | 'female',
     image: `https://picsum.photos/seed/student${i + 1}/200/200`,
     fundedYears: 0,
     isSponsored: false,
@@ -101,10 +100,10 @@ export default function GamePage() {
   
   useEffect(() => {
     if (students.length > 0 && currentStudentId === null && unfundedStudents.length > 0) {
-      const randomIndex = Math.floor(Math.random() * unfundedStudents.length);
-      setCurrentStudentId(unfundedStudents[randomIndex].id);
+      const firstUnfunded = unfundedStudents[0];
+      setCurrentStudentId(firstUnfunded.id);
     }
-  }, [students, currentStudentId, unfundedStudents, selectRandomStudent]);
+  }, [students, currentStudentId, unfundedStudents]);
 
   const handleFundYear = async () => {
     if (coins <= 0 || !currentStudent || currentStudent.isSponsored) return;
@@ -150,7 +149,7 @@ export default function GamePage() {
       <section id="gameSection" className="mt-20">
         <div className="text-center mb-10">
             <h3 className='text-4xl font-bold'>The Scholarship Journey</h3>
-            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">You have **{STARTING_COINS} years** of scholarships to give. Your donation can fund a student's entire 4-year high school education and unlock their future.</p>
+            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">You have {STARTING_COINS} years of scholarships to give. Your donation can fund a student's entire 4-year high school education and unlock their future.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
