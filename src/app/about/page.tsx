@@ -46,6 +46,7 @@ const AboutPage = () => {
               src="https://picsum.photos/seed/about/600/400"
               alt="Students in a classroom"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
               data-ai-hint="kenyan students classroom"
             />

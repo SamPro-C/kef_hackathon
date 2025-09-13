@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <div className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden">
       <Image
-        src="https://picsum.photos/seed/hero-bg/1800/1200"
+        src="https://picsum.photos/seed/hero-bg/1200/800"
         alt="Students in a classroom looking hopeful"
         fill
         className="object-cover"
