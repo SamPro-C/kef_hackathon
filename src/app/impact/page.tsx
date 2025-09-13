@@ -8,7 +8,6 @@ import {
   School,
   Calendar,
 } from 'lucide-react';
-import CountUp from 'react-countup';
 import {
   Card,
   CardContent,
@@ -19,6 +18,7 @@ import {
 } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
+import ClientCountUp from '@/components/ui/client-countup';
 
 const impactStats = [
   {
@@ -108,7 +108,7 @@ export default function ImpactPage() {
             </CardHeader>
             <CardContent className="flex-grow">
               <div className="text-5xl font-bold">
-                <CountUp
+                <ClientCountUp
                   start={0}
                   end={stat.value}
                   duration={2.75}
