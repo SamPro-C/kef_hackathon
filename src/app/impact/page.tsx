@@ -88,7 +88,16 @@ const confidencePoints = [
         title: "Career Readiness & Mentorship",
         description: "Our programs go beyond the classroom, providing students with life skills workshops, career guidance, and dedicated mentorship to prepare them for a successful future."
     }
-]
+];
+
+const partners = [
+  { name: "Partner One", logo: "https://picsum.photos/seed/p1/150/60" },
+  { name: "Partner Two", logo: "https://picsum.photos/seed/p2/150/60" },
+  { name: "Partner Three", logo: "https://picsum.photos/seed/p3/150/60" },
+  { name: "Partner Four", logo: "https://picsum.photos/seed/p4/150/60" },
+  { name: "Partner Five", logo: "https://picsum.photos/seed/p5/150/60" },
+  { name: "Partner Six", logo: "https://picsum.photos/seed/p6/150/60" },
+];
 
 
 export default function ImpactPage() {
@@ -149,6 +158,31 @@ export default function ImpactPage() {
                     {point.icon}
                     <h3 className="text-2xl font-bold mt-4 mb-2">{point.title}</h3>
                     <p className="text-muted-foreground">{point.description}</p>
+                </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-4">
+            Our Valued Partners
+          </h2>
+          <p className="max-w-3xl mx-auto text-lg text-muted-foreground mb-12 text-center">
+            Our success is a shared success. We are proud to partner with organizations that are committed to transforming lives through education in Kenya.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+            {partners.map(partner => (
+                <div key={partner.name} className="flex justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <Image 
+                        src={partner.logo}
+                        alt={partner.name}
+                        width={150}
+                        height={60}
+                        className="object-contain"
+                        data-ai-hint="logo"
+                    />
                 </div>
             ))}
           </div>
