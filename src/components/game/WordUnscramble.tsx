@@ -42,7 +42,7 @@ const getGameWords = () => {
 }
 
 const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) => {
-  const [gameWords, setGameWords] = useState<typeof ALL_WORDS>([]);
+  const [gameWords, setGameWords] = useState<(typeof ALL_WORDS[0])[]>([]);
   const [gameStarted, setGameStarted] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [guess, setGuess] = useState('');
@@ -58,14 +58,13 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
   const score = useMemo(() => correctAnswers * 2, [correctAnswers]);
 
   const nextWord = useCallback(() => {
+    setStatus('idle');
+    setGuess('');
     if (wordIndex + 1 >= GAME_WORD_LIMIT) {
       setIsFinished(true);
-      setStatus('idle');
       return;
     }
     setWordIndex(i => i + 1);
-    setGuess('');
-    setStatus('idle');
   }, [wordIndex]);
   
   const handleStartGame = () => {
@@ -89,8 +88,8 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
   useEffect(() => {
     if (!gameStarted || status !== 'idle' || isFinished) return;
 
-    if (timeLeft === 0) {
-      setStatus('incorrect'); // Mark as incorrect for visual feedback
+    if (timeLeft <= 0) {
+      setStatus('incorrect'); // Time's up, mark as incorrect
       setTimeout(nextWord, PAUSE_DURATION);
       return;
     }
@@ -112,10 +111,7 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
       setTimeout(nextWord, PAUSE_DURATION);
     } else {
       setStatus('incorrect');
-      setTimeout(() => {
-          setGuess('');
-          nextWord(); // Move to next word even if incorrect
-      }, PAUSE_DURATION);
+      setTimeout(nextWord, PAUSE_DURATION);
     }
   };
   
