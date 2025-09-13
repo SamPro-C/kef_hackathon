@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo } from 'react';
 import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
+import Image from 'next/image';
 
 const STARTING_COINS = 10;
 const STUDENT_COUNT = 6;
@@ -10,13 +11,18 @@ const REQUIRED_PER_STUDENT = {
   mentorship: 1,
 };
 
+const studentNames = [
+    "Jomo", "Amina", "Baraka", "Wanjiru", "Simba", "Zola"
+];
+
 const initialStudents = Array.from({ length: STUDENT_COUNT }, (_, i) => ({
   id: i + 1,
-  name: `Student ${i + 1}`,
+  name: studentNames[i % studentNames.length],
   funded: false,
   progress: 0,
   showSpeech: false,
   speechText: 'Thank you!',
+  image: `https://picsum.photos/seed/student${i+1}/100/100`
 }));
 
 export default function GamePage() {
@@ -79,7 +85,7 @@ export default function GamePage() {
   };
   
   const handleStudentClick = async (id: number) => {
-    if (isGenerating) return;
+    if (isGenerating || !students.find(s => s.id === id)?.funded) return;
 
     setStudents(currentStudents => currentStudents.map(s => 
       s.id === id ? { ...s, showSpeech: true, speechText: '...' } : s
@@ -136,32 +142,34 @@ export default function GamePage() {
       <section id="gameSection" className="mt-20">
       <div className="game">
         <h3 className='text-3xl font-bold text-center mb-2'>Sponsor a Dream — Interactive Simulator</h3>
-        <p className="text-muted-foreground text-center mb-8">See how your choices can change a student’s future.</p>
+        <p className="text-muted-foreground text-center mb-8">You have <strong>{STARTING_COINS} coins</strong> to invest in education. See how your choices can change a student’s future.</p>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
-          <div style={{ minWidth: '220px' }}>
-            <div style={{ fontSize: '13px', color: '#6e5a4e', marginBottom: '6px' }}>Your Budget</div>
-            <div id="budgetDisplay" style={{ fontWeight: 800, fontSize: '22px' }}>{coinsLeft} Coins</div>
-            <div style={{ marginTop: '8px', color: '#8a6d59', fontSize: '13px' }}>Click coins into the buckets to allocate your funds.</div>
-          </div>
-
-          <div style={{ flex: 1 }}>
-            <div className="budget-row">
-              <div className="coins-pile" id="coinsPile" aria-label="coins pile">
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          {/* Coins Pile */}
+          <div className="w-full md:w-1/3">
+            <div className="text-sm text-muted-foreground mb-2">Your Donation</div>
+            <div className="coins-pile" id="coinsPile" aria-label="coins pile">
                 {Array.from({ length: coinsLeft }).map((_, i) => (
                     <div key={i} className="coin" role="button">¢</div>
                 ))}
-                {coinsLeft === 0 && (
-                    <div style={{ fontSize: '13px', color: '#7a6457', padding: '8px' }}>
-                        No coins left — click "See Results" to view impact or Reset to try again
+                {coinsLeft === 0 ? (
+                    <div className="text-sm text-muted-foreground p-2">
+                        No coins left! Click "See Results" to view your impact.
+                    </div>
+                ) : (
+                    <div className="text-sm text-muted-foreground p-2">
+                        Click a bucket to allocate a coin.
                     </div>
                 )}
-              </div>
+            </div>
+          </div>
 
-              <div className="buckets" style={{ flex: 1 }}>
+          {/* Buckets */}
+          <div className="w-full md:w-2/3">
+              <div className="buckets">
                 <div className="bucket" data-bucket="fees" onClick={() => handleAllocateCoin('fees')}>
                   <div className="icon">🎓</div>
-                  <div>School Fees</div>
+                  <div className='font-bold'>School Fees</div>
                   <div className="progress-bar" aria-hidden="true"><div className="progress-fill" style={{width: `${percentFees}%`}}></div></div>
                   <div className="count">{pools.fees}</div>
                   <div className="smallmuted">Covers tuition &amp; exam fees</div>
@@ -169,7 +177,7 @@ export default function GamePage() {
 
                 <div className="bucket" data-bucket="uniforms" onClick={() => handleAllocateCoin('uniforms')}>
                   <div className="icon">👕</div>
-                  <div>Uniforms &amp; Supplies</div>
+                  <div className='font-bold'>Uniforms &amp; Supplies</div>
                   <div className="progress-bar"><div className="progress-fill" style={{width: `${percentUniforms}%`}}></div></div>
                   <div className="count">{pools.uniforms}</div>
                   <div className="smallmuted">Uniforms, shoes, books</div>
@@ -177,41 +185,49 @@ export default function GamePage() {
 
                 <div className="bucket" data-bucket="mentorship" onClick={() => handleAllocateCoin('mentorship')}>
                   <div className="icon">🤝</div>
-                  <div>Mentorship</div>
+                  <div className='font-bold'>Mentorship</div>
                   <div className="progress-bar"><div className="progress-fill" style={{width: `${percentMentorship}%`}}></div></div>
                   <div className="count">{pools.mentorship}</div>
-                  <div className="smallmuted">Guidance, workshops, CREW</div>
+                  <div className="smallmuted">Guidance & workshops</div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
 
         {/* students preview */}
-        <div style={{ marginTop: '18px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ fontWeight: 700 }}>Students in focus</div>
-            <div style={{ fontSize: '13px', color: '#7a6457' }}>Tap a student to send a small thanks</div>
+        <div className="mt-8">
+          <div className="text-center mb-4">
+            <h4 className="font-bold">Students Awaiting Support</h4>
+            <p className="text-sm text-muted-foreground">Click a funded student after seeing results to hear their thanks.</p>
           </div>
 
           <div className="students" id="studentsRow">
             {students.map((s) => (
                 <div key={s.id} 
-                    className={`student ${s.funded ? 'success' : ''} ${s.progress < 1 ? 'faded' : ''} ${isGenerating ? 'no-click' : ''}`}
+                    className={`student ${s.funded ? 'success' : ''} ${s.progress < 1 ? 'faded' : ''} ${(isGenerating || !s.funded) ? 'no-click' : ''}`}
                     onClick={() => handleStudentClick(s.id)}
                 >
                     <div className="speech" style={{ display: s.showSpeech ? 'block' : 'none' }}>
                         {s.speechText}
                     </div>
-                    <div className="avatar">S{s.id}</div>
+                    <div className="avatar">
+                      <Image 
+                        src={s.image} 
+                        alt={s.name} 
+                        width={68} 
+                        height={68} 
+                        className="rounded-full object-cover" 
+                        data-ai-hint="student portrait"
+                      />
+                    </div>
                     <div className="name">{s.name}</div>
-                    <div className="role">{s.funded ? 'Sponsored' : 'Needs support'}</div>
+                    <div className={`role ${s.funded ? 'text-primary' : ''}`}>{s.funded ? 'Sponsored!' : 'Needs Support'}</div>
                 </div>
             ))}
           </div>
 
-          <div style={{ textAlign: 'center', marginTop: '14px' }}>
-            <button className="btn" id="seeResultsBtn" onClick={handleShowResults}>See Results</button>
+          <div className="text-center mt-8 space-x-4">
+            <button className="btn" id="seeResultsBtn" onClick={handleShowResults} disabled={resultsVisible}>See Results</button>
             <button className="btn secondary" id="resetBtn" onClick={handleReset}>Reset</button>
           </div>
         </div>
@@ -254,23 +270,23 @@ export default function GamePage() {
                 )}
             </div>
 
-            <div style={{ marginTop: '14px' }}>
-            <div style={{ fontWeight: 700 }}>Real KEF numbers</div>
-            <div style={{ color: '#6b5446', marginTop: '6px' }}>
-                <div>• Over <strong>4,600+</strong> students supported since KEF began</div>
-                <div>• KEF holistic support: scholarships, uniforms, sanitary products, mentorship</div>
-                <div>• KEF focus turns school access into lifelong impact</div>
+            <div className="mt-6 text-left">
+            <h4 className='font-bold text-lg'>Real KEF Impact</h4>
+            <div className="text-muted-foreground mt-2 text-sm space-y-1">
+                <p>• Over <strong>4,600+</strong> students supported since KEF began.</p>
+                <p>• KEF provides holistic support: scholarships, uniforms, sanitary products, and mentorship.</p>
+                <p>• This comprehensive approach turns school access into lifelong success.</p>
             </div>
             </div>
 
-            <div className="final-cta" style={{ marginTop: '22px' }}>
+            <div className="final-cta">
             <h2 className='text-2xl font-bold'>Every dream begins with a choice.</h2>
             <p className="text-muted-foreground mt-2">
                 Your choice today can ripple into careers, families supported, and stronger communities.
             </p>
             <div className="cta-row">
-                <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Student</a>
-                <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn secondary">Donate</a>
+                <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn">Sponsor a Real Student</a>
+                <a href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn secondary">Learn More</a>
             </div>
             </div>
         </div>
@@ -279,3 +295,5 @@ export default function GamePage() {
     </div>
   );
 }
+
+    
