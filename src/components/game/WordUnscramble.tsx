@@ -5,24 +5,25 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { CheckCircle, XCircle, Gift, PlayCircle } from 'lucide-react';
 
 const ALL_WORDS = [
-  { word: 'HOPE', hint: 'A feeling of expectation and desire for a certain thing to happen.', time: 5 },
-  { word: 'DREAM', hint: 'A cherished aspiration, ambition, or ideal.', time: 5 },
-  { word: 'FUTURE', hint: 'The time or a period of time following the moment of speaking or writing.', time: 6 },
-  { word: 'SCHOOL', hint: 'An institution for educating children.', time: 6 },
-  { word: 'CHANGE', hint: 'Make or become different.', time: 6 },
-  { word: 'IMPACT', hint: 'Have a strong effect on someone or something.', time: 6 },
-  { word: 'GIVING', hint: 'Freely transfer the possession of something to someone.', time: 6 },
-  { word: 'LEARN', hint: 'Gain or acquire knowledge of or skill in something.', time: 5 },
-  { word: 'LEADER', hint: 'A person who leads or commands a group.', time: 6 },
-  { word: 'VISION', hint: 'The ability to think about or plan the future with imagination or wisdom.', time: 6 },
-  { word: 'SUPPORT', hint: 'Bear all or part of the weight of; hold up.', time: 7 },
-  { word: 'SUCCESS', hint: 'The accomplishment of an aim or purpose.', time: 7 },
-  { word: 'JOURNEY', hint: 'An act of traveling from one place to another.', time: 7 },
-  { word: 'EMPOWER', hint: 'Give (someone) the authority or power to do something.', time: 7 },
-  { word: 'INSPIRE', hint: 'Fill (someone) with the urge or ability to do or feel something.', time: 7 },
+  { word: 'HOPE', hint: 'A feeling of expectation and desire for a certain thing to happen.', time: 10 },
+  { word: 'DREAM', hint: 'A cherished aspiration, ambition, or ideal.', time: 10 },
+  { word: 'FUTURE', hint: 'The time or a period of time following the moment of speaking or writing.', time: 10 },
+  { word: 'SCHOOL', hint: 'An institution for educating children.', time: 10 },
+  { word: 'CHANGE', hint: 'Make or become different.', time: 10 },
+  { word: 'IMPACT', hint: 'Have a strong effect on someone or something.', time: 10 },
+  { word: 'GIVING', hint: 'Freely transfer the possession of something to someone.', time: 10 },
+  { word: 'LEARN', hint: 'Gain or acquire knowledge of or skill in something.', time: 10 },
+  { word: 'LEADER', hint: 'A person who leads or commands a group.', time: 10 },
+  { word: 'VISION', hint: 'The ability to think about or plan the future with imagination or wisdom.', time: 10 },
+  { word: 'SUPPORT', hint: 'Bear all or part of the weight of; hold up.', time: 10 },
+  { word: 'SUCCESS', hint: 'The accomplishment of an aim or purpose.', time: 10 },
+  { word: 'JOURNEY', hint: 'An act of traveling from one place to another.', time: 10 },
+  { word: 'EMPOWER', hint: 'Give (someone) the authority or power to do something.', time: 10 },
+  { word: 'INSPIRE', hint: 'Fill (someone) with the urge or ability to do or feel something.', time: 10 },
 ];
 
 const GAME_WORD_LIMIT = 10;
+const PAUSE_DURATION = 1500; // 1.5 seconds
 
 const shuffle = (word: string): string => {
   let a = word.split(''), n = a.length;
@@ -52,7 +53,7 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
   const [isFinished, setIsFinished] = useState(false);
   
   const currentWordData = useMemo(() => gameWords[wordIndex], [wordIndex, gameWords]);
-  const [timeLeft, setTimeLeft] = useState(currentWordData?.time ?? 0);
+  const [timeLeft, setTimeLeft] = useState(0);
 
   const score = useMemo(() => correctAnswers * 2, [correctAnswers]);
 
@@ -76,20 +77,21 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
   }
 
   useEffect(() => {
-    if (gameStarted && currentWordData) {
+    if (gameStarted && currentWordData && !isFinished) {
       const newScrambledWord = shuffle(currentWordData.word);
       setScrambledWord(newScrambledWord);
       setTimeLeft(currentWordData.time);
+      setStatus('idle');
       inputRef.current?.focus();
     }
-  }, [wordIndex, currentWordData, gameStarted]);
+  }, [wordIndex, currentWordData, gameStarted, isFinished]);
 
   useEffect(() => {
     if (!gameStarted || status !== 'idle' || isFinished) return;
 
     if (timeLeft === 0) {
       setStatus('incorrect'); // Mark as incorrect for visual feedback
-      setTimeout(nextWord, 800);
+      setTimeout(nextWord, PAUSE_DURATION);
       return;
     }
 
@@ -107,13 +109,13 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
     if (guess.trim().toUpperCase() === currentWordData.word) {
       setStatus('correct');
       setCorrectAnswers(c => c + 1);
-      setTimeout(nextWord, 800);
+      setTimeout(nextWord, PAUSE_DURATION);
     } else {
       setStatus('incorrect');
       setTimeout(() => {
           setGuess('');
           nextWord(); // Move to next word even if incorrect
-      }, 800);
+      }, PAUSE_DURATION);
     }
   };
   
@@ -187,7 +189,14 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
               </div>
             </form>
 
-            <p className="text-sm text-muted-foreground mt-4 h-5">{currentWordData?.hint ?? ''}</p>
+            <div className="text-sm text-muted-foreground mt-4 h-10 flex flex-col justify-center items-center">
+              {status === 'incorrect' && (
+                <p>The correct word was: <span className="font-bold text-primary">{currentWordData?.word}</span></p>
+              )}
+               {status === 'idle' && (
+                <p>{currentWordData?.hint ?? ''}</p>
+              )}
+            </div>
           </>
         )}
 
