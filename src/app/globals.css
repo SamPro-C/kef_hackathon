@@ -108,15 +108,11 @@
 /* New Game Styles */
 .student-card-large {
     background: hsl(var(--background));
-    border: 1px solid hsl(var(--border));
-    border-radius: 1rem;
-    padding: 2rem;
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 4px 10px hsla(var(--primary), 0.05);
+    box-shadow: 0 4px 10px hsla(var(--foreground), 0.05);
 }
 .student-card-large.sponsored {
     border-color: hsl(var(--accent));
-    transform: translateY(-4px);
     box-shadow: 0 10px 40px hsla(var(--accent), 0.15);
 }
 .student-card-large .rounded-full {
@@ -131,10 +127,12 @@
     display: flex;
     gap: 0.75rem;
     margin-top: 1rem;
+    justify-content: center;
 }
 
 .year-marker {
     flex: 1;
+    max-width: 80px;
     text-align: center;
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -154,10 +152,10 @@
 }
 
 .aspiration-reveal {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding: 1.5rem;
     text-align: center;
-    background-color: hsl(var(--card));
+    background-color: hsl(var(--background));
     border-radius: 0.75rem;
     border: 1px dashed hsl(var(--border));
     animation: fadeIn 0.8s ease-out;
@@ -169,41 +167,26 @@
 }
 
 .ripple-wrap {
-  padding: 26px;
-  background: linear-gradient(
-    180deg,
-    hsl(var(--primary) / 0.02),
-    transparent
-  );
-  border-radius: 12px;
-  border: 1px solid hsl(var(--border));
-  box-shadow: 0 4px 18px hsla(var(--primary), 0.05);
-  margin-top: 20px;
-  text-align: center;
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.02),
+      transparent
+    );
 }
 
 .final-cta {
-  padding: 28px;
-  text-align: center;
-  border-radius: 14px;
-  background: linear-gradient(
-    180deg,
-    hsl(var(--primary) / 0.05),
-    hsl(var(--primary) / 0.02)
-  );
-  margin-top: 22px;
-  border: 1px solid hsl(var(--border));
+    background: linear-gradient(
+      180deg,
+      hsl(var(--primary) / 0.05),
+      hsl(var(--primary) / 0.02)
+    );
 }
 
-.final-cta h2 {
-  font-size: 22px;
-  margin: 0 0 12px;
-}
 .cta-row {
   display: flex;
   gap: 12px;
   justify-content: center;
-  margin-top: 14px;
+  margin-top: 24px;
   flex-wrap: wrap;
 }
 .btn {
