@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { generateAspiration } from '@/ai/flows/generate-aspiration-flow';
+import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
 import Image from 'next/image';
 import { GraduationCap, CheckCircle2, Award, Users, RefreshCw } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -47,12 +48,20 @@ const createInitialStudents = (): Student[] => {
 };
 
 export default function GamePage() {
+  const [playerName, setPlayerName] = useState('');
   const [coins, setCoins] = useState(0);
   const [students, setStudents] = useState<Student[]>([]);
-  const [gameState, setGameState] = useState<'intro' | 'playing' | 'finished'>('intro');
+  const [gameState, setGameState] = useState<'intro' | 'word_game' | 'playing' | 'finished'>('intro');
   const [isGenerating, setIsGenerating] = useState<number | null>(null);
 
   const sponsoredCount = useMemo(() => students.filter(s => s.isSponsored).length, [students]);
+
+  const handleNameSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (playerName.trim()) {
+      setGameState('word_game');
+    }
+  };
 
   const handleGameStart = (earnedCoins: number) => {
     setCoins(earnedCoins);
@@ -75,13 +84,16 @@ export default function GamePage() {
       updatedStudent.isSponsored = true;
       setIsGenerating(studentId);
       try {
-        const result = await generateAspiration({ studentName: updatedStudent.name, studentGender: updatedStudent.gender });
-        updatedStudent.aspiration = result.career;
-        updatedStudent.quote = result.quote;
+        const [aspirationResult, thankYouResult] = await Promise.all([
+          generateAspiration({ studentName: updatedStudent.name, studentGender: updatedStudent.gender }),
+          generateThankYou({ studentName: updatedStudent.name, donorName: playerName })
+        ]);
+        updatedStudent.aspiration = aspirationResult.career;
+        updatedStudent.quote = thankYouResult.message;
       } catch (error) {
-        console.error("Error generating aspiration:", error);
+        console.error("Error generating content:", error);
         updatedStudent.aspiration = 'Future Leader';
-        updatedStudent.quote = 'Thank you for believing in me!';
+        updatedStudent.quote = `Thank you for believing in me, ${playerName}!`;
       } finally {
         updatedStudent.isRevealed = true;
         setIsGenerating(null);
@@ -92,6 +104,7 @@ export default function GamePage() {
   };
   
   const handleReset = () => {
+    setPlayerName('');
     setCoins(0);
     setStudents([]);
     setGameState('intro');
@@ -115,7 +128,7 @@ export default function GamePage() {
       <div className="text-center mb-10">
           <h3 className='text-4xl font-bold'>The KEF Supporter Challenge</h3>
           <p className="text-muted-foreground mt-2 max-w-3xl mx-auto">
-            Your support starts with a challenge. Unscramble the words to earn scholarship years, then use them to help deserving students reach their dreams.
+            Your support starts with a challenge. See how your choices can unlock the potential of deserving students.
           </p>
       </div>
 
@@ -123,6 +136,37 @@ export default function GamePage() {
         {gameState === 'intro' && (
           <motion.div
             key="intro"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+          >
+            <Card className="word-unscramble-card max-w-lg mx-auto">
+              <CardHeader>
+                <CardTitle className="text-2xl text-center">Welcome, Supporter!</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center text-muted-foreground mb-4">What name should our students thank?</p>
+                <form onSubmit={handleNameSubmit} className="flex flex-col items-center gap-4">
+                  <input
+                    type="text"
+                    value={playerName}
+                    onChange={(e) => setPlayerName(e.target.value)}
+                    className="unscramble-input"
+                    placeholder="Enter your name..."
+                    aria-label="Your name"
+                  />
+                  <button type="submit" className="btn" disabled={!playerName.trim()}>
+                    Start the Challenge
+                  </button>
+                </form>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+
+        {gameState === 'word_game' && (
+          <motion.div
+            key="word_game"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}

@@ -29,12 +29,10 @@ const prompt = ai.definePrompt({
   name: 'generateThankYouPrompt',
   input: { schema: GenerateThankYouInputSchema },
   output: { schema: GenerateThankYouOutputSchema },
-  prompt: `You are a student in Kenya who has just received a donation towards your education.
-  Write a short, heartfelt, and unique thank you message to the donor.
-  The donor's name is {{donorName}}.
-  Your name is {{studentName}}.
-  Keep the message to about 1-2 sentences. Be creative and avoid generic thank yous.
-  Express genuine gratitude.
+  prompt: `You are a student in Kenya named {{studentName}} who has just received a donation towards your education.
+  Write a short, heartfelt, and unique thank you message to the donor, whose name is {{donorName}}.
+  Keep the message to 1-2 sentences. Be creative and avoid generic thank yous.
+  Express genuine gratitude. The message should feel like it's coming from a grateful teenager.
   
   Example: "Wow, {{donorName}}! Your help feels like a dream. Thank you for believing in my future!"`,
 });
