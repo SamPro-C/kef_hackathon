@@ -105,77 +105,103 @@
   z-index: 15; /* Between the overlay (10) and text (20) */
 }
 
+/* Word Unscramble Game Styles */
+.word-unscramble-card {
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 10px 30px -15px hsla(var(--foreground) / 0.1);
+}
+
+.scrambled-word {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 1rem 0 1.5rem;
+}
+
+.char-box {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid hsl(var(--border));
+    border-radius: var(--radius);
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Space Grotesk', sans-serif;
+    text-transform: uppercase;
+    color: hsl(var(--foreground));
+}
+
+.unscramble-input {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--background));
+}
+.unscramble-input:focus {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+}
+
 /* New Game Styles */
-.student-card-large {
+.student-card-game {
     background: hsl(var(--background));
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: 0 4px 10px hsla(var(--foreground) / 0.05);
     border: 1px solid hsl(var(--border));
+    display: flex;
+    flex-direction: column;
 }
-.student-card-large.sponsored {
+.student-card-game .p-4 {
+    flex-grow: 1;
+}
+
+.student-card-game.sponsored {
     border-color: hsl(var(--accent));
     box-shadow: 0 10px 40px hsla(var(--accent), 0.15);
 }
-.student-card-large .rounded-full {
+.student-card-game .rounded-full {
     border-color: hsl(var(--card));
     transition: border-color 0.4s;
 }
-.student-card-large.sponsored .rounded-full {
+.student-card-game.sponsored .rounded-full {
     border-color: hsl(var(--accent));
 }
 
 .scholarship-tracker {
     display: flex;
-    gap: 0.75rem;
-    margin-top: 1rem;
-    justify-content: center; /* Center horizontally in a flex container */
+    gap: 0.5rem;
 }
 
 .year-marker {
     flex: 1;
-    max-width: 80px;
-    text-align: center;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
+    height: 0.75rem;
+    border-radius: 99px;
     background-color: hsl(var(--muted));
     border: 1px solid hsl(var(--border));
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: hsl(var(--muted-foreground));
     transition: all 0.3s;
 }
 
 .year-marker.funded {
-    background-color: hsl(var(--accent) / 0.2);
-    border-color: hsl(var(--accent));
-    color: hsl(var(--foreground));
+    background-color: hsl(var(--accent));
+    border-color: hsl(var(--accent) / 0.5);
     transform: scale(1.05);
 }
 
 .aspiration-reveal {
-    margin-top: 1.5rem;
-    padding: 1.5rem;
+    margin-top: 1rem;
+    padding: 1rem;
     text-align: center;
     background-color: hsl(var(--card));
     border-radius: 0.75rem;
     border: 1px dashed hsl(var(--border));
-}
-
-
-.ripple-wrap {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--primary) / 0.02),
-      transparent
-    );
-}
-
-.final-cta {
-    background: linear-gradient(
-      180deg,
-      hsl(var(--primary) / 0.05),
-      hsl(var(--primary) / 0.02)
-    );
 }
 
 .cta-row {
@@ -215,5 +241,3 @@
   background-color: hsl(var(--muted));
   border-color: hsl(var(--border));
 }
-
-    
