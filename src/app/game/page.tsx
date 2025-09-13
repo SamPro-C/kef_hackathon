@@ -2,276 +2,204 @@
 'use client';
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
+import { generateAspiration } from '@/ai/flows/generate-aspiration-flow';
 import Image from 'next/image';
-import { GraduationCap, Shirt, Users } from 'lucide-react';
+import { GraduationCap, CheckCircle2, Award } from 'lucide-react';
 
-const STARTING_COINS = 18;
+const STARTING_COINS = 8;
+const YEARS_TO_FUND = 4;
 const STUDENT_COUNT = 6;
-const REQUIRED_RESOURCES = {
-  fees: 2,
-  uniforms: 1,
-  mentorship: 1,
-};
-const TOTAL_PER_STUDENT = Object.values(REQUIRED_RESOURCES).reduce((a, b) => a + b, 0);
 
-const studentNames = ["Jomo", "Amina", "Baraka", "Wanjiru", "Simba", "Zola"];
-
-type ResourceKey = keyof typeof REQUIRED_RESOURCES;
+const studentData = [
+  { name: 'Jomo', gender: 'male' },
+  { name: 'Amina', gender: 'female' },
+  { name: 'Baraka', gender: 'male' },
+  { name: 'Wanjiru', gender: 'female' },
+  { name: 'Simba', gender: 'male' },
+  { name: 'Zola', gender: 'female' },
+];
 
 interface Student {
   id: number;
   name: string;
+  gender: 'male' | 'female';
   image: string;
-  funded: boolean;
-  resources: {
-    fees: number;
-    uniforms: number;
-    mentorship: number;
-  };
-  showSpeech: boolean;
-  speechText: string;
+  fundedYears: number;
+  isSponsored: boolean;
+  aspiration: string;
+  quote: string;
+  isRevealed: boolean;
 }
 
-const createInitialStudents = (): Student[] => 
-  Array.from({ length: STUDENT_COUNT }, (_, i) => ({
-    id: i + 1,
-    name: studentNames[i % studentNames.length],
-    image: `https://picsum.photos/seed/student${i + 1}/100/100`,
-    funded: false,
-    resources: { fees: 0, uniforms: 0, mentorship: 0 },
-    showSpeech: false,
-    speechText: 'Thank you!',
+const createInitialStudents = (): Student[] => {
+  const shuffledData = [...studentData].sort(() => Math.random() - 0.5);
+  return Array.from({ length: STUDENT_COUNT }, (_, i) => ({
+    id: i,
+    name: shuffledData[i].name,
+    gender: shuffledData[i].gender,
+    image: `https://picsum.photos/seed/student${i + 1}/200/200`,
+    fundedYears: 0,
+    isSponsored: false,
+    aspiration: '',
+    quote: '',
+    isRevealed: false,
   }));
-
-function shuffle<T>(array: T[]): T[] {
-  let currentIndex = array.length, randomIndex;
-  while (currentIndex > 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-  return array;
-}
+};
 
 export default function GamePage() {
-  const [coinsLeft, setCoinsLeft] = useState(STARTING_COINS);
+  const [coins, setCoins] = useState(STARTING_COINS);
   const [students, setStudents] = useState<Student[]>([]);
+  const [currentStudentIndex, setCurrentStudentIndex] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [selectedCoin, setSelectedCoin] = useState<number | null>(null);
+  const [sponsoredCount, setSponsoredCount] = useState(0);
 
   useEffect(() => {
-    setStudents(shuffle(createInitialStudents()));
+    setStudents(createInitialStudents());
   }, []);
 
-  const careers = useMemo(() => [
-    'Doctor', 'Teacher', 'Engineer', 'Entrepreneur', 'Community Leader', 'Mentor',
-  ], []);
-
-  const successes = useMemo(() => students.filter((s) => s.funded).length, [students]);
-
-  const checkStudentFunded = useCallback((student: Student) => {
-    return (
-      student.resources.fees >= REQUIRED_RESOURCES.fees &&
-      student.resources.uniforms >= REQUIRED_RESOURCES.uniforms &&
-      student.resources.mentorship >= REQUIRED_RESOURCES.mentorship
-    );
-  }, []);
-
-  const handleResourceClick = (studentId: number, resource: ResourceKey) => {
-    if (selectedCoin === null || isGenerating) return;
-
-    setStudents(prevStudents => {
-      const newStudents = prevStudents.map(s => {
-        if (s.id === studentId && s.resources[resource] < REQUIRED_RESOURCES[resource] && !s.funded) {
-          const updatedStudent = {
-            ...s,
-            resources: { ...s.resources, [resource]: s.resources[resource] + 1 },
-          };
-          if (checkStudentFunded(updatedStudent)) {
-            updatedStudent.funded = true;
-          }
-          setCoinsLeft(coinsLeft - 1);
-          setSelectedCoin(null);
-          return updatedStudent;
-        }
-        return s;
-      });
-      return newStudents;
-    });
-  };
+  const currentStudent = useMemo(() => {
+    return students[currentStudentIndex];
+  }, [students, currentStudentIndex]);
   
-  const handleStudentClick = async (id: number) => {
-    const student = students.find(s => s.id === id);
-    if (isGenerating || !student?.funded || student.showSpeech) return;
+  const handleFundYear = async () => {
+    if (coins <= 0 || !currentStudent || currentStudent.isSponsored) return;
 
-    setStudents(currentStudents => currentStudents.map(s => 
-      s.id === id ? { ...s, showSpeech: true, speechText: '...' } : s
-    ));
-    setIsGenerating(true);
-
-    try {
-      if (student) {
-        const result = await generateThankYou({ studentName: student.name, donorName: 'Donor' });
-        setStudents(currentStudents => currentStudents.map(s =>
-          s.id === id ? { ...s, speechText: result.message } : s
-        ));
+    const updatedStudent = {
+      ...currentStudent,
+      fundedYears: currentStudent.fundedYears + 1,
+    };
+    
+    setCoins(c => c - 1);
+    
+    if (updatedStudent.fundedYears >= YEARS_TO_FUND) {
+      updatedStudent.isSponsored = true;
+      setIsGenerating(true);
+      try {
+        const result = await generateAspiration({ studentName: updatedStudent.name, studentGender: updatedStudent.gender });
+        updatedStudent.aspiration = result.career;
+        updatedStudent.quote = result.quote;
+      } catch (error) {
+        console.error("Error generating aspiration:", error);
+        updatedStudent.aspiration = 'Future Leader';
+        updatedStudent.quote = 'Thank you for believing in me!';
+      } finally {
+        updatedStudent.isRevealed = true;
+        setSponsoredCount(sc => sc + 1);
+        setIsGenerating(false);
       }
-    } catch (error) {
-      console.error("Error generating thank you message:", error);
-      setStudents(currentStudents => currentStudents.map(s =>
-        s.id === id ? { ...s, speechText: 'Thank you so much!' } : s
-      ));
-    } finally {
-      setIsGenerating(false);
-      setTimeout(() => {
-        setStudents(prev => prev.map(innerS => innerS.id === id ? { ...innerS, showSpeech: false } : innerS));
-      }, 4000); 
+    }
+
+    setStudents(prev => prev.map(s => s.id === updatedStudent.id ? updatedStudent : s));
+  };
+
+  const handleNextStudent = () => {
+    if(currentStudentIndex < students.length - 1) {
+      setCurrentStudentIndex(i => i + 1);
+    } else {
+      // Optional: Loop back to the start
+      setCurrentStudentIndex(0);
     }
   };
 
   const handleReset = () => {
-    setCoinsLeft(STARTING_COINS);
-    setStudents(shuffle(createInitialStudents()));
-    setSelectedCoin(null);
+    setCoins(STARTING_COINS);
+    setStudents(createInitialStudents());
+    setCurrentStudentIndex(0);
+    setSponsoredCount(0);
     const gameSection = document.getElementById('gameSection');
     if(gameSection) gameSection.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleCoinClick = (index: number) => {
-    if (coinsLeft <= 0) return;
-    setSelectedCoin(selectedCoin === index ? null : index);
-  }
-
-  const rippleCircles = useMemo(() => {
-    const base = Math.max(1, successes);
-    const maxCircles = Math.min(6, base + 2);
-    return Array.from({length: maxCircles});
-  }, [successes]);
-
   return (
     <div className="container mx-auto px-4 py-8">
       <section id="gameSection" className="mt-20">
-        <div className="game">
-          <h3 className='text-3xl font-bold text-center mb-2'>Sponsor a Dream — The Giving Game</h3>
-          <p className="text-muted-foreground text-center mb-8">You have <strong>{STARTING_COINS} coins</strong> to change lives. Click a coin, then click a need on a student's card to fund it.</p>
-          
-          <div className="mb-8">
-            <div className="text-sm text-muted-foreground mb-2 text-center">Your Donation</div>
-            <div className="coins-pile" id="coinsPile" aria-label="coins pile">
-                {Array.from({ length: STARTING_COINS }).map((_, i) => (
-                    <div 
-                      key={i} 
-                      className={`coin ${i < coinsLeft ? 'available' : 'spent'} ${selectedCoin === i ? 'selected' : ''}`} 
-                      role="button"
-                      onClick={() => i < coinsLeft && handleCoinClick(i)}
-                    >¢</div>
-                ))}
-                {coinsLeft === 0 && (
-                    <div className="text-sm text-muted-foreground p-2">
-                        No coins left! See the impact you've made below.
+        <div className="text-center mb-10">
+            <h3 className='text-4xl font-bold'>The Scholarship Journey</h3>
+            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">You have **{STARTING_COINS} years** of scholarships to give. Your donation can fund a student's entire 4-year high school education and unlock their future.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            {/* Donation Panel */}
+            <div className="md:col-span-1 bg-card p-6 rounded-lg border shadow-sm">
+                <h4 className="font-bold text-xl mb-4 text-center">Your Donation Fund</h4>
+                <div className="text-center mb-6">
+                    <p className="text-muted-foreground">Years of Scholarship Left</p>
+                    <p className="text-6xl font-bold text-primary">{coins}</p>
+                </div>
+                <button 
+                    onClick={handleFundYear} 
+                    disabled={coins <= 0 || isGenerating || currentStudent?.isSponsored}
+                    className="btn w-full text-lg py-3"
+                >
+                    <GraduationCap className="mr-2 h-5 w-5" />
+                    Fund One Year
+                </button>
+                 <p className="text-xs text-muted-foreground text-center mt-2">Fund a year of high school for {currentStudent?.name}.</p>
+            </div>
+
+            {/* Student Panel */}
+            <div className="md:col-span-2">
+                {currentStudent && (
+                    <div className={`student-card-large ${currentStudent.isSponsored ? 'sponsored' : ''}`}>
+                        <div className="flex flex-col md:flex-row items-center gap-6">
+                            <div className="relative">
+                                <Image
+                                    src={currentStudent.image}
+                                    alt={currentStudent.name}
+                                    width={140}
+                                    height={140}
+                                    className="rounded-full object-cover border-4 border-card"
+                                    data-ai-hint="student portrait"
+                                />
+                                {currentStudent.isSponsored && <CheckCircle2 className="absolute bottom-1 right-1 h-10 w-10 text-green-500 bg-white rounded-full p-1"/>}
+                            </div>
+                            <div className="text-center md:text-left">
+                                <h4 className="text-3xl font-bold">{currentStudent.name}</h4>
+                                <div className="scholarship-tracker">
+                                    {Array.from({length: YEARS_TO_FUND}).map((_, i) => (
+                                        <div key={i} className={`year-marker ${i < currentStudent.fundedYears ? 'funded' : ''}`}>
+                                            Yr {i + 1}
+                                        </div>
+                                    ))}
+                                </div>
+                                <p className="text-muted-foreground mt-2">
+                                  {currentStudent.isSponsored ? `is fully sponsored!` : `needs ${YEARS_TO_FUND - currentStudent.fundedYears} more year(s) of support.`}
+                                </p>
+                            </div>
+                        </div>
+
+                        {currentStudent.isRevealed && (
+                            <div className="aspiration-reveal">
+                                 <p className="text-primary font-semibold text-lg">&ldquo;{currentStudent.quote}&rdquo;</p>
+                                 <div className="flex items-center justify-center gap-3 mt-3">
+                                    <Award className="h-6 w-6 text-muted-foreground" />
+                                    <p className="text-xl font-bold">Future {currentStudent.aspiration}</p>
+                                 </div>
+                            </div>
+                        )}
+                         {isGenerating && !currentStudent.isRevealed && (
+                            <div className="aspiration-reveal">
+                                <p>Unlocking {currentStudent.name}'s bright future...</p>
+                            </div>
+                        )}
                     </div>
                 )}
+                 <div className="flex items-center justify-between mt-4">
+                    <button className="btn secondary" id="resetBtn" onClick={handleReset}>Reset Game</button>
+                    <button onClick={handleNextStudent} className="btn">
+                        Next Student &rarr;
+                    </button>
+                </div>
             </div>
-          </div>
-
-          <div className="mt-8">
-            <div className="text-center mb-4">
-              <h4 className="font-bold">Students Awaiting Support</h4>
-              <p className="text-sm text-muted-foreground">Click a sponsored student to hear their thanks!</p>
-            </div>
-
-            <div className="students-grid" id="studentsGrid">
-              {students.map((s) => (
-                  <div key={s.id} 
-                      className={`student-card ${s.funded ? 'success' : ''} ${(isGenerating || !s.funded) ? '' : 'clickable'}`}
-                      onClick={() => handleStudentClick(s.id)}
-                  >
-                      <div className="speech" style={{ display: s.showSpeech ? 'block' : 'none' }}>
-                          {s.speechText}
-                      </div>
-                      <div className='flex items-center gap-4'>
-                        <div className="avatar">
-                          <Image 
-                            src={s.image} 
-                            alt={s.name} 
-                            width={68} 
-                            height={68} 
-                            className="rounded-full object-cover" 
-                            data-ai-hint="student portrait"
-                          />
-                        </div>
-                        <div className='flex-grow'>
-                            <div className="name">{s.name}</div>
-                            <div className={`role ${s.funded ? 'text-primary' : 'text-muted-foreground'}`}>{s.funded ? 'Fully Sponsored!' : 'Needs Support'}</div>
-                        </div>
-                      </div>
-                      <div className="needs">
-                        <div className={`need-item ${s.resources.fees >= REQUIRED_RESOURCES.fees ? 'filled' : ''}`} onClick={() => handleResourceClick(s.id, 'fees')}>
-                          <GraduationCap className='icon' />
-                          <span>{s.resources.fees}/{REQUIRED_RESOURCES.fees}</span>
-                        </div>
-                        <div className={`need-item ${s.resources.uniforms >= REQUIRED_RESOURCES.uniforms ? 'filled' : ''}`} onClick={() => handleResourceClick(s.id, 'uniforms')}>
-                          <Shirt className='icon' />
-                          <span>{s.resources.uniforms}/{REQUIRED_RESOURCES.uniforms}</span>
-                        </div>
-                        <div className={`need-item ${s.resources.mentorship >= REQUIRED_RESOURCES.mentorship ? 'filled' : ''}`} onClick={() => handleResourceClick(s.id, 'mentorship')}>
-                          <Users className='icon' />
-                          <span>{s.resources.mentorship}/{REQUIRED_RESOURCES.mentorship}</span>
-                        </div>
-                      </div>
-                  </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-8 space-x-4">
-              <button className="btn secondary" id="resetBtn" onClick={handleReset}>Reset Game</button>
-            </div>
-          </div>
         </div>
       </section>
 
-      <section id="rippleSection" className="mt-16">
-        <div className="ripple-wrap">
-            <h3 className='text-3xl font-bold'>The Ripple Effect — Your Real-Time Impact</h3>
+      <section id="rippleSection" className="mt-16 text-center">
+         <div className="ripple-wrap">
+            <h3 className='text-3xl font-bold'>Your Impact So Far</h3>
             <p className="text-muted-foreground mt-2 mb-8">
-            You've sponsored <strong className='text-primary'>{successes}</strong> students who are now on track to become...
+                You've fully sponsored <strong className='text-primary'>{sponsoredCount}</strong> students, starting a ripple effect of change.
             </p>
-            
-            <div className="flex flex-col lg:flex-row items-center gap-8">
-              <div className="w-full lg:w-1/2 flex justify-center items-center">
-                  <div className="ripple-canvas" id="rippleCanvas">
-                      {successes > 0 && rippleCircles.map((_, i) => {
-                          const size = 60 + i * 80;
-                          return (
-                              <div key={i} className="ripple-circle" style={{
-                                  width: `${size}px`,
-                                  height: `${size}px`,
-                                  animationDelay: `${i * 150}ms`,
-                              }}></div>
-                          );
-                      })}
-                      <span className="text-6xl font-bold text-primary">{successes}</span>
-                  </div>
-              </div>
-
-              <div className="w-full lg:w-1/2">
-                  <div className="career-grid" id="careerGrid">
-                      {successes > 0 ? (
-                          Array.from({ length: successes }).map((_, i) => (
-                              <div key={i} className="career">
-                                  <div className="font-bold text-lg">{careers[i % careers.length]}</div>
-                                  <div className="text-sm text-muted-foreground mt-1">An outcome of your support</div>
-                              </div>
-                          ))
-                      ) : (
-                          <div className="text-muted-foreground text-center py-8">
-                              Fund a student to see the ripple effects of your donation!
-                          </div>
-                      )}
-                  </div>
-              </div>
-            </div>
-
             <div className="final-cta">
               <h2 className='text-2xl font-bold'>Your choice today can change a life.</h2>
               <p className="text-muted-foreground mt-2 max-w-xl mx-auto">

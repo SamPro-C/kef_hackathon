@@ -105,203 +105,69 @@
   z-index: 15; /* Between the overlay (10) and text (20) */
 }
 
-/* Custom game styles */
-.game {
-  margin-top: 18px;
-  padding: 24px;
-  border-radius: 16px;
-  background-color: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
-  box-shadow: 0 10px 30px -15px hsla(var(--primary), 0.1);
+/* New Game Styles */
+.student-card-large {
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 4px 10px hsla(var(--primary), 0.05);
 }
-
-.coins-pile {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  padding: 12px;
-  background: linear-gradient(
-    180deg,
-    hsl(var(--background)),
-    hsl(var(--muted) / 0.5)
-  );
-  border-radius: 12px;
-  min-height: 80px;
-  align-content: flex-start;
-  justify-content: center;
-  border: 1px solid hsl(var(--border));
+.student-card-large.sponsored {
+    border-color: hsl(var(--accent));
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px hsla(var(--accent), 0.15);
 }
-
-.coin {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  user-select: none;
-  touch-action: none;
-  color: white;
-  border: 2px solid white;
-  transition: all 0.2s;
-  background: linear-gradient(145deg, hsl(var(--accent)), hsl(var(--primary)));
-  box-shadow: 0 4px 12px hsla(var(--primary), 0.2);
+.student-card-large .rounded-full {
+    border-color: hsl(var(--muted));
+    transition: border-color 0.4s;
 }
-
-.coin.available {
-  cursor: pointer;
-}
-.coin.available:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px hsla(var(--primary), 0.3);
-}
-.coin.spent {
-  background: hsl(var(--muted));
-  box-shadow: none;
-  border-color: hsl(var(--border));
-  color: hsl(var(--muted-foreground));
-  cursor: not-allowed;
-}
-.coin.selected {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 4px hsl(var(--primary)), 0 8px 20px hsla(var(--primary), 0.4);
-}
-
-.students-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 16px;
-  margin-top: 18px;
-  justify-content: center;
-}
-
-.student-card {
-  background: hsl(var(--background));
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid hsl(var(--border));
-  box-shadow: 0 4px 10px hsla(var(--primary), 0.05);
-  position: relative;
-  transition: all 0.4s;
-}
-.student-card.clickable {
-  cursor: pointer;
-}
-
-.avatar {
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  border: 3px solid hsl(var(--background));
-  box-shadow: 0 0 0 1px hsl(var(--border));
-  transition: all 0.3s;
-  flex-shrink: 0;
-}
-.student-card .name {
-  font-size: 16px;
-  font-weight: 700;
-}
-.student-card .role {
-  font-size: 13px;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.student-card.success {
-  border-color: hsl(var(--primary));
-  box-shadow: 0 10px 40px hsla(var(--primary), 0.15);
-  transform: translateY(-6px);
-}
-.student-card.success .avatar {
-    border-color: hsl(var(--primary) / 0.5);
-    box-shadow: 0 0 0 4px hsl(var(--primary) / 0.2);
-}
-
-.needs {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-}
-.need-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  border-radius: 8px;
-  background: hsl(var(--muted));
-  border: 1px solid hsl(var(--border));
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.need-item:hover {
-  border-color: hsl(var(--primary));
-  background: hsl(var(--primary) / 0.1);
-}
-.need-item .icon {
-  width: 20px;
-  height: 20px;
-  color: hsl(var(--primary));
-  margin-bottom: 4px;
-}
-.need-item span {
-  font-size: 12px;
-  font-weight: 600;
-  color: hsl(var(--muted-foreground));
-}
-.need-item.filled {
-  background: hsl(var(--accent) / 0.2);
-  border-color: hsl(var(--accent));
-  cursor: default;
-}
-.need-item.filled .icon {
-  color: hsl(var(--accent));
-}
-.need-item.filled span {
-  color: hsl(var(--foreground));
-}
-.student-card.success .needs .need-item {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-.student-card.success .needs .need-item:hover {
-  border-color: hsl(var(--border));
-  background: hsl(var(--muted));
-}
-.student-card.success .needs .need-item.filled:hover {
-    background: hsl(var(--accent) / 0.2);
+.student-card-large.sponsored .rounded-full {
     border-color: hsl(var(--accent));
 }
 
-.speech {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -42px;
-  background: hsl(var(--background));
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid hsl(var(--border));
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  font-size: 13px;
-  white-space: nowrap;
-  z-index: 10;
-  max-width: 220px;
-  white-space: normal;
-  text-align: left;
+.scholarship-tracker {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
 }
-.speech:after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 6px;
-  border-style: solid;
-  border-color: hsl(var(--background)) transparent transparent transparent;
+
+.year-marker {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: hsl(var(--muted-foreground));
+    transition: all 0.3s;
 }
+
+.year-marker.funded {
+    background-color: hsl(var(--accent) / 0.2);
+    border-color: hsl(var(--accent));
+    color: hsl(var(--foreground));
+    transform: scale(1.05);
+}
+
+.aspiration-reveal {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    text-align: center;
+    background-color: hsl(var(--card));
+    border-radius: 0.75rem;
+    border: 1px dashed hsl(var(--border));
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 .ripple-wrap {
   padding: 26px;
   background: linear-gradient(
@@ -315,52 +181,7 @@
   margin-top: 20px;
   text-align: center;
 }
-.ripple-canvas {
-  min-height: 250px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-@keyframes ripple-effect {
-  0% {
-    transform: scale(0.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(3);
-    opacity: 0;
-  }
-}
-
-.ripple-circle {
-  position: absolute;
-  border-radius: 50%;
-  background: hsla(var(--accent), 0.09);
-  transform: scale(0);
-  animation: ripple-effect 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
-}
-
-.career-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px;
-  width: 100%;
-}
-.career {
-  padding: 16px;
-  border-radius: 12px;
-  background: hsl(var(--card));
-  border: 1px solid hsl(var(--border));
-  text-align: center;
-  transition: all 0.2s;
-}
-.career:hover {
-  transform: translateY(-4px);
-  border-color: hsl(var(--primary));
-}
 .final-cta {
   padding: 28px;
   text-align: center;
@@ -373,6 +194,7 @@
   margin-top: 22px;
   border: 1px solid hsl(var(--border));
 }
+
 .final-cta h2 {
   font-size: 22px;
   margin: 0 0 12px;
@@ -385,7 +207,7 @@
   flex-wrap: wrap;
 }
 .btn {
-  @apply inline-block rounded-lg px-6 py-3 text-base font-semibold;
+  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 text-base font-semibold;
   background-color: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
   box-shadow: 0 6px 20px -5px hsla(var(--primary), 0.4);
@@ -398,6 +220,7 @@
     background-color: hsl(var(--muted));
     color: hsl(var(--muted-foreground));
     box-shadow: none;
+    opacity: 0.7;
 }
 .btn:hover:not([disabled]) {
   transform: translateY(-2px);
@@ -409,7 +232,7 @@
   border: 1px solid hsl(var(--border));
   box-shadow: none;
 }
-.btn.secondary:hover {
+.btn.secondary:hover:not([disabled]) {
   background-color: hsl(var(--muted));
   border-color: hsl(var(--border));
 }
