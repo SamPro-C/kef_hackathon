@@ -13,7 +13,7 @@ const WORDS = [
   { word: 'IMPACT', hint: 'Have a strong effect on someone or something.' },
 ];
 
-const shuffle = (word: string) => {
+const shuffle = (word: string): string => {
   let a = word.split(''), n = a.length;
   for (let i = n - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
@@ -29,10 +29,17 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
   const [status, setStatus] = useState<'idle' | 'correct' | 'incorrect'>('idle');
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(45);
+  const [scrambledWord, setScrambledWord] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const currentWordData = useMemo(() => WORDS[wordIndex % WORDS.length], [wordIndex]);
-  const scrambledWord = useMemo(() => shuffle(currentWordData.word), [currentWordData]);
+  
+  useEffect(() => {
+    // This now runs only on the client, after hydration
+    setScrambledWord(shuffle(currentWordData.word));
+    inputRef.current?.focus();
+  }, [currentWordData]);
+
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -45,9 +52,6 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
     return () => clearInterval(timer);
   }, [timeLeft, onGameEnd, score]);
   
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [currentWordData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,17 +91,24 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
       <CardContent className="text-center">
         <p className="text-muted-foreground mb-2 text-sm">Unscramble this word:</p>
         <div className="scrambled-word">
-          {scrambledWord.split('').map((char, index) => (
-            <motion.div 
-              key={`${wordIndex}-${index}`}
-              className="char-box"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              {char}
-            </motion.div>
-          ))}
+          {scrambledWord ? (
+            scrambledWord.split('').map((char, index) => (
+              <motion.div 
+                key={`${wordIndex}-${index}`}
+                className="char-box"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                {char}
+              </motion.div>
+            ))
+          ) : (
+             // Render placeholders or a loading state on the server and initial client render
+            Array.from({length: currentWordData.word.length}).map((_, index) => (
+               <div key={index} className="char-box bg-muted"></div>
+            ))
+          )}
         </div>
         
         <form onSubmit={handleSubmit} className="relative mt-6">
