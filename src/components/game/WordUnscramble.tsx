@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { CheckCircle, XCircle, Gift, PlayCircle } from 'lucide-react';
 
-const WORDS = [
+const ALL_WORDS = [
   { word: 'HOPE', hint: 'A feeling of expectation and desire for a certain thing to happen.', time: 5 },
   { word: 'DREAM', hint: 'A cherished aspiration, ambition, or ideal.', time: 5 },
   { word: 'FUTURE', hint: 'The time or a period of time following the moment of speaking or writing.', time: 6 },
@@ -17,7 +17,12 @@ const WORDS = [
   { word: 'VISION', hint: 'The ability to think about or plan the future with imagination or wisdom.', time: 6 },
   { word: 'SUPPORT', hint: 'Bear all or part of the weight of; hold up.', time: 7 },
   { word: 'SUCCESS', hint: 'The accomplishment of an aim or purpose.', time: 7 },
+  { word: 'JOURNEY', hint: 'An act of traveling from one place to another.', time: 7 },
+  { word: 'EMPOWER', hint: 'Give (someone) the authority or power to do something.', time: 7 },
+  { word: 'INSPIRE', hint: 'Fill (someone) with the urge or ability to do or feel something.', time: 7 },
 ];
+
+const GAME_WORD_LIMIT = 10;
 
 const shuffle = (word: string): string => {
   let a = word.split(''), n = a.length;
@@ -29,7 +34,14 @@ const shuffle = (word: string): string => {
   return shuffled === word ? shuffle(word) : shuffled;
 };
 
+// Function to get a random subset of words for the game
+const getGameWords = () => {
+    const shuffled = [...ALL_WORDS].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, GAME_WORD_LIMIT);
+}
+
 const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) => {
+  const [gameWords, setGameWords] = useState<typeof ALL_WORDS>([]);
   const [gameStarted, setGameStarted] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [guess, setGuess] = useState('');
@@ -37,20 +49,34 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [scrambledWord, setScrambledWord] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isFinished, setIsFinished] = useState(false);
   
-  const currentWordData = useMemo(() => WORDS[wordIndex % WORDS.length], [wordIndex]);
-  const [timeLeft, setTimeLeft] = useState(currentWordData.time);
+  const currentWordData = useMemo(() => gameWords[wordIndex], [wordIndex, gameWords]);
+  const [timeLeft, setTimeLeft] = useState(currentWordData?.time ?? 0);
 
   const score = useMemo(() => correctAnswers * 2, [correctAnswers]);
 
   const nextWord = useCallback(() => {
+    if (wordIndex + 1 >= GAME_WORD_LIMIT) {
+      setIsFinished(true);
+      setStatus('idle');
+      return;
+    }
     setWordIndex(i => i + 1);
     setGuess('');
     setStatus('idle');
-  }, []);
+  }, [wordIndex]);
+  
+  const handleStartGame = () => {
+    setGameWords(getGameWords());
+    setWordIndex(0);
+    setCorrectAnswers(0);
+    setIsFinished(false);
+    setGameStarted(true);
+  }
 
   useEffect(() => {
-    if (gameStarted) {
+    if (gameStarted && currentWordData) {
       const newScrambledWord = shuffle(currentWordData.word);
       setScrambledWord(newScrambledWord);
       setTimeLeft(currentWordData.time);
@@ -59,7 +85,7 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
   }, [wordIndex, currentWordData, gameStarted]);
 
   useEffect(() => {
-    if (!gameStarted || status !== 'idle') return;
+    if (!gameStarted || status !== 'idle' || isFinished) return;
 
     if (timeLeft === 0) {
       setStatus('incorrect'); // Mark as incorrect for visual feedback
@@ -72,11 +98,11 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, gameStarted, status, nextWord]);
+  }, [timeLeft, gameStarted, status, nextWord, isFinished]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (status !== 'idle') return;
+    if (status !== 'idle' || isFinished) return;
 
     if (guess.trim().toUpperCase() === currentWordData.word) {
       setStatus('correct');
@@ -85,8 +111,8 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
     } else {
       setStatus('incorrect');
       setTimeout(() => {
-          setStatus('idle');
           setGuess('');
+          nextWord(); // Move to next word even if incorrect
       }, 800);
     }
   };
@@ -101,27 +127,34 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
     <Card className="word-unscramble-card max-w-2xl mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Step 1: The Supporter Challenge</CardTitle>
-        <p className="text-muted-foreground">Unscramble words to earn scholarship years.</p>
+        <p className="text-muted-foreground">Unscramble {GAME_WORD_LIMIT} words to earn scholarship years.</p>
         <div className="flex justify-between items-baseline font-bold text-lg pt-4">
             <div className="flex items-center gap-2">
                 <Gift className="h-5 w-5 text-primary"/>
                 <span>Years Earned: {score}</span>
             </div>
-            {gameStarted && <span>Word Time: {timeLeft}s</span>}
+            {gameStarted && !isFinished && <span>Word Time: {timeLeft}s</span>}
+            {isFinished && <span className="text-primary">Finished!</span>}
         </div>
       </CardHeader>
       <CardContent className="text-center">
         {!gameStarted ? (
             <div className="flex flex-col items-center gap-4 my-8">
-                <p className="text-muted-foreground">Press Start to begin the challenge!</p>
-                <button onClick={() => setGameStarted(true)} className="btn">
+                <p className="text-muted-foreground">Unscramble {GAME_WORD_LIMIT} words to earn scholarship years.</p>
+                <button onClick={handleStartGame} className="btn">
                     <PlayCircle className="mr-2 h-5 w-5" />
                     Start Challenge
                 </button>
             </div>
+        ) : isFinished ? (
+            <div className="flex flex-col items-center gap-4 my-8">
+                <p className="text-3xl font-bold">Challenge Complete!</p>
+                <p className="text-xl">You answered <span className="text-primary">{correctAnswers} out of {GAME_WORD_LIMIT}</span> correctly.</p>
+                 <p className="text-lg">You earned <span className="font-bold">{score}</span> scholarship years.</p>
+            </div>
         ) : (
           <>
-            <p className="text-muted-foreground mb-2 text-sm">Unscramble this word:</p>
+            <p className="text-muted-foreground mb-2 text-sm">Word {wordIndex + 1} of {GAME_WORD_LIMIT}:</p>
             <div className="scrambled-word">
               {scrambledWord.split('').map((char, index) => (
                 <motion.div 
@@ -145,6 +178,8 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
                 className={`unscramble-input transition-all ${getBorderColor()}`}
                 placeholder="Your answer..."
                 disabled={status !== 'idle'}
+                autoCapitalize="off"
+                autoCorrect="off"
               />
               <div className="absolute right-2 top-1/2 -translate-y-1/2">
                 {status === 'correct' && <CheckCircle className="h-6 w-6 text-green-500" />}
@@ -152,12 +187,12 @@ const WordUnscramble = ({ onGameEnd }: { onGameEnd: (score: number) => void }) =
               </div>
             </form>
 
-            <p className="text-sm text-muted-foreground mt-4 h-5">{currentWordData.hint}</p>
+            <p className="text-sm text-muted-foreground mt-4 h-5">{currentWordData?.hint ?? ''}</p>
           </>
         )}
 
         <div className="mt-8">
-            <p className="text-sm text-muted-foreground mb-2">Finished unscrambling?</p>
+            <p className="text-sm text-muted-foreground mb-2">Ready to sponsor students?</p>
             <button onClick={() => onGameEnd(score)} className="btn secondary" disabled={!gameStarted}>
                 Proceed with {score} Scholarship Years
             </button>
