@@ -100,11 +100,11 @@ const Header = () => {
              >
                 <nav className="flex flex-col items-center justify-center h-full text-center gap-8">
                     {navLinks.map(link => (
-                        <Link key={link.href} href={link.href} className="text-3xl font-bold tracking-tight hover:text-primary transition-colors">
+                        <Link key={link.href} href={link.href} className="text-2xl font-bold tracking-tight hover:text-primary transition-colors">
                             {link.label}
                         </Link>
                     ))}
-                    <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn btn-lg text-2xl mt-8 px-10 py-4">
+                    <Link href="https://www.kenyaeducationfund.org/donate/" target="_blank" className="btn btn-lg text-xl mt-8 px-10 py-4">
                         Donate Now
                     </Link>
                 </nav>
