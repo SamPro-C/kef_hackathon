@@ -3,10 +3,10 @@ import { useState, useMemo } from 'react';
 import { generateThankYou } from '@/ai/flows/generate-thank-you-flow';
 import Image from 'next/image';
 
-const STARTING_COINS = 24;
+const STARTING_COINS = 18;
 const STUDENT_COUNT = 6;
 const REQUIRED_PER_STUDENT = {
-  fees: 2,
+  fees: 1,
   uniforms: 1,
   mentorship: 1,
 };
