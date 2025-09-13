@@ -114,25 +114,38 @@
 
 .scrambled-word {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.25rem;
     justify-content: center;
+    flex-wrap: wrap;
     margin: 1rem 0 1.5rem;
 }
 
 .char-box {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border: 2px solid hsl(var(--border));
     border-radius: var(--radius);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     font-family: 'Space Grotesk', sans-serif;
     text-transform: uppercase;
     color: hsl(var(--foreground));
 }
+
+@screen sm {
+    .scrambled-word {
+        gap: 0.5rem;
+    }
+    .char-box {
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 2rem;
+    }
+}
+
 
 .unscramble-input {
     width: 100%;
@@ -241,3 +254,5 @@
   background-color: hsl(var(--muted));
   border-color: hsl(var(--border));
 }
+
+    
