@@ -55,10 +55,11 @@ export default function GameClient() {
   const [isGenerating, setIsGenerating] = useState<number | null>(null);
 
   const sponsoredCount = useMemo(() => students.filter(s => s.isSponsored).length, [students]);
+  const isNameValid = useMemo(() => playerName.trim().length >= 3, [playerName]);
 
   const handleNameSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (playerName.trim()) {
+    if (isNameValid) {
       setGameState('word_game');
     }
   };
@@ -150,7 +151,7 @@ export default function GameClient() {
               </CardHeader>
               <CardContent>
                 <p className="text-center text-muted-foreground mb-4">What name should our students thank?</p>
-                <form onSubmit={handleNameSubmit} className="flex flex-col items-center gap-4">
+                <form onSubmit={handleNameSubmit} className="flex flex-col items-center gap-2">
                   <input
                     type="text"
                     value={playerName}
@@ -159,7 +160,10 @@ export default function GameClient() {
                     placeholder="Enter your name..."
                     aria-label="Your name"
                   />
-                  <button type="submit" className="btn" disabled={!playerName.trim()}>
+                  {!isNameValid && playerName.length > 0 && (
+                    <p className="text-sm text-destructive">Name must be at least 3 characters.</p>
+                  )}
+                  <button type="submit" className="btn mt-2" disabled={!isNameValid}>
                     Start the Challenge
                   </button>
                 </form>
