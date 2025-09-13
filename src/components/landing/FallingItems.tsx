@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Book, PenLine, Briefcase, LucideIcon } from 'lucide-react';
+import { Book, PenLine, GraduationCap, LucideIcon } from 'lucide-react';
 
-const icons = [Book, PenLine, Briefcase];
+const icons = [Book, PenLine, GraduationCap];
 const NUM_ITEMS = 15;
 
 interface FallingItem {
