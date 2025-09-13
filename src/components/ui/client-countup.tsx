@@ -11,9 +11,7 @@ const ClientCountUp = (props: CountUpProps) => {
   }, []);
 
   if (!isMounted) {
-    // You can render a placeholder or null on the server
-    // to avoid the hydration mismatch.
-    return <span>{props.end}</span>;
+    return null;
   }
 
   return <CountUp {...props} />;
