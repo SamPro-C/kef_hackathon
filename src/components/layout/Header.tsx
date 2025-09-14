@@ -62,7 +62,7 @@ const Header = () => {
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="flex items-center gap-2 z-50">
               <Image
-                  src="https://picsum.photos/seed/logo/120/40"
+                  src="/images/logo.png"
                   alt="KEF Logo"
                   width={120}
                   height={40}

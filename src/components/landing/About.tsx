@@ -22,6 +22,8 @@ const principles = [
   },
 ];
 
+
+
 const About = () => {
   return (
     <section className="py-20 bg-background">
@@ -61,13 +63,7 @@ const About = () => {
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Link href="/about" passHref>
-              <button className="btn secondary px-8 py-3 text-lg">
-                Learn More About Our Story &rarr;
-              </button>
-            </Link>
-          </div>
+          {/* Removed Dominic and Brodley images as per user request */}
         </motion.div>
       </div>
     </section>

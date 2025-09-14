@@ -38,7 +38,7 @@ const createInitialStudents = (): Student[] => {
     id: i,
     name: shuffledData[i].name,
     gender: shuffledData[i].gender as 'male' | 'female',
-    image: `https://picsum.photos/seed/student${i + 1}/200/200`,
+    image: `/images/student${i + 1}.jpg`,
     fundedYears: 0,
     isSponsored: false,
     aspiration: '',

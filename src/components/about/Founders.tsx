@@ -19,7 +19,7 @@ const founders = [
         content: `Though he passed away in 2022, Brad's spirit of service and compassion remains at the heart of KEF. His legacy lives on through the thousands of lives transformed by his vision, and his work continues to inspire our mission to foster hope and opportunity for Kenya’s youth.`
       }
     ],
-    image: 'https://picsum.photos/seed/founder2/400/400',
+    image: '/images/bradley.webp',
     'data-ai-hint': 'male portrait professional',
   },
   {
@@ -36,7 +36,7 @@ const founders = [
         content: `“KEF does not give charity. We invest in young people who have the potential to change their lives and those around them.” Dominic champions KEF’s holistic approach, which includes mentorship and life skills to ensure scholars become well-rounded change-makers who earn a meaningful income and give back to their communities.`
       }
     ],
-    image: 'https://picsum.photos/seed/founder1/400/400',
+    image: '/images/dominic.webp',
     'data-ai-hint': 'male portrait smiling',
   },
 ];

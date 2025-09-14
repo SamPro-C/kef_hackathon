@@ -43,12 +43,12 @@ const AboutPage = () => {
         </div>
         <div className="relative h-80 rounded-lg overflow-hidden shadow-xl">
            <Image
-              src="https://picsum.photos/seed/about/600/400"
+              src='/images/about.jpg'
               alt="Students in a classroom"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
-              data-ai-hint="kenyan students classroom"
+              data-ai-hint="kenyan education fund students"
             />
         </div>
       </motion.div>

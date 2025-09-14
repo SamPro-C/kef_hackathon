@@ -8,11 +8,11 @@ const Hero = () => {
   return (
     <div className="relative w-full h-screen flex items-center justify-center text-center overflow-hidden">
       <Image
-        src="https://picsum.photos/seed/hero-bg/1200/800"
+        src="/images/background1.jpg"
         alt="Students in a classroom looking hopeful"
         fill
         className="object-cover"
-        data-ai-hint="kenyan students classroom smiling"
+        data-ai-hint="kenyan education fund students smiling"
         priority
       />
       <div className="absolute inset-0 bg-black/60 z-10" />

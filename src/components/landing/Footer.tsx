@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
                 <Image
-                    src="https://picsum.photos/seed/logo/120/40"
+                    src="/images/logo.png"
                     alt="KEF Logo"
                     width={120}
                     height={40}

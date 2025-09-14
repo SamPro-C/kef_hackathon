@@ -90,12 +90,12 @@ const confidencePoints = [
 ];
 
 const partners = [
-  { name: "Partner One", logo: "https://picsum.photos/seed/p1/150/60" },
-  { name: "Partner Two", logo: "https://picsum.photos/seed/p2/150/60" },
-  { name: "Partner Three", logo: "https://picsum.photos/seed/p3/150/60" },
-  { name: "Partner Four", logo: "https://picsum.photos/seed/p4/150/60" },
-  { name: "Partner Five", logo: "https://picsum.photos/seed/p5/150/60" },
-  { name: "Partner Six", logo: "https://picsum.photos/seed/p6/150/60" },
+  { name: "Bridge Partner", logo: "/images/bridge-partner.webp" },
+  { name: "Nazarene Partner", logo: "/images/nazarene-partner.webp" },
+  { name: "Prudential Partner", logo: "/images/prudential-partner.webp" },
+  { name: "Rain Partner", logo: "/images/rain-partner.webp" },
+  { name: "Segal Partner", logo: "/images/segal-partner.webp" },
+  { name: "SNF Partner", logo: "/images/snf-partner.webp" },
 ];
 
 
