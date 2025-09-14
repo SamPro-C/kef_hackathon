@@ -12,12 +12,12 @@ const YEARS_TO_FUND = 4;
 const STUDENT_COUNT = 4;
 
 const studentData = [
-  { name: 'Jomo', gender: 'male' },
-  { name: 'Amina', gender: 'female' },
-  { name: 'Baraka', gender: 'male' },
-  { name: 'Wanjiru', gender: 'female' },
-  { name: 'Simba', gender: 'male' },
-  { name: 'Zola', gender: 'female' },
+  { name: 'Jomo', gender: 'male', image: '/images/boy1.jpg' },
+  { name: 'Amina', gender: 'female', image: '/images/girl1.jpg' },
+  { name: 'Baraka', gender: 'male', image: '/images/boy2.jpg' },
+  { name: 'Wanjiru', gender: 'female', image: '/images/girl2.jpg' },
+  { name: 'Simba', gender: 'male', image: '/images/boy1.jpg' },
+  { name: 'Zola', gender: 'female', image: '/images/girl1.jpg' },
 ];
 
 interface Student {
@@ -38,7 +38,7 @@ const createInitialStudents = (): Student[] => {
     id: i,
     name: shuffledData[i].name,
     gender: shuffledData[i].gender as 'male' | 'female',
-    image: `/images/student${i + 1}.jpg`,
+    image: shuffledData[i].image,
     fundedYears: 0,
     isSponsored: false,
     aspiration: '',
